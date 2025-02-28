@@ -5,6 +5,15 @@ import '@splidejs/splide/css';
 import '@splidejs/react-splide/css';
 
 function Phone () {
+//     const [phones, setPhones] = useState([]);
+// useEffect(() => {
+// fetch("https://api.myjson.online/v1/records/006829b3-4ab6-47ad-984d-6011091d7020")
+// .then((response) => response.json())
+// .then((data) => {
+// setPhones(data.data.phones);
+// })
+// .catch((error) => console.error("Error fetching data:", error));
+// }, []);
     const [phones, setPhones] = useState([]);
 
     const [error, setError] = useState(null);
@@ -12,9 +21,7 @@ function Phone () {
     useEffect(() => {
       const fetchPhones = async () => {
         try {
-          const response = await fetch(
-            "https://api.myjson.online/v1/records/006829b3-4ab6-47ad-984d-6011091d7020"
-          );
+          const response = await fetch("https://api.myjson.online/v1/records/006829b3-4ab6-47ad-984d-6011091d7020");
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
@@ -26,7 +33,8 @@ function Phone () {
           console.error("Error fetching data:", err);
         }
       };
-      fetchPhones();
+      // fetchPhones();
+      addEventListener("DOMContentLoaded", fetchPhones());
     }, []);
   
 //   addEventListener("DOMContentLoaded", useEffect());
@@ -36,6 +44,7 @@ function Phone () {
             <div className="line fs-4 pb-3">Grab the best deal on <p className="color d-inline">Smartphones</p></div>
                 <a href="#" className="text-decoration-none d-flex align-items-center"><small className="fw-normal">View All<i className="fa-solid fa-chevron-right ms-2"></i></small></a>
             </div>
+            {error && <p className="text-danger">{error}</p>}
             <Splide options={ {rewind: true, type:'loop', perMove: 1,} } className="phones d-flex align-items-center justify-content-center mt-5 pb-5" id="phones">
                 {phones.map((product, index) => (
                 product.discount && (
