@@ -63,7 +63,16 @@
     height: 375px;
     align-items: center;
     /* transform: translateX(0) ! important; */
+    transition: splide-loading 0.3s ease-out;
 }
 .smartPhones .splide__pagination{
     display: none ! important;
 }
+@keyframes splide-loading {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(1turn);
+    }
+  }
