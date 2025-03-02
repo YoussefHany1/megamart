@@ -45,7 +45,7 @@ function Phone () {
                 <a href="#" className="text-decoration-none d-flex align-items-center"><small className="fw-normal">View All<i className="fa-solid fa-chevron-right ms-2"></i></small></a>
             </div>
             {error && <p className="text-danger">{error}</p>}
-            <Splide options={ {rewind: true, type:'loop', perMove: 1,} } className="phones d-flex align-items-center justify-content-center mt-5 pb-5" id="phones">
+            <Splide options={ {rewind: true, type:'slide', perMove: 1,} } className="phones d-flex align-items-center justify-content-center mt-5 pb-5" id="phones">
                 {phones.map((product, index) => (
                 product.discount && (
                     <SplideSlide key={index} className="product card border-0 rounded-4 mx-4 flex-shrink-1">
