@@ -11,13 +11,14 @@ import huawei from '../../assets/electronicsBrands/huawei.png'
 import infinix from '../../assets/electronicsBrands/infinix.png'
 import honor from '../../assets/electronicsBrands/honor.png'
 import oneplus from '../../assets/electronicsBrands/oneplus.png'
+import Arrow from '../../assets/Arrow.jsx';
 function App() {
     return (
         <>
             <section className="elec my-5 py-3">
                 <div className="header d-flex justify-content-between fw-bold">
                     <div className="line fs-4 pb-3">Top  <p className="color d-inline">Electronics Brands</p></div>
-                    <a href="#" className="text-decoration-none d-flex align-items-center"><small className="fw-normal">View All<i className="fa-solid fa-chevron-right ms-2"></i></small></a>
+                    <a href="#" className="text-decoration-none d-flex align-items-center"><small className="fw-normal">View All <Arrow /></small></a>
                 </div>
                 <div className="brands swiper mt-5 py-4">
                     <Splide options={ {type: 'loop',
@@ -33,15 +34,15 @@ function App() {
             
           }}
           extensions={{ AutoScroll }} className="brand swiper-wrapper">
-                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={apple} alt="Apple" className="rounded-4" /></a></SplideSlide>
-                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={realme} alt="Realme" className="rounded-4" /></a></SplideSlide>
-                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={mi} alt="MI" className="rounded-4" /></a></SplideSlide>
-                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={samsung} alt="Samsung" className="rounded-4" /></a></SplideSlide>
-                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={oppo} alt="Oppo" className="rounded-4" /></a></SplideSlide>
-                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={huawei} alt="Huawei" className="rounded-4" /></a></SplideSlide>
-                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={infinix} alt="Infinix" className="rounded-4" /></a></SplideSlide>
-                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={honor} alt="Honor" className="rounded-4" /></a></SplideSlide>
-                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={oneplus} alt="One Plus" className="rounded-4" /></a></SplideSlide>
+                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={apple} alt="Apple" className="rounded-4 img-fluid" /></a></SplideSlide>
+                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={realme} alt="Realme" className="rounded-4 img-fluid" /></a></SplideSlide>
+                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={mi} alt="MI" className="rounded-4 img-fluid" /></a></SplideSlide>
+                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={samsung} alt="Samsung" className="rounded-4 img-fluid" /></a></SplideSlide>
+                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={oppo} alt="Oppo" className="rounded-4 img-fluid" /></a></SplideSlide>
+                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={huawei} alt="Huawei" className="rounded-4 img-fluid" /></a></SplideSlide>
+                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={infinix} alt="Infinix" className="rounded-4 img-fluid" /></a></SplideSlide>
+                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={honor} alt="Honor" className="rounded-4 img-fluid" /></a></SplideSlide>
+                        <SplideSlide><a href="#" className="image swiper-slide rounded-4 mx-3"><img src={oneplus} alt="One Plus" className="rounded-4 img-fluid" /></a></SplideSlide>
                     </Splide>
                 </div>
             </section>

@@ -12,6 +12,8 @@ function App() {
                             <a href="javascript:void(0)" className="close text-black text-decoration-none mb-4" onClick={closeNav}>&times;</a>
                             <a href="#" className="text-decoration-none text-white">Your Account</a>
                             <hr />
+                            <a href="#" className="text-decoration-none text-white">Your Cart</a>
+                            <hr />
                             <a href="#" className="text-decoration-none text-white">Wishlist</a>
                             <hr />
                             <a href="#" className="text-decoration-none text-white">Orders</a>

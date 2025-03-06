@@ -6,13 +6,14 @@ import furniture from '../../assets/topCategories/furniture.png'
 import watches from '../../assets/topCategories/watches.png'
 import decor from '../../assets/topCategories/decor.png'
 import accessories from '../../assets/topCategories/accessories.png'
+import Arrow from '../../assets/Arrow.jsx';
 function App() {
     return (
         <>
             <section className="topCat mb-5 pb-3">
                 <div className="header d-flex justify-content-between fw-bold">
                     <div className="line fs-4 pb-3">Shop From <p className="color d-inline">Top Categories</p></div>
-                    <a href="#" className="text-decoration-none d-flex align-items-center"><small className="fw-normal">View All<i className="fa-solid fa-chevron-right ms-2"></i></small></a>
+                    <a href="#" className="text-decoration-none d-flex align-items-center"><small className="fw-normal">View All <Arrow /></small></a>
                 </div>
                 <div className="categories d-flex justify-content-center text-center row mt-5">
                     <div className="cat col">

@@ -26,7 +26,6 @@
 }
 svg{
   color: var(--primary);
-  /* vertical-align: middle !important; */
   width: 1em;
   height: 1em;
   font-size: 2cap;
@@ -39,14 +38,17 @@ svg{
       border-bottom: 3px solid var(--primary);
   }
 }
-/* .nav, .welcome, .dropdown-nav, .slideshow{
-  padding: 0 10%;
-} */
-#root > section, #root > footer{
+#root > section, #root > footer, header{
   padding: 0 10%;
 }
-@media (forced-colors: active) {
-  /* Styles for high-contrast mode */
-  background-color: ButtonFace;
-  color: ButtonText;
+.header a{
+    /* width: fit-content; */
+}
+.splide__arrow{
+  background: transparent !important;
+  svg{
+      fill: var(--primary) !important;
+      height: 2em !important;
+      width: 2em !important;
+  }
 }

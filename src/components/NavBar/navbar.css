@@ -23,14 +23,18 @@ nav > div:not(.welcome){
     color: var(--text);
     & a{
         color: var(--heading);
+        width: max-content;
     }
     & .menu button{
         background-color: var(--background1);
     }
+    .logo img{
+        max-height: 75%;
+    }
 }
 .search, .search input{
     background-color: var(--background1);
-    width: 35%;
+    min-width: 35%;
     & input{
 
         color: var(--text);

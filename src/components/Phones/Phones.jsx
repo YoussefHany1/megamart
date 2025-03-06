@@ -1,8 +1,9 @@
 import  { useEffect, useState } from "react";
-import './phones.css';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/css';
 import '@splidejs/react-splide/css';
+import './phones.css';
+import Arrow from '../../assets/Arrow.jsx';
 
 function Phone () {
 //     const [phones, setPhones] = useState([]);
@@ -21,12 +22,12 @@ function Phone () {
     useEffect(() => {
       const fetchPhones = async () => {
         try {
-          const response = await fetch("https://api.myjson.online/v1/records/006829b3-4ab6-47ad-984d-6011091d7020");
+          const response = await fetch("https://gist.githubusercontent.com/YoussefHany1/33ca89b7508ef3794d5c27d913803a47/raw/cc698e1b13e72e7256574dde118dce4dfd8a299b/phoneData.json");
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           const data = await response.json();
-          setPhones(data.data.phones);
+          setPhones(data.phones);
           setError(null);
         } catch (err) {
           setError(`Error fetching data: ${err instanceof Error ? err.message : String(err)}`);
@@ -42,7 +43,7 @@ function Phone () {
     <section className="smartPhones my-5 pt-3">
         <div className="header d-flex justify-content-between fw-bold">
             <div className="line fs-4 pb-3">Grab the best deal on <p className="color d-inline">Smartphones</p></div>
-                <a href="#" className="text-decoration-none d-flex align-items-center"><small className="fw-normal">View All<i className="fa-solid fa-chevron-right ms-2"></i></small></a>
+                <a href="#" className="text-decoration-none d-flex align-items-center flex-nowrap"><small className="fw-normal">View All <Arrow /></small></a>
             </div>
             {error && <p className="text-danger">{error}</p>}
             <Splide options={ {rewind: true, type:'slide', perMove: 1,} } className="phones d-flex align-items-center justify-content-center mt-5 pb-5" id="phones">

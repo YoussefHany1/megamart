@@ -1,24 +1,19 @@
-
-.ad .slideshow .swiper-pagination{
-    & .swiper-pagination-bullet-active{
-        background-color: var(--primary);
+.slideshow {
+    & .splide__pagination__page.is-active {
+        background: var(--primary) ! important;
+        opacity: 1 ! important;
     }
-}
-.swiper-button-prev::after, .swiper-button-next::after{
-    color: var(--primary);
-}
-.splide__arrow{
-    background: transparent !important;
-    & svg{
-        fill: var(--primary) !important;
-        height: 2em !important;
-        width: 2em !important;
+    & .splide__pagination__page {
+        background: var(--primary) ! important;
     }
-}
-.splide__pagination__page.is-active {
-    background: var(--primary) ! important;
-    opacity: 1 ! important;
-}
-.splide__pagination__page {
-    background: var(--primary) ! important;
+    & .splide__slide, .splide__track{
+        min-width: 400px;
+        text-align: center;
+        & img{
+    
+        }
+    }
+    & .splide{
+        min-width: 400px;
+    }
 }
