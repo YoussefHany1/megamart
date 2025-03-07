@@ -14,21 +14,17 @@
     }
     & .text{
         position: relative;
-        z-index: 2;
+        /* z-index: 2; */
     }
     & .header{
         border-bottom: 3px solid var(--border);
+        width: max-content;
     }
     & .list li a{
         transition-duration: 0.3s;
         color: white;
         &:hover{
             color: black;
-        }
-    }
-    & .third-column{
-        & .header{
-            width: fit-content;
         }
     }
     & .down{

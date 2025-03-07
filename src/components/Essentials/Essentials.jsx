@@ -21,7 +21,7 @@ function App() {
                         <div className="text text-center mt-3"><a href="#" className="text-decoration-none">Daily Essentials<br /><b className="fs-5">UP to 50% OFF</b></a></div>
                     </div>
                 <div className="cat col mb-5">
-                    <div className="photo align-content-center text-center rounded-4"><a href="#"><img src={vegitables} className="img-fluid" alt="Vegitables" /></a></div>
+                    <div className="photo align-content-center text-center rounded-4 img-fluid"><a href="#"><img src={vegitables} className="img-fluid" alt="Vegitables" /></a></div>
                     <div className="text text-center mt-3"><a href="#" className="text-decoration-none">Vegitables<br /><b className="fs-5">UP to 50% OFF</b></a></div>
                 </div>
                 <div className="cat col mb-5">

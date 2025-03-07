@@ -3,7 +3,6 @@
     color: var(--text);
     font-size: 0.9rem;
     padding: 0 10%;
-    /* width: 100vw; */
     & a{
         color: var(--text);
     }
@@ -14,12 +13,8 @@
 }
 nav > div:not(.welcome){
     padding: 0 10%;
-    /* width: 100vw; */
 }
 .nav{
-    /* padding: 0 10%;
-    width: 100vw; */
-    /* background-color: var(--background1); */
     color: var(--text);
     & a{
         color: var(--heading);
@@ -53,6 +48,15 @@ nav > div:not(.welcome){
             width: fit-content !important;
             & .dropdown-menu{
                 font-size: 15px;
+                padding: 0 auto;
+                & .dropdown-item{
+                    color: black;
+                    transition-duration: 0.3s;
+                    border-bottom: 1px solid var(--line);
+                    &:hover{
+                        padding-left: 2rem;
+                    }
+                }
             }
             & .nav-link{
                 background-color: var(--background3);
@@ -73,17 +77,12 @@ nav > div:not(.welcome){
 .nav .dropdown-menu{
     background-color: #f9f9f9;
 }
-.nav .dropdown-menu a{
-    color: black;
-    transition-duration: 0.3s;
-    border-bottom: 1px solid var(--line);
-    &:hover{
-        padding-left: 2rem;
-    }
-}
 .nav .dropdown-menu li:last-child a{
     border: none;
 }
 .nav button:hover svg{
     color: white;
+}
+.dropdown-item:active{
+    background-color: var(--primary);
 }

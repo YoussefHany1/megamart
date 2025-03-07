@@ -62,9 +62,6 @@
 #phones-list{
     height: 375px;
     align-items: center;
-    /* transform: translateX(0) ! important; */
+    margin-left: 28px !important;
     transition: splide-loading 0.3s ease-out;
-}
-.smartPhones .splide__pagination{
-    display: none ! important;
 }

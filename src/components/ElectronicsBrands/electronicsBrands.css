@@ -5,11 +5,12 @@
 .elec .brands {
     /* width: 83%; */
 }
-.elec .brands .brand{
+.elec .brands{
     & .image{
         width: max-content !important;
         & img{
             transition-duration: 0.3s;
+            min-width: 100px;
             &:hover{
                 box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
             }
@@ -23,4 +24,15 @@
     width: 83%;
     margin: auto;
     border-radius: 1rem;
+}
+.elec .splide{
+    /* min-width: 56rem; */
+}
+.elec{
+    & .splide__slide, .splide__track{
+        min-width: 16rem;
+    }
+    & .splide{
+        min-width: 16rem;
+    }
 }
