@@ -5,16 +5,22 @@
 .daily .header .color{
     color: var(--primary);
 }
-.daily .categories .cat{
+.daily .categories{
+    min-width: 344px;
+}
+.daily .categories .col{
     text-align: -webkit-center;
     & .photo{
-        height: 12rem; 
-        height: 11rem;
+        height: 10rem;
         background-color: var(--background1);
         transition-duration: 0.3s;
+        & img{
+            min-width: 100px;
+            max-width: 120px;
+        }
     }
 }
-.daily .categories .cat .text{
+.daily .categories .col .text{
     color: var(--text);
     & a{
         color: inherit;
@@ -23,7 +29,7 @@
         color: var(--heading);
     }
 }
-.daily .categories .cat .photo:hover{
+.daily .categories .col .photo:hover{
     outline: 1px solid var(--primary);
     box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
     transition-duration: 0.3s;

@@ -1,12 +1,9 @@
-.Sidenav{
-    width: 0;
+.sideNav{
+    max-width: 300px;
     background: var(--primary);
-    transition: 0.6s;
-    left: 0;
-    top: 0;
     & .con{
     & hr{
-        margin: 0 0 0 -16px;
+        /* margin-left: -16px; */
     }
         & a{
             transition-duration: 0.3s;
@@ -15,4 +12,16 @@
             }
         }
     }
+    & .dropdown-menu{
+        background: #0c9bda;
+    }
+    & .dropdown-submenu {
+        position: relative;
+      }
+      
+      & .dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+      }
 }

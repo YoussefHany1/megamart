@@ -7,7 +7,7 @@
 }
 .elec .brands{
     & .image{
-        width: max-content !important;
+        /* width: max-content !important; */
         & img{
             transition-duration: 0.3s;
             min-width: 100px;
@@ -20,7 +20,7 @@
 .elec .brands .back, .elec .brands .forward{
     color: var(--primary);
 }
-#splide02-track{
+.elec #splide02-track{
     width: 83%;
     margin: auto;
     border-radius: 1rem;

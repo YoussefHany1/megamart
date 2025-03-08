@@ -1,32 +1,39 @@
 import './sideNav.css'
-function App() {
+function SideNav() {
 
-    // close
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
     return (
     <>
-        <div className="Sidenav overflow-hidden z-2 h-100 position-fixed" id="mySidenav">
-                        <div className="con d-flex flex-column mt-4 ms-3 fw-semibold gap-3 text-nowrap fs-4">
-                            <a href="javascript:void(0)" className="close text-black text-decoration-none mb-4" onClick={closeNav}>&times;</a>
-                            <a href="#" className="text-decoration-none text-white">Your Account</a>
-                            <hr />
-                            <a href="#" className="text-decoration-none text-white">Your Cart</a>
-                            <hr />
-                            <a href="#" className="text-decoration-none text-white">Wishlist</a>
-                            <hr />
-                            <a href="#" className="text-decoration-none text-white">Orders</a>
-                            <hr />
-                            <a href="#" className="text-decoration-none text-white">Payments</a>
-                            <hr />
-                            <a href="#" className="text-decoration-none text-white">Help</a>
-                            <hr />
-                            <a href="#" className="text-decoration-none text-white">Contact Us</a>
-                        </div>
-                    </div>
+        <div className="sideNav navbar align-items-start offcanvas offcanvas-start overflow-hidden flex-row h-100" id="offcanvasNavbar" tabIndex="-1" aria-labelledby="offcanvasNavbarLabel">
+            <div className="con offcanvas-body p-0 d-flex flex-column fw-semibold text-nowrap fs-4">
+                <button type="button" className="btn-close ms-auto me-4 mb-4" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <ul className='list-unstyled navbar-nav flex-grow-1'>
+                    <li className='nav-item ps-3'><a href="#" className="text-decoration-none nav-link text-white">Your Account</a></li>
+                    <hr />
+                    <li className='nav-item ps-3'><a href="#" className="text-decoration-none nav-link text-white">Your Cart</a></li>
+                    <hr />
+                    <li className="nav-item dropdown ps-3"><a href="#" className="text-decoration-none nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                        <ul className="dropdown-menu me-3">
+                            <li><a className="dropdown-item text-white" href="#">Action</a></li>
+                            <li><a className="dropdown-item text-white" href="#">Another action</a></li>
+
+                        </ul>
+                        
+                    </li>
+                    <hr />
+                    <li className='nav-item ps-3'><a href="#" className="text-decoration-none nav-link text-white">Wishlist</a></li>
+                    <hr />
+                    <li className='nav-item ps-3'><a href="#" className="text-decoration-none nav-link text-white">Orders</a></li>
+                    <hr />
+                    <li className='nav-item ps-3'><a href="#" className="text-decoration-none nav-link text-white">Payments</a></li>
+                    <hr />
+                    <li className='nav-item ps-3'><a href="#" className="text-decoration-none nav-link text-white">Help</a></li>
+                    <hr />
+                    <li className='nav-item ps-3'><a href="#" className="text-decoration-none nav-link text-white">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
     </>
     )
 }
 
-export default App
+export default SideNav

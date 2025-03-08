@@ -1,9 +1,7 @@
 import './navbar.css'
 import logo from '../../assets/megamart.webp'
 function Navbar() {
-  function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-}
+
   const dropdownSvg = <svg viewBox="0 0 50 50" transform="rotate(90)">
   <path stroke="#008ECC" strokeWidth="2" d="M15.563 40.836a.997.997 0 0 0 1.414 0l15-15a1 1 0 0 0 0-1.414l-15-15a.999.999 0 1 0-1.414 1.414l14.293 14.293-14.293 14.293a1 1 0 0 0 0 1.414" />
 </svg>
@@ -29,7 +27,7 @@ function Navbar() {
         </div>
         <div className="nav py-3 d-flex justify-content-between flex-nowrap align-items-center">
           <div className="menu d-flex">
-            <span><button type="button" onClick={openNav} className="btn rounded-3"><svg fill="#008ECC"><path d="M3 8h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2m18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2m0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2" /></svg></button></span>
+            <span><button type="button" className="btn rounded-3 navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"><svg fill="#008ECC"><path d="M3 8h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2m18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2m0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2" /></svg></button></span>
           </div>
           <div className="logo d-flex ms-4"><img src={logo} className='d-none d-lg-block me-5' alt="website logo" /></div>
           <div className="search rounded-3 d-flex w-100 flex-nowrap mx-0 mx-lg-5 ">
@@ -50,7 +48,7 @@ function Navbar() {
         <div className="dropdown-nav navbar-expand-lg btn-group-lg d-flex">
           <ul className="con collapse navbar-collapse py-3 px-0 justify-content-between m-0">
             <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Groceries {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Bakery and Bread</a></li>
@@ -63,7 +61,7 @@ function Navbar() {
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Premium Fruits {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Apples and Pears</a></li>
@@ -76,7 +74,7 @@ function Navbar() {
               </ul>
             </li>
               <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Home & Kitchen{dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Home Appliances</a></li>
@@ -89,7 +87,7 @@ function Navbar() {
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Fashion {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Men&apos;s Clothing</a></li>
@@ -103,7 +101,7 @@ function Navbar() {
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Electronics {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">TVs, Satellites & Accessories</a></li>
@@ -119,7 +117,7 @@ function Navbar() {
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Beauty {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Fragrance</a></li>
@@ -131,7 +129,7 @@ function Navbar() {
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Home Improvement {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Roof</a></li>
@@ -143,7 +141,7 @@ function Navbar() {
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Sports, Toys & Luggage {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Fitness & Strength</a></li>

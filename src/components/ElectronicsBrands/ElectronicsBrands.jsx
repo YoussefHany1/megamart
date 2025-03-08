@@ -21,7 +21,7 @@ function ElectronicsBrands() {
                     <a href="#" className="text-decoration-none d-flex align-items-center"><small className="fw-normal">View All <Arrow /></small></a>
                 </div>
                 <div className="brands mt-5 py-4">
-                    <Splide options={ {type: 'loop', gap: '1rem', drag: 'free', arrows: false, pagination: false, perPage: 3, autoScroll: {speed: 2, pauseOnHover: false,},}}
+                    <Splide options={ {type: 'loop', gap: '1rem', drag: 'free', arrows: false, pagination: false, perPage: 4, autoScroll: {speed: 2, pauseOnHover: false,},}}
                         extensions={{ AutoScroll }}>
                         <SplideSlide><a href="#" className="image rounded-4"><img src={apple} alt="Apple" className="rounded-4 img-fluid" /></a></SplideSlide>
                         <SplideSlide><a href="#" className="image rounded-4"><img src={realme} alt="Realme" className="rounded-4 img-fluid" /></a></SplideSlide>
