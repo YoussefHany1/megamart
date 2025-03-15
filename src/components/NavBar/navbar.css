@@ -1,88 +1,98 @@
-.welcome{
-    background-color: var(--background1);
-    color: var(--text);
-    font-size: 0.9rem;
-    padding: 0 10%;
-    & a{
-        color: var(--text);
-    }
-    & .line{
-        border-right: 1px solid var(--line);
-        border-left: 1px solid var(--line);
-    }
-}
-nav > div:not(.welcome){
-    padding: 0 10%;
-}
-.nav{
-    color: var(--text);
-    & a{
-        color: var(--heading);
-        width: max-content;
-    }
-    & .menu button{
+nav{
+    & .welcome{
         background-color: var(--background1);
-    }
-    .logo img{
-        max-height: 75%;
-    }
-}
-.search, .search input{
-    background-color: var(--background1);
-    min-width: 35%;
-    & input{
-
         color: var(--text);
-        outline: none;
+        font-size: 0.9rem;
+        padding: 0 10%;
+        & a{
+            color: var(--text);
+        }
+        & .line{
+            border-right: 1px solid var(--line);
+            border-left: 1px solid var(--line);
+        }
     }
-
-}
-.dropdown-nav {
-    /* overflow: visible;
-    display: block; */
-    & .con{
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-        flex-wrap: wrap;
-        & .dropdown{
-            width: fit-content !important;
-            & .dropdown-menu{
-                font-size: 15px;
-                padding: 0 auto;
-                & .dropdown-item{
-                    color: black;
-                    transition-duration: 0.3s;
-                    border-bottom: 1px solid var(--line);
-                    &:hover{
-                        padding-left: 2rem;
+    & > div:not(.welcome){
+        padding: 0 10%;
+    }
+    & .nav{
+        color: var(--text);
+        & a{
+            color: var(--heading);
+            width: max-content;
+        }
+        & .menu button{
+            background-color: var(--background1);
+        }
+        .logo img{
+            max-height: 75%;
+        }
+    }
+    & .search, & .search input{
+        background-color: var(--background1);
+        min-width: 35%;
+        & input{
+    
+            color: var(--text);
+            outline: none;
+        }
+    
+    }
+    & .dropdown-nav {
+        /* overflow: visible;
+        display: block; */
+        & .con{
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            & .dropdown{
+                width: fit-content !important;
+                & .dropdown-menu{
+                    font-size: 15px;
+                    padding: 0 auto;
+                    & .dropdown-item{
+                        color: black;
+                        transition-duration: 0.3s;
+                        border-bottom: 1px solid var(--line);
+                        &:hover{
+                            padding-left: 2rem;
+                        }
                     }
                 }
-            }
-            & .nav-link{
-                background-color: var(--background3);
-                color: var(--heading);
+                & .nav-link{
+                    background-color: var(--background3);
+                    color: var(--heading);
+                }
             }
         }
     }
-}
-.nav button{
-    background-color: var(--background3);
-    color: var(--heading);
-    transition-duration: 0.3s;
-    &:hover{
+    & .nav button{
+        background-color: var(--background3);
+        color: var(--heading);
+        transition-duration: 0.3s;
+        &:hover{
+            color: white;
+            background-color: #008fcc5b;
+        }
+    }
+    & .nav .dropdown-menu{
+        background-color: #f9f9f9;
+    }
+    & .nav .dropdown-menu li:last-child a{
+        border: none;
+    }
+    & .nav button:hover svg{
         color: white;
+    }
+    & .dropdown-item:active{
         background-color: var(--primary);
     }
 }
-.nav .dropdown-menu{
-    background-color: #f9f9f9;
-}
-.nav .dropdown-menu li:last-child a{
-    border: none;
-}
-.nav button:hover svg{
-    color: white;
-}
-.dropdown-item:active{
-    background-color: var(--primary);
-}
+
+
+
+
+
+
+
+

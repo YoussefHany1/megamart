@@ -1,37 +1,39 @@
-.daily .header{
-    color: var(--text);
-    border-bottom: 1px solid var(--border);
-}
-.daily .header .color{
-    color: var(--primary);
-}
-.daily .categories{
-    min-width: 344px;
-}
-.daily .categories .col{
-    text-align: -webkit-center;
-    & .photo{
-        height: 10rem;
-        background-color: var(--background1);
-        transition-duration: 0.3s;
-        & img{
-            min-width: 100px;
-            max-width: 120px;
+.daily{
+    & .header{
+        color: var(--text);
+        border-bottom: 1px solid var(--border);
+        & .color{
+            color: var(--primary);
         }
     }
-}
-.daily .categories .col .text{
-    color: var(--text);
-    & a{
-        color: inherit;
+    & .essentials{
+        min-width: 424px;
     }
-    & b{
-        color: var(--heading);
+    & .essentials .item{
+        & .photo{
+            height: 10rem;
+            background-color: var(--background1);
+            transition-duration: 0.3s;
+            &:hover{
+                outline: 1px solid var(--primary);
+                box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+                transition-duration: 0.3s;
+                transform: scale(1.1);
+            }
+            & img{
+                min-width: 100px;
+                max-width: 140px;
+            }
+        }
+        & .text{
+            color: var(--text);
+            & a{
+                color: inherit;
+                white-space: nowrap;
+            }
+            & b{
+                color: var(--heading);
+            }
+        }
     }
-}
-.daily .categories .col .photo:hover{
-    outline: 1px solid var(--primary);
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
-    transition-duration: 0.3s;
-    transform: scale(1.1);
 }

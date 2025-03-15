@@ -27,12 +27,12 @@ function Navbar() {
         </div>
         <div className="nav py-3 d-flex justify-content-between flex-nowrap align-items-center">
           <div className="menu d-flex">
-            <span><button type="button" className="btn rounded-3 navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"><svg fill="#008ECC"><path d="M3 8h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2m18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2m0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2" /></svg></button></span>
+            <span><button type="button" className="btn rounded-3 navbar-toggler p-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"><svg fill="#008ECC"><path d="M3 8h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2m18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2m0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2" /></svg></button></span>
           </div>
           <div className="logo d-flex ms-4"><img src={logo} className='d-none d-lg-block me-5' alt="website logo" /></div>
           <div className="search rounded-3 d-flex w-100 flex-nowrap mx-0 mx-lg-5 ">
             <button className="border-0 ms-4 bg-transparent"><svg viewBox="0 0 16 16"><path fill="#008ECC" d="m15.7 14.3-4.2-4.2c-.2-.2-.5-.3-.8-.3.8-1 1.3-2.4 1.3-3.8 0-3.3-2.7-6-6-6S0 2.7 0 6s2.7 6 6 6c1.4 0 2.8-.5 3.8-1.4 0 .3 0 .6.3.8l4.2 4.2c.2.2.5.3.7.3s.5-.1.7-.3c.4-.3.4-.9 0-1.3M6 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5"/></svg></button>
-            <input type="text" className="border-0 rounded-3 py-3 ms-lg-4 ms-2 w-75" placeholder="Search essentials, groceries and more..." />
+            <input type="text" className="border-0 rounded-3 py-3 ms-lg-4 ms-2 w-75" placeholder="What are you locking for?" />
           </div>
           <div className="sign align-items-center d-none d-lg-flex ms-5">
             <a className="open d-flex fw-bold pe-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#signModal">
@@ -49,110 +49,85 @@ function Navbar() {
           <ul className="con collapse navbar-collapse py-3 px-0 justify-content-between m-0">
             <li className="dropdown nav-item btn-group">
               <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Groceries {dropdownSvg}</a>
+                Electronics & Mobiles {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Bakery and Bread</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4 ">Meat and Seafood</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Pasta and Rice</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Soups and Canned Goods</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Frozen Foods</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Dairy, Cheese, and Eggs</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-4">Snacks and Crackers</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Mobiles & Accessories</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4 ">Computers & Accessories</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Wearables</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Video Games</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Television & Video</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Camera & Photo</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-4">Tablets & Accessories</a></li>
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
               <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Premium Fruits {dropdownSvg}</a>
+                Home & Kitchen {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Apples and Pears</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Mango</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Watrmelon</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Lemon</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Orange</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Banana</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-4">Kiwi</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Kitchen & Dining</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Home Decor</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Home Appliances</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Storage & Organisation</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Bath</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Furniture</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-4">Bedding</a></li>
               </ul>
             </li>
               <li className="dropdown nav-item btn-group">
               <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Home & Kitchen{dropdownSvg}</a>
-              <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Home Appliances</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Large Appliances</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Cookware</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Drinkware</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Bath & Bedding</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Home Decor</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-4">Kitchen & Dining</a></li>
-              </ul>
-            </li>
-            <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Fashion {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Men&apos;s Clothing</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Women&apos;s Clothing</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Kid&apos;s Fashion</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Footwear</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Eyewear</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Bags & luggage</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Watches</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-4">Jewellery</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Women</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Men</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Girls</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Boys</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-4">Bags & Luggage</a></li>
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
               <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Electronics {dropdownSvg}</a>
+                Beauty & Fragrance {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">TVs, Satellites & Accessories</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Laptops & Accessories</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Audio & Home Entertainment</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Video Games</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Cameras & Accessories</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Printers & Accessories</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Networking Products</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Data Storage</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Computer Components</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-4">Computer Accessories</a></li>
-              </ul>
-            </li>
-            <li className="dropdown nav-item btn-group">
-              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Beauty {dropdownSvg}</a>
-              <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Fragrance</a></li>
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Makeup</a></li>
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Hair Care</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Skin Care</a></li>
                 <li><a href="#" className="dropdown-item py-3 rounded-top-4">Personal Care</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-4">Health & Nutrition</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Skin Care</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-4">Fragrance</a></li>
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
               <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Home Improvement {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Roof</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Paint</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Landscaping</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Floor</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Cleaners</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-4">Lighting</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Lighting & Ceiling Fans</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Power & Hand Tools</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Kitchen & Bath Fixtures</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-4">Electrical</a></li>
               </ul>
             </li>
             <li className="dropdown nav-item btn-group">
               <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Sports, Toys & Luggage {dropdownSvg}</a>
+                Grocery {dropdownSvg}</a>
               <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Fitness & Strength</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Yoga</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Cardio</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Water Sports</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Team Sports</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Combat Sports</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Hunting & Fishing</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Skates & Scooters</a></li>
-                <li><a href="#" className="dropdown-item py-3 rounded-4">Camping & Outdoor</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Home Care & Cleaning</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Baby Care & Food</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Food</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Breads & Bakery</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Dairy, Cheese & Eggs</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Fruits & Vegetables</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-4">Beverages</a></li>
+              </ul>
+            </li>
+            <li className="dropdown nav-item btn-group">
+              <a href="#" className="nav-link rounded-5 px-3 py-2 mb-3 mb-xxl-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Pet Supplies {dropdownSvg}</a>
+              <ul className="dropdown-menu rounded-4 z-4 shadow py-0">
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Cats</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Dogs</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Housing & Bedding</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Fish & Aquatic Pets</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-top-4">Reptiles & Amphibians</a></li>
+                <li><a href="#" className="dropdown-item py-3 rounded-4">Control Aids & Accessories</a></li>
               </ul>
             </li>
           </ul>

@@ -41,9 +41,6 @@ svg{
 #root > section, #root > footer, header{
   padding: 0 10%;
 }
-.header a{
-    /* width: fit-content; */
-}
 .splide__arrow{
   background: transparent !important;
   svg{
@@ -53,5 +50,5 @@ svg{
   }
 }
 .header a small{
-  width: max-content ;
+  white-space: nowrap;
 }

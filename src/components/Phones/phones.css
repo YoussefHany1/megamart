@@ -1,67 +1,65 @@
-.smartPhones .header{
-    color: var(--text);
-    border-bottom: 1px solid var(--border);
-}
-.smartPhones .header small, .topCat .header small, .elec .header small, .daily .header small{
-    font-size: 16px;
-    transition-duration: 0.3s;
-}
-.smartPhones .header a, .topCat .header a, .elec .header a, .daily .header a{
-    color: var(--heading);
-}
-.smartPhones .header small:hover, .topCat .header small:hover, .elec .header small:hover, .daily .header small:hover{
-    color: var(--primary);
-    transition-duration: 0.3s;
-}
-.smartPhones .swiper{
-    overflow-x: clip;
-}
-.phones .product{
-    min-width: 13rem;
-    transition-duration: 0.3s;
-    &:hover{
-        outline: 1px solid var(--primary);
-        box-shadow: 0px 0px 15px black;
-        transform: scale(1.1);
-        z-index: 2;
+.smartPhones{
+    & .header{
+        color: var(--text);
+        border-bottom: 1px solid var(--border);
+    }
+    & .header small, .topCat .header small, .elec .header small, .daily .header small{
+        font-size: 16px;
         transition-duration: 0.3s;
     }
-}
-.phones{
-    /* z-index: 3; */
-}
-.phones .product{
-    background-color: var(--background1);
-    & .image{
-        width: 98%;
-        top: 2px;
-    }
-    & a img{
-        max-width: 65%;
-    }
-}
-.phones .product .text{
-    width: 98%;
-    & .h a{
+    & .header a, .topCat .header a, .elec .header a, .daily .header a{
         color: var(--heading);
     }
-    & .off{
-        font-size: 0.9rem;
-        width: 3.2rem;
-        background-color: var(--primary);
-        top: 0px;
-        right: 0px;
-        border-radius: 0 1rem;
-        line-height: 1.3;
+    & .header small:hover, .topCat .header small:hover, .elec .header small:hover, .daily .header small:hover{
+        color: var(--primary);
+        transition-duration: 0.3s;
+    }
+    & .swiper{
+        overflow-x: clip;
+    }
+    & .phones .product{
+        background-color: var(--background1);
+        min-width: 13rem;
+        transition-duration: 0.3s;
+        &:hover{
+            outline: 1px solid var(--primary);
+            box-shadow: 0px 0px 15px black;
+            transform: scale(1.1);
+            z-index: 2;
+            transition-duration: 0.3s;
+        }
+        & .image{
+            width: 98%;
+            top: 2px;
+        }
+        & a img{
+            max-width: 65%;
+        }
+        & .text{
+            width: 98%;
+            & .h a{
+                color: var(--heading);
+            }
+            & .off{
+                font-size: 0.9rem;
+                width: 3.2rem;
+                background-color: var(--primary);
+                top: 0px;
+                right: 0px;
+                border-radius: 0 1rem;
+                line-height: 1.3;
+            }
+        }
+    }
+    & #phones-track{
+        width: 70%;
+        margin: 0 auto;
+    }
+    & #phones-list{
+        height: 375px;
+        align-items: center;
+        margin-left: 28px !important;
+        transition: splide-loading 0.3s ease-out;
     }
 }
-#phones-track{
-    width: 70%;
-    margin: 0 auto;
-}
-#phones-list{
-    height: 375px;
-    align-items: center;
-    margin-left: 28px !important;
-    transition: splide-loading 0.3s ease-out;
-}
+

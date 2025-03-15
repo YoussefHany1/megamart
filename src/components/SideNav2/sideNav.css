@@ -1,27 +1,33 @@
 .sideNav{
     max-width: 300px;
     background: var(--primary);
-    & .con{
-    & hr{
-        /* margin-left: -16px; */
-    }
-        & a{
-            transition-duration: 0.3s;
-            &:hover{
-                padding-left: 15px;
-            }
+    & .nav-item{
+        & hr{
+            margin-left: -1rem !important;
         }
     }
     & .dropdown-menu{
         background: #0c9bda;
     }
-    & .dropdown-submenu {
-        position: relative;
-      }
-      
-      & .dropdown-submenu .dropdown-menu {
-        top: 0;
+    & .dropdown-menu .dropdown-menu {
         left: 100%;
-        margin-top: -1px;
-      }
+        top: 0;
+        border: none;
+        display: none;
+    }
+    & .dropdown-menu > .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+    & .dropdown-item {
+        color: white;
+        border-radius: 4px;
+        transition-duration: 0.2s;
+        &:hover, &:focus{
+            background-color: var(--primary);
+            color: white;
+        }
+    }
 }
+
+
+
