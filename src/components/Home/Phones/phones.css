@@ -1,22 +1,4 @@
 .smartPhones{
-    & .header{
-        color: var(--text);
-        border-bottom: 1px solid var(--border);
-    }
-    & .header small, .topCat .header small, .elec .header small, .daily .header small{
-        font-size: 16px;
-        transition-duration: 0.3s;
-    }
-    & .header a, .topCat .header a, .elec .header a, .daily .header a{
-        color: var(--heading);
-    }
-    & .header small:hover, .topCat .header small:hover, .elec .header small:hover, .daily .header small:hover{
-        color: var(--primary);
-        transition-duration: 0.3s;
-    }
-    & .swiper{
-        overflow-x: clip;
-    }
     & .phones .product{
         background-color: var(--background1);
         min-width: 13rem;
@@ -33,7 +15,9 @@
             top: 2px;
         }
         & a img{
-            max-width: 65%;
+            /* max-width: 65%; */
+            max-width: 133px;
+            max-height: 170px;
         }
         & .text{
             width: 98%;

@@ -1,0 +1,32 @@
+.header {
+    color: var(--text);
+    & .color{
+      color: var(--primary);
+    }
+    border-bottom: 1px solid var(--border);
+    & .line{
+        border-bottom: 3px solid var(--primary);
+    }
+    & a{
+      color: var(--heading);
+      transition-duration: 0.3s;
+      &:hover{
+        color: var(--primary);
+      }
+      & small{
+        white-space: nowrap;
+        font-size: 16px;
+      }
+    }
+  }
+  #root > section, #root > footer, header{
+    padding: 0 10%;
+  }
+  .splide__arrow{
+    background: transparent !important;
+    svg{
+        fill: var(--primary) !important;
+        height: 2em !important;
+        width: 2em !important;
+    }
+  }

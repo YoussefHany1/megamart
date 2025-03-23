@@ -1,11 +1,4 @@
 .topCat{
-    & .header{
-        color: var(--text);
-        border-bottom: 1px solid var(--border);
-        & .line{
-            border-bottom: 3px solid var(--primary);
-        }
-    }
     & .categories{
         min-width: 305px;
         & .cat{

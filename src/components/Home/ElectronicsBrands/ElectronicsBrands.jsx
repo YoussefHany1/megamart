@@ -2,16 +2,16 @@ import './electronicsBrands.css'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 import '@splidejs/splide/css';
-import apple from '../../assets/electronicsBrands/apple.png'
-import realme from '../../assets/electronicsBrands/realme.png'
-import mi from '../../assets/electronicsBrands/mi.png'
-import samsung from '../../assets/electronicsBrands/samsung.png'
-import oppo from '../../assets/electronicsBrands/oppo.png'
-import huawei from '../../assets/electronicsBrands/huawei.png'
-import infinix from '../../assets/electronicsBrands/infinix.png'
-import honor from '../../assets/electronicsBrands/honor.png'
-import oneplus from '../../assets/electronicsBrands/oneplus.png'
-import Arrow from '../../assets/Arrow.jsx';
+import apple from '../../../assets/electronicsBrands/apple.png'
+import realme from '../../../assets/electronicsBrands/realme.png'
+import mi from '../../../assets/electronicsBrands/mi.png'
+import samsung from '../../../assets/electronicsBrands/samsung.png'
+import oppo from '../../../assets/electronicsBrands/oppo.png'
+import huawei from '../../../assets/electronicsBrands/huawei.png'
+import infinix from '../../../assets/electronicsBrands/infinix.png'
+import honor from '../../../assets/electronicsBrands/honor.png'
+import oneplus from '../../../assets/electronicsBrands/oneplus.png'
+import Arrow from '../../../assets/Arrow.jsx';
 function ElectronicsBrands() {
     return (
         <>

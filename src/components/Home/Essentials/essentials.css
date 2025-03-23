@@ -1,13 +1,6 @@
 .daily{
-    & .header{
-        color: var(--text);
-        border-bottom: 1px solid var(--border);
-        & .color{
-            color: var(--primary);
-        }
-    }
     & .essentials{
-        min-width: 424px;
+        /* min-width: 424px; */
     }
     & .essentials .item{
         & .photo{

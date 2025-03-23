@@ -30,25 +30,23 @@ svg{
   height: 1em;
   font-size: 2cap;
 }
-.header {
-  & .color{
-      color: var(--primary);
-  }
-  & .line{
-      border-bottom: 3px solid var(--primary);
-  }
+.btn-primary {
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: #0279ac;
+  --bs-btn-hover-border-color: var(--primary);
+  --bs-btn-active-bg: #005174;
+  --bs-btn-active-border-color: #003247;
+  --bs-btn-disabled-bg: var(--primary);
+  --bs-btn-disabled-border-color: var(--primary);
 }
-#root > section, #root > footer, header{
-  padding: 0 10%;
-}
-.splide__arrow{
-  background: transparent !important;
-  svg{
-      fill: var(--primary) !important;
-      height: 2em !important;
-      width: 2em !important;
-  }
-}
-.header a small{
-  white-space: nowrap;
+.btn-outline-primary {
+  --bs-btn-color: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary);
+  --bs-btn-hover-border-color: var(--primary);
+  --bs-btn-active-bg: var(--primary);
+  --bs-btn-active-border-color: var(--primary);
+  --bs-btn-disabled-color: var(--primary);
+  --bs-btn-disabled-border-color: var(--primary);
 }

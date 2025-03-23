@@ -1,12 +1,12 @@
 import './topCategories.css'
-import mobile from '../../assets/topCategories/mobile.png'
-import cosmetics from '../../assets/topCategories/cosmetics.png'
-import electronics from '../../assets/topCategories/electronics.png'
-import furniture from '../../assets/topCategories/furniture.png'
-import watches from '../../assets/topCategories/watches.png'
-import decor from '../../assets/topCategories/decor.png'
-import accessories from '../../assets/topCategories/accessories.png'
-import Arrow from '../../assets/Arrow.jsx';
+import mobile from '../../../assets/topCategories/mobile.png'
+import cosmetics from '../../../assets/topCategories/cosmetics.png'
+import electronics from '../../../assets/topCategories/electronics.png'
+import furniture from '../../../assets/topCategories/furniture.png'
+import watches from '../../../assets/topCategories/watches.png'
+import decor from '../../../assets/topCategories/decor.png'
+import accessories from '../../../assets/topCategories/accessories.png'
+import Arrow from '../../../assets/Arrow.jsx';
 function TopCategories() {
     return (
         <>

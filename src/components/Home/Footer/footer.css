@@ -12,13 +12,10 @@
         border: 15px solid var(--primary);
         outline: 2px solid #0c9bda;
     }
-    & .text{
-        position: relative;
-        /* z-index: 2; */
-    }
-    & .header{
+    & .headerColumn{
         border-bottom: 3px solid var(--border);
-        width: max-content;
+        white-space: nowrap;
+        width: fit-content;
     }
     & .list li a{
         transition-duration: 0.3s;

@@ -1,9 +1,10 @@
 import './navbar.css'
-import logo from '../../assets/megamart.webp'
+import logo from '../../../assets/megamart.webp'
+import { Link } from 'react-router-dom'
 function Navbar() {
 
   const dropdownSvg = <svg viewBox="0 0 50 50" transform="rotate(90)">
-  <path stroke="#008ECC" strokeWidth="2" d="M15.563 40.836a.997.997 0 0 0 1.414 0l15-15a1 1 0 0 0 0-1.414l-15-15a.999.999 0 1 0-1.414 1.414l14.293 14.293-14.293 14.293a1 1 0 0 0 0 1.414" />
+  <path stroke="currentColor" strokeWidth="2" d="M15.563 40.836a.997.997 0 0 0 1.414 0l15-15a1 1 0 0 0 0-1.414l-15-15a.999.999 0 1 0-1.414 1.414l14.293 14.293-14.293 14.293a1 1 0 0 0 0 1.414" />
 </svg>
   return (
     <>
@@ -27,20 +28,20 @@ function Navbar() {
         </div>
         <div className="nav py-3 d-flex justify-content-between flex-nowrap align-items-center">
           <div className="menu d-flex">
-            <span><button type="button" className="btn rounded-3 navbar-toggler p-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"><svg fill="#008ECC"><path d="M3 8h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2m18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2m0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2" /></svg></button></span>
+            <span><button type="button" className="btn rounded-3 navbar-toggler p-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"><svg fill="currentColor"><path d="M3 8h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2m18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2m0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2" /></svg></button></span>
           </div>
-          <div className="logo d-flex ms-4"><img src={logo} className='d-none d-lg-block me-5' alt="website logo" /></div>
+          <Link to="/megamart/" className="logo d-flex ms-4"><img src={logo} className='d-none d-lg-block me-5' alt="website logo" /></Link>
           <div className="search rounded-3 d-flex w-100 flex-nowrap mx-0 mx-lg-5 ">
-            <button className="border-0 ms-4 bg-transparent"><svg viewBox="0 0 16 16"><path fill="#008ECC" d="m15.7 14.3-4.2-4.2c-.2-.2-.5-.3-.8-.3.8-1 1.3-2.4 1.3-3.8 0-3.3-2.7-6-6-6S0 2.7 0 6s2.7 6 6 6c1.4 0 2.8-.5 3.8-1.4 0 .3 0 .6.3.8l4.2 4.2c.2.2.5.3.7.3s.5-.1.7-.3c.4-.3.4-.9 0-1.3M6 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5"/></svg></button>
+            <button className="border-0 ms-4 bg-transparent"><svg viewBox="0 0 16 16"><path fill="currentColor" d="m15.7 14.3-4.2-4.2c-.2-.2-.5-.3-.8-.3.8-1 1.3-2.4 1.3-3.8 0-3.3-2.7-6-6-6S0 2.7 0 6s2.7 6 6 6c1.4 0 2.8-.5 3.8-1.4 0 .3 0 .6.3.8l4.2 4.2c.2.2.5.3.7.3s.5-.1.7-.3c.4-.3.4-.9 0-1.3M6 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5"/></svg></button>
             <input type="text" className="border-0 rounded-3 py-3 ms-lg-4 ms-2 w-75" placeholder="What are you locking for?" />
           </div>
           <div className="sign align-items-center d-none d-lg-flex ms-5">
             <a className="open d-flex fw-bold pe-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#signModal">
-              <svg className='me-2' fill="#008ECC"><path d="M15.71 12.71a6 6 0 1 0-7.42 0 10 10 0 0 0-6.22 8.18 1 1 0 0 0 2 .22 8 8 0 0 1 15.9 0 1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1 10 10 0 0 0-6.25-8.19M12 12a4 4 0 1 1 4-4 4 4 0 0 1-4 4" /></svg>
+              <svg className='me-2' fill="currentColor"><path d="M15.71 12.71a6 6 0 1 0-7.42 0 10 10 0 0 0-6.22 8.18 1 1 0 0 0 2 .22 8 8 0 0 1 15.9 0 1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1 10 10 0 0 0-6.25-8.19M12 12a4 4 0 1 1 4-4 4 4 0 0 1-4 4" /></svg>
               Sign In/Sign Up
             </a>
             <a className="cart d-flex fw-bold ps-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#">
-              <svg fill="none" className='me-2'><path d="M5 7h13.79a2 2 0 0 1 1.99 2.199l-.6 6A2 2 0 0 1 18.19 17H8.64a2 2 0 0 1-1.962-1.608z" stroke="#008ECC" strokeWidth={2} strokeLinejoin="round" /> <path d="m5 7-.81-3.243A1 1 0 0 0 3.22 3H2m6 18h2m6 0h2" stroke="#008ECC" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" /></svg>
+              <svg fill="none" className='me-2'><path d="M5 7h13.79a2 2 0 0 1 1.99 2.199l-.6 6A2 2 0 0 1 18.19 17H8.64a2 2 0 0 1-1.962-1.608z" stroke="currentColor" strokeWidth={2} strokeLinejoin="round" /> <path d="m5 7-.81-3.243A1 1 0 0 0 3.22 3H2m6 18h2m6 0h2" stroke="#008ECC" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" /></svg>
               Cart
             </a>
           </div>

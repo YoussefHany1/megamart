@@ -1,12 +1,12 @@
 import './footer.css'
-import apple from '../../assets/footer/apple.png'
-import google from '../../assets/footer/google.png'
-import logo from '../../assets/footer/logo.png'
+import apple from '../../../assets/footer/apple.png'
+import google from '../../../assets/footer/google.png'
+import logo from '../../../assets/footer/logo.png'
 function Footer() {
     return (
     <>
         <footer className="footer text-white position-relative overflow-hidden pt-5 ">
-            <div className="text d-flex pb-5">
+            <div className="text position-relative d-flex pb-5">
                 <div className="contactUs d-flex flex-column justify-content-between pe-5 me-5">
                     <div className="logo pb-2"><img src={logo} className="" alt="website logo" /></div>
                     <div className="fw-medium fs-4 pb-2"><b>Contact US</b></div>
@@ -29,7 +29,7 @@ function Footer() {
                     </div>
                 </div>
                 <div className="popular d-none d-sm-flex flex-column justify-content-between px-5">
-                    <div className="header fw-semibold fs-5">Most Popular Categories</div>
+                    <div className="headerColumn text-white fw-semibold fs-5">Most Popular Categories</div>
                     <ul className="list d-flex flex-column justify-content-between fw-medium ms-1 mt-4 h-100">
                         <li><a href="#" className="text-decoration-none">Staples</a></li>
                         <li><a href="#" className="text-decoration-none">Beverages</a></li>
@@ -42,7 +42,7 @@ function Footer() {
                     </ul>
                 </div>
                 <div className="services d-none d-lg-flex flex-column justify-content-between ps-3">
-                    <div className="header fw-semibold fs-5">Customer Services</div>
+                    <div className="headerColumn text-white fw-semibold fs-5">Customer Services</div>
                     <ul className="list d-flex flex-column justify-content-between fw-medium ms-1 mt-4 h-100">
                         <li><a href="#" className="text-decoration-none">About Us</a></li>
                         <li><a href="#" className="text-decoration-none">Terms & Conditions</a></li>

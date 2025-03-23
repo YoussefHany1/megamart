@@ -1,11 +1,11 @@
 import './essentials.css'
-import essentials from '../../assets/essentials/daily-essentials.png'
-import homeCare from '../../assets/essentials/home-care.webp'
-import fruits from '../../assets/essentials/fruits.png'
-import beard from '../../assets/essentials/bread.webp'
-import beverages from '../../assets/essentials/beverages.webp'
-import food from '../../assets/essentials/food.webp'
-import Arrow from '../../assets/Arrow.jsx';
+import essentials from '../../../assets/essentials/daily-essentials.png'
+import homeCare from '../../../assets/essentials/home-care.webp'
+import fruits from '../../../assets/essentials/fruits.png'
+import beard from '../../../assets/essentials/bread.webp'
+import beverages from '../../../assets/essentials/beverages.webp'
+import food from '../../../assets/essentials/food.webp'
+import Arrow from '../../../assets/Arrow.jsx';
 
 function App() {
     return (

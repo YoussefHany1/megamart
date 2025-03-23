@@ -1,11 +1,11 @@
 import './swiper.css'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/css';
-import watch from '../../assets/slide/Untitled-1.png'
-import phone from '../../assets/slide/Untitled-2.png'
-import cosmetics from '../../assets/slide/Untitled-3.png'
-import elec from '../../assets/slide/Untitled-4.png'
-import furniture from '../../assets/slide/Untitled-5.png'
+import watch from '../../../assets/slide/Untitled-1.png'
+import phone from '../../../assets/slide/Untitled-2.png'
+import cosmetics from '../../../assets/slide/Untitled-3.png'
+import elec from '../../../assets/slide/Untitled-4.png'
+import furniture from '../../../assets/slide/Untitled-5.png'
 function App() {
     return (
     <>
