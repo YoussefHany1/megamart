@@ -1,0 +1,98 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Hanken Grotesk";
+  margin: 0;
+  padding: 0;
+}
+:root{
+  --primary: #008ECC;
+  --text: #666666;
+  --heading: #222222;
+  --light: #888888;
+  --border: #EDEDED;
+  --background1: #f5f5f5;
+  --background2: #F6F6FC;
+  --background3: #F3F9FB;
+  --yellow: #E3BC01;
+  --line: #D9D9D9;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary); 
+}
+svg{
+  color: var(--primary);
+  width: 1em;
+  height: 1em;
+  font-size: 2cap;
+}
+.btn-primary {
+  --bs-btn-bg: var(--primary) !important;
+  --bs-btn-border-color: var(--primary) !important;
+  --bs-btn-hover-bg: #0279ac !important;
+  --bs-btn-hover-border-color: var(--primary) !important;
+  --bs-btn-active-bg: #005174 !important;
+  --bs-btn-active-border-color: #003247 !important;
+  --bs-btn-disabled-bg: var(--primary) !important;
+  --bs-btn-disabled-border-color: var(--primary) !important;
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--primary) !important;
+  --bs-btn-border-color: var(--primary) !important;
+  --bs-btn-hover-bg: var(--primary) !important;
+  --bs-btn-hover-border-color: var(--primary) !important;
+  --bs-btn-active-bg: var(--primary) !important;
+  --bs-btn-active-border-color: var(--primary) !important;
+  --bs-btn-disabled-color: var(--primary) !important;
+  --bs-btn-disabled-border-color: var(--primary) !important;
+}
+.header {
+  color: var(--text);
+  & .color{
+    color: var(--primary);
+  }
+  border-bottom: 1px solid var(--border);
+  & .line{
+      border-bottom: 3px solid var(--primary);
+  }
+  & a{
+    color: var(--heading);
+    transition-duration: 0.3s;
+    &:hover{
+      color: var(--primary);
+    }
+    & small{
+      white-space: nowrap;
+      font-size: 16px;
+    }
+  }
+}
+body > section, body > footer, header{
+  padding: 0 10%;
+}
+.splide__arrow{
+  background: transparent !important;
+  svg{
+      fill: var(--primary) !important;
+      height: 2em !important;
+      width: 2em !important;
+  }
+}
+
+
+.modal-content{
+  width: auto !important;
+}
+.modal-dialog{
+  margin: auto !important;
+}
+.modal-dialog-centered{
+  justify-content: center;
+}
+.text-primary{
+  color: var(--primary) !important;
+}

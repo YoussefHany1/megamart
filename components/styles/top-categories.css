@@ -1,0 +1,18 @@
+.topCat{
+    & .categories{
+        min-width: 305px;
+        & .cat{
+            text-align: -webkit-center;
+        }
+    }
+    & .categories .cat .photo{
+        width: 8rem;
+        height: 8rem;
+        background-color: var(--background1);
+        transition-duration: 0.3s;
+        &:hover{
+            box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+            transform: scale(1.1);
+        }
+    }
+}

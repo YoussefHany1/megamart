@@ -1,0 +1,31 @@
+.offcanvas{
+    max-width: 300px ! important;
+    background: var(--primary) ! important;
+    & .dropdown-menu{
+        background: #0c9bda;
+        position: relative ! important;
+        transform: translate(0px, 0px) ! important;
+    }
+    & .dropdown-item {
+        transition-duration: 0.2s;
+        &:hover, &:focus{
+            background-color: var(--primary) ! important;
+        }
+    }
+    & .dropdown a{
+        color: white ! important;
+    }
+    & .nav-item{
+        transition-duration: 0.2s;
+        &:hover, &:focus{
+            padding-left: 0.5rem;
+            transition-duration: 0.2s;
+        }
+    }
+    & .show{
+        padding-left: 0rem ! important;
+    }
+} 
+
+
+

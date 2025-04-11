@@ -1,0 +1,31 @@
+.footer{
+    background-color: var(--primary);
+    &::before{
+        content: "";
+        background-color: #0c9bda;
+        width: 434.49px;
+        height: 434.49px;
+        border-radius: 50%;
+        position: absolute;
+        top: -103px;
+        right: -103px;
+        border: 15px solid var(--primary);
+        outline: 2px solid #0c9bda;
+    }
+    & .headerColumn{
+        border-bottom: 3px solid var(--border);
+        white-space: nowrap;
+        width: fit-content;
+    }
+    & .list li a{
+        transition-duration: 0.3s;
+        color: white;
+        &:hover{
+            color: var(--heading);
+        }
+    }
+    & .down{
+        border-top: 2px solid;
+    }
+}
+
