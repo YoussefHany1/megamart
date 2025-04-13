@@ -64,7 +64,7 @@ function Navbar() {
         <div className="navbar navbar-expand-md btn-group-lg d-flex">
           <Nav className="collapse navbar-collapse py-3 px-3 justify-content-between m-0">
             <Nav.Item className="">
-              <Nav.Link href="/" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Mobiles & Accessories</Nav.Link>
+              <Nav.Link href="/products" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Mobiles & Accessories</Nav.Link>
             </Nav.Item>
             <Nav.Item className="">
               <Nav.Link href="/" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Computers & Accessories</Nav.Link>
