@@ -1,18 +1,13 @@
 .smartPhones{
     & .phones .product{
         background-color: var(--background1);
+        outline: 3px solid var(--background1);
         min-width: 13rem;
         transition-duration: 0.3s;
         &:hover{
-            outline: 1px solid var(--primary);
-            box-shadow: 0px 0px 15px black;
-            transform: scale(1.1);
-            z-index: 2;
-            transition-duration: 0.3s;
-        }
-        & .image{
-            width: 98%;
-            top: 2px;
+            outline: 2px solid var(--primary);
+            /* box-shadow: 0px 0px 15px black; */
+            /* transform: scale(1.1); */
         }
         & a img{
             /* max-width: 65%; */
@@ -20,9 +15,8 @@
             max-height: 170px;
         }
         & .text{
-            width: 98%;
             & .h a{
-                color: var(--heading);
+                color: var(--heading) ! important;
             }
             & .off{
                 font-size: 0.9rem;
@@ -37,13 +31,9 @@
     }
     & #phones-track{
         width: 70%;
-        margin: 0 auto;
+        /* margin: 0 auto; */
     }
     & #phones-list{
-        height: 375px;
         align-items: center;
-        margin-left: 28px !important;
-        transition: splide-loading 0.3s ease-out;
     }
 }
-

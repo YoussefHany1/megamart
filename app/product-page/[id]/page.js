@@ -1,5 +1,5 @@
 'use client';
-import '../../../components/styles/product-page.css';
+import './product-page.css';
 import { use } from 'react';
 import { useEffect, useState } from 'react';
 

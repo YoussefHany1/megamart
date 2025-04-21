@@ -17,18 +17,17 @@
   --background3: #F3F9FB;
   --yellow: #E3BC01;
   --line: #D9D9D9;
+
+  /* bootstrap colors override */
+
+  --bs-primary: #008ECC ! important;
+  --bs-primary-rgb: 0, 142, 204 !important;
+
+  --bs-secondary: #666666 ! important;
+  --bs-secondary-rgb: 102, 102, 102 !important;
 }
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--primary); 
-}
-svg{
-  color: var(--primary);
-  width: 1em;
-  height: 1em;
-  font-size: 2cap;
+.text-heading{
+  color: var(--heading);
 }
 .btn-primary {
   --bs-btn-bg: var(--primary) !important;
@@ -50,11 +49,21 @@ svg{
   --bs-btn-disabled-color: var(--primary) !important;
   --bs-btn-disabled-border-color: var(--primary) !important;
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary); 
+}
+svg{
+  color: var(--primary);
+  width: 1em;
+  height: 1em;
+  font-size: 2cap;
+}
+
 .header {
-  color: var(--text);
-  & .color{
-    color: var(--primary);
-  }
+  /* color: var(--text); */
   border-bottom: 1px solid var(--border);
   & .line{
       border-bottom: 3px solid var(--primary);
@@ -92,7 +101,4 @@ body > section, body > footer, header{
 }
 .modal-dialog-centered{
   justify-content: center;
-}
-.text-primary{
-  color: var(--primary) !important;
 }

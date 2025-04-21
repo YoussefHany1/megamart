@@ -1,5 +1,5 @@
 'use client'
-import '../styles/swiper.css'
+import './swiper.css'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/css';
 // import watch from '../../../assets/slide/Untitled-1.png'

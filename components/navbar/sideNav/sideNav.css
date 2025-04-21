@@ -1,6 +1,5 @@
 .offcanvas{
     max-width: 300px ! important;
-    background: var(--primary) ! important;
     & .dropdown-menu{
         background: #0c9bda;
         position: relative ! important;
@@ -22,7 +21,7 @@
             transition-duration: 0.2s;
         }
     }
-    & .show{
+    & .dropdown:hover{
         padding-left: 0rem ! important;
     }
 } 

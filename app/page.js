@@ -1,8 +1,8 @@
-import Swiper from "../components/home/swiper";
-import Phones from "../components/home/phones";
-import TopCategories from "../components/home/top-categories";
-import ElectronicsBrands from "../components/home/electronics-brands";
-import Essentials from "../components/home/essentials";
+import Swiper from "../components/home/swiper/swiper";
+import Phones from "../components/home/smartphones/phones";
+import TopCategories from "../components/home/top-categories/top-categories";
+import ElectronicsBrands from "../components/home/electronics-brands/electronics-brands";
+import Essentials from "../components/home/essentials/essentials";
 function Home() {
     return (
         <>
@@ -14,5 +14,4 @@ function Home() {
         </>
     );
 }
-
 export default Home

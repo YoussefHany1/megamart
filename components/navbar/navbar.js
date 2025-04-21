@@ -1,10 +1,10 @@
 'use client'
-import './styles/navbar.css'
+import './navbar.css'
 import Link from 'next/link'
-import SideNav from './sideNav'
+import SideNav from './sideNav/sideNav'
 import { useState } from 'react';
-import { Nav, Button, NavDropdown } from 'react-bootstrap';
-import SignIn from './signIn';
+import { Nav } from 'react-bootstrap';
+import SignIn from './signIn/signIn';
 function Navbar() {
   // for a side nav
   const [show, setShow] = useState(false);

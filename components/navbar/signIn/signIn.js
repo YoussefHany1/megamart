@@ -18,10 +18,10 @@ const SignInModal = ({ show, handleClose }) => {
                     <Form.Check type="checkbox" label="Remember Me" className="mb-4"/>
                 </Form>
                     <div className="forget mb-2">
-                        <a href="#" className="text-decoration-none fw-semibold">Forget password?</a>
+                        <a href="#" className="text-decoration-none text-primary fw-semibold">Forget password?</a>
                     </div>
                     <div className="signup">Don&apos;t have an account?
-                        <a href="#" className="text-decoration-none fw-bold">Sign up</a>
+                        <a href="#" className="text-decoration-none text-primary fw-bold">Sign up</a>
                     </div>
             </Modal.Body>
             <Modal.Footer>
