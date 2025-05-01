@@ -1,12 +1,12 @@
-import './footer.css';
+import styles from './footer.module.css';
 import Link from 'next/link'
 function Footer() {
     return (
     <>
-        <footer className="footer text-light position-relative overflow-hidden pt-5 ">
+        <footer className={`footer bg-primary text-white position-relative overflow-hidden pt-5 ${styles.footer}`}>
             <div className="text position-relative d-flex pb-5">
                 <div className="contactUs d-flex flex-column justify-content-between pe-5 me-5">
-                    <Link href="/" className="text-decoration-none pb-2 text-light fw-bold fs-1">MegaMart</Link>
+                    <Link href="/" className="text-decoration-none pb-2 text-white fw-bold fs-1">MegaMart</Link>
                     <div className="fw-medium fs-4 pb-2"><b>Contact US</b></div>
                     <div className="whatsapp">
                         <div className="text fw-medium fs-5"><svg fill="#fff"> <path d="M16.6 14c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.2-.5-.5-1-1.1-1.4-1.7-.1-.2 0-.4.1-.5s.2-.3.4-.4c.1-.1.2-.3.2-.4.1-.1.1-.3 0-.4S9.7 8.5 9.5 8c-.1-.7-.3-.7-.5-.7h-.5c-.2 0-.5.2-.6.3Q7 8.5 7 9.7c.1.9.4 1.8 1 2.6 1.1 1.6 2.5 2.9 4.2 3.7.5.2.9.4 1.4.5.5.2 1 .2 1.6.1.7-.1 1.3-.6 1.7-1.2.2-.4.2-.8.1-1.2zm2.5-9.1C15.2 1 8.9 1 5 4.9c-3.2 3.2-3.8 8.1-1.6 12L2 22l5.3-1.4c1.5.8 3.1 1.2 4.7 1.2 5.5 0 9.9-4.4 9.9-9.9.1-2.6-1-5.1-2.8-7m-2.7 14c-1.3.8-2.8 1.3-4.4 1.3-1.5 0-2.9-.4-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3c-2.4-4-1.2-9 2.7-11.5S16.6 3.7 19 7.5c2.4 3.9 1.3 9-2.6 11.4" /></svg>
@@ -27,8 +27,8 @@ function Footer() {
                     </div>
                 </div>
                 <div className="popular d-none d-sm-flex flex-column justify-content-between px-5">
-                    <div className="headerColumn text-light fw-semibold fs-5">Most Popular Categories</div>
-                    <ul className="list d-flex flex-column justify-content-between fw-medium ms-1 mt-4 h-100">
+                    <div className={`headerColumn text-white fw-semibold fs-5 ${styles.headerColumn}`}>Most Popular Categories</div>
+                    <ul className={`list d-flex flex-column justify-content-between fw-medium ms-1 mt-4 h-100 ${styles.list}`}>
                         <li><Link href="/" className="text-decoration-none">Staples</Link></li>
                         <li><Link href="/" className="text-decoration-none">Beverages</Link></li>
                         <li><Link href="/" className="text-decoration-none">Personal Care</Link></li>
@@ -40,8 +40,8 @@ function Footer() {
                     </ul>
                 </div>
                 <div className="services d-none d-lg-flex flex-column justify-content-between ps-3">
-                    <div className="headerColumn text-light fw-semibold fs-5">Customer Services</div>
-                    <ul className="list d-flex flex-column justify-content-between fw-medium ms-1 mt-4 h-100">
+                    <div className={`headerColumn text-white fw-semibold fs-5 ${styles.headerColumn}`}>Customer Services</div>
+                    <ul className={`list d-flex flex-column justify-content-between fw-medium ms-1 mt-4 h-100 ${styles.list}`}>
                         <li><Link href="/" className="text-decoration-none">About Us</Link></li>
                         <li><Link href="/" className="text-decoration-none">Terms & Conditions</Link></li>
                         <li><Link href="/" className="text-decoration-none">FAQ</Link></li>
@@ -51,7 +51,7 @@ function Footer() {
                     </ul>
                     </div>
             </div>
-            <div className="down d-flex justify-content-center text-light py-4">
+            <div className="down d-flex justify-content-center text-light py-4 border-top border-2">
                 &copy; 2025 All rights reserved. Reliance Retail Ltd.
             </div>
         </footer>

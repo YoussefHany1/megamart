@@ -1,0 +1,19 @@
+
+.header {
+    /* color: var(--text); */
+    border-bottom: 1px solid var(--border);
+    & .line{
+        border-bottom: 3px solid var(--primary);
+    }
+    & a{
+      color: var(--heading);
+      transition-duration: 0.3s;
+      &:hover{
+        color: var(--primary);
+      }
+      & small{
+        white-space: nowrap;
+        font-size: 16px;
+      }
+    }
+}

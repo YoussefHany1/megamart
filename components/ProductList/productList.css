@@ -13,10 +13,11 @@
     }
     & a img{
         /* max-width: 65%; */
-        max-width: 133px;
-        max-height: 170px;
+        width: 133px;
+        height: 170px;
+        object-fit: contain;
     }
-    & .text .off{
+    & .text .discount{
             font-size: 0.9rem;
             width: 3.2rem;
             background-color: var(--primary);

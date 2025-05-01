@@ -54,7 +54,7 @@ function ProductPage({ params }) {
         </div>
       </div>
     <div className="header pt-5"><span className='fw-bold fs-4 text-black'>Technical Details:</span>
-          <div className='details d-xxl-flex d-block align-items-center'>
+          <div className='details d-xxl-flex d-block'>
             <table className='d-flex justify-content-center w-100 p-3'>
                 <tbody className=''>
             {product.specifications && product.specifications.map((item, index) => (

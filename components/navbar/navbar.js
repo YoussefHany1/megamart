@@ -63,26 +63,26 @@ function Navbar() {
         </div>
         <div className="navbar navbar-expand-md btn-group-lg d-flex">
           <Nav className="collapse navbar-collapse py-3 px-3 justify-content-between m-0">
-            <Nav.Item className="">
-              <Nav.Link href="/products" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Mobiles & Accessories</Nav.Link>
+            <Nav.Item>
+              <Nav.Link href="/phones" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Mobiles & Accessories</Nav.Link>
             </Nav.Item>
-            <Nav.Item className="">
-              <Nav.Link href="/" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Computers & Accessories</Nav.Link>
+            <Nav.Item>
+              <Nav.Link href="/computers" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Computers & Accessories</Nav.Link>
             </Nav.Item>
-            <Nav.Item className="">
-              <Nav.Link href="/" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Wearables</Nav.Link>
+            <Nav.Item>
+              <Nav.Link href="/wearables" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Wearables</Nav.Link>
             </Nav.Item>
-            <Nav.Item className="">
-              <Nav.Link href="/" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Video Games</Nav.Link>
+            <Nav.Item>
+              <Nav.Link href="/video-games" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Video Games</Nav.Link>
             </Nav.Item>
-            <Nav.Item className="">
-              <Nav.Link href="/" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Television & Video</Nav.Link>
+            <Nav.Item>
+              <Nav.Link href="/television" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Television & Video</Nav.Link>
             </Nav.Item>
-            <Nav.Item className="">
-              <Nav.Link href="/" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Camera & Photo</Nav.Link>
+            <Nav.Item>
+              <Nav.Link href="/camera" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Camera & Photo</Nav.Link>
             </Nav.Item>
-            <Nav.Item className="">
-              <Nav.Link href="/" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Tablets & Accessories</Nav.Link>
+            <Nav.Item>
+              <Nav.Link href="/tablets" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Tablets & Accessories</Nav.Link>
             </Nav.Item>
           </Nav>
         </div>

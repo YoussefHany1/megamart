@@ -14,17 +14,17 @@ const SideNav = ({ show, handleClose }) => {
                         <hr />
                         <Nav.Item as="li"><Nav.Link href="#" className="text-white">Your Cart</Nav.Link></Nav.Item>
 
-                        {/* Categories appear only on small screens, when it disappears on nav bar */}
+                        {/* "Categories" appear only on small screens, when it disappears on nav bar */}
                         <Nav.Item as="li" className="dropdown d-block d-md-none">
                             <hr />
                             <NavDropdown title="Categories" className='text-white'>
-                                <Dropdown.Item href="#">Mobiles & Accessories</Dropdown.Item>
-                                <Dropdown.Item href="#">Computers & Accessories</Dropdown.Item>
-                                <Dropdown.Item href="#">Wearables</Dropdown.Item>
-                                <Dropdown.Item href="#">Video Games</Dropdown.Item>
-                                <Dropdown.Item href="#">Television & Video</Dropdown.Item>
-                                <Dropdown.Item href="#">Camera & Photo</Dropdown.Item>
-                                <Dropdown.Item href="#">Tablets & Accessories</Dropdown.Item>
+                                <Dropdown.Item href="/phones">Mobiles & Accessories</Dropdown.Item>
+                                <Dropdown.Item href="/computers">Computers & Accessories</Dropdown.Item>
+                                <Dropdown.Item href="/wearables">Wearables</Dropdown.Item>
+                                <Dropdown.Item href="/video-games">Video Games</Dropdown.Item>
+                                <Dropdown.Item href="/television">Television & Video</Dropdown.Item>
+                                <Dropdown.Item href="/camera">Camera & Photo</Dropdown.Item>
+                                <Dropdown.Item href="/tablets">Tablets & Accessories</Dropdown.Item>
                             </NavDropdown>
                         </Nav.Item>
 

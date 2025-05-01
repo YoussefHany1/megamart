@@ -61,34 +61,15 @@ svg{
   height: 1em;
   font-size: 2cap;
 }
-
-.header {
-  /* color: var(--text); */
-  border-bottom: 1px solid var(--border);
-  & .line{
-      border-bottom: 3px solid var(--primary);
-  }
-  & a{
-    color: var(--heading);
-    transition-duration: 0.3s;
-    &:hover{
-      color: var(--primary);
-    }
-    & small{
-      white-space: nowrap;
-      font-size: 16px;
-    }
-  }
-}
 body > section, body > footer, header{
   padding: 0 10%;
 }
 .splide__arrow{
   background: transparent !important;
   svg{
-      fill: var(--primary) !important;
-      height: 2em !important;
-      width: 2em !important;
+    fill: var(--primary) !important;
+    height: 2em !important;
+    width: 2em !important;
   }
 }
 
@@ -101,4 +82,19 @@ body > section, body > footer, header{
 }
 .modal-dialog-centered{
   justify-content: center;
+}
+#phones-track{
+  width: 70%;
+  /* margin: 0 auto; */
+}
+#phones-list{
+  align-items: center;
+}
+#splide02-track{
+  width: 83%;
+  margin: auto;
+  border-radius: 1rem;
+}
+#splide02{
+  /* min-width: 16rem; */
 }
