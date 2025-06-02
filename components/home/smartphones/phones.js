@@ -1,19 +1,14 @@
 'use client';
-import  { useEffect, useState } from "react";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/css';
 import styles from './phones.module.css';
 import Link from 'next/link';
-function Phone () {
-    const [phones, setPhones] = useState([]);
+import useFetchProducts from "../../../hooks/useFetchProducts";
 
-    useEffect(() => {
-      const storedPhones = localStorage.getItem('phones');
-      if (storedPhones) {
-        setPhones(JSON.parse(storedPhones));
-      }
-    }, []);
-    const error = null;
+function Phone () {
+    const apiUrl = "https://gist.githubusercontent.com/YoussefHany1/33ca89b7508ef3794d5c27d913803a47/raw/72b0b370f8e0bc13c7c043e26b0449f9ee3f08c0/phoneData.json";
+    const { items: phones, error } = useFetchProducts(apiUrl);
+
   return (
     <section className="smartPhones my-5 pt-3">
         <div className="header text-secondary d-flex justify-content-between fw-bold">

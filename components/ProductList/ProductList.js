@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import useFetchProducts from "../../hooks/useFetchProducts";
 import "./productList.css";
+
 function ProductList({ apiUrl, productsPerPage = 25 }) {
   const { items: products, error } = useFetchProducts(apiUrl);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,7 +46,7 @@ function ProductList({ apiUrl, productsPerPage = 25 }) {
               </p>
               <hr className="my-2" />
               {/* {product.rating && (<div className="rate fw-semibold text-success"><b>{Number(product.rating)}</b> out of 5 stars</div>)} */}
-              <div className="rate fw-semibold text-success">{Number(product.rating) !== NaN ? <span><b>{product.rating}</b> out of 5 stars</span> : (<span>N/A</span>)}</div>
+              {product.rating && (<div className="rate fw-semibold text-success">{Number(product.rating) !== NaN ? <span><b>{product.rating}</b> out of 5 stars</span> : (<span>N/A</span>)}</div>)}
               <div>
                 {product.discount && (
                   <div className="discount text-center align-content-center text-white fw-bold py-2 position-absolute">
