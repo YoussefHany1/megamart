@@ -12,7 +12,6 @@ function Swiper() {
                 <SplideSlide><Link href="/wearables" className="rounded-4"><img src="swiper/Untitled-1.png" className="rounded-4 img-fluid" alt="SmartWatch" /></Link></SplideSlide>
                 <SplideSlide><Link href="#!" className="rounded-4"><img src="swiper/Untitled-3.png" className="rounded-4 img-fluid" alt="Cosmetics" /></Link></SplideSlide>
                 <SplideSlide><Link href="#!" className="rounded-4"><img src="swiper/Untitled-4.png" className="rounded-4 img-fluid" alt="Electronics" /></Link></SplideSlide>
-                <SplideSlide><Link href="#!" className="rounded-4"><img src="swiper/Untitled-5.png" className="rounded-4 img-fluid" alt="Furniture" /></Link></SplideSlide>
             </Splide>
         </header>
     </>

@@ -4,11 +4,17 @@ import '@splidejs/splide/css';
 import styles from './phones.module.css';
 import Link from 'next/link';
 import useFetchProducts from "../../../hooks/useFetchProducts";
+import { useEffect } from 'react';
 
 function Phone () {
     const apiUrl = "https://gist.githubusercontent.com/YoussefHany1/33ca89b7508ef3794d5c27d913803a47/raw/72b0b370f8e0bc13c7c043e26b0449f9ee3f08c0/phoneData.json";
     const { items: phones, error } = useFetchProducts(apiUrl);
-
+    useEffect(() => {
+        if (phones) {
+          // store the phones in the local storage
+          localStorage.setItem("phones", JSON.stringify(phones));
+        }
+      }, [phones]);
   return (
     <section className="smartPhones my-5 pt-3">
         <div className="header text-secondary d-flex justify-content-between fw-bold">
@@ -21,7 +27,7 @@ function Phone () {
                 {phones.map((product) => (
                 product.discount && (
                     <SplideSlide key={product.id} className={`product card m-3 border-0 rounded-4 flex-shrink-1 ${styles.product}`}>
-                        <Link href={`/product-page/${product.id}`} className="image w-100 d-flex justify-content-center bg-white position-relative m-auto rounded-top-4">
+                        <Link href={`/product-page/phones/${product.id}`} className="image w-100 d-flex justify-content-center bg-white position-relative m-auto rounded-top-4">
                             <img src={product.pic} className="card-img-top p-2" alt={product.name} />
                         </Link>
                         <div className="text card-body lh-1 m-auto">

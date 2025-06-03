@@ -1,11 +1,11 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useFetchProducts from "../../hooks/useFetchProducts";
 import "./productList.css";
 
-function ProductList({ apiUrl, productsPerPage = 25 }) {
-  const { items: products, error } = useFetchProducts(apiUrl);
+function ProductList({ apiUrl, category, productsPerPage = 25 }) {
+  const { items: products, error } = useFetchProducts(apiUrl, category);
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(products.length / productsPerPage);
@@ -15,6 +15,13 @@ function ProductList({ apiUrl, productsPerPage = 25 }) {
   const next = () =>
     currentPage < totalPages && setCurrentPage(currentPage + 1);
   const prev = () => currentPage > 1 && setCurrentPage(currentPage - 1);
+
+  // useEffect(() => {
+  //   if (products) {
+  //     // store the products in the local storage under the category name 
+  //     localStorage.setItem(category, JSON.stringify(products));
+  //   }
+  // }, [products, category]);
 
   if (error) {
     return (
@@ -29,12 +36,12 @@ function ProductList({ apiUrl, productsPerPage = 25 }) {
         {currentProducts.map((product) => (
           product.name && product.pic && (
           <div key={product.id} className="product card border-0 m-3 rounded-4 flex-shrink-1">
-            <Link href={`/product-page/${product.id}`} className="image w-100 d-flex justify-content-center bg-white position-relative m-auto rounded-top-4">
+            <Link href={`/product-page/${category}/${product.id}`} className="image w-100 d-flex justify-content-center bg-white position-relative m-auto rounded-top-4">
               <img src={product.pic} className="card-img-top p-2" alt={product.name} />
             </Link>
             <div className="text card-body lh-1 m-auto">
               <div className="h">
-                <Link href={`/product-page/${product.id}`} className="name text-decoration-none text-heading fw-semibold">
+                <Link href={`/product-page/${category}/${product.id}`} className="name text-decoration-none text-heading fw-semibold">
                   {product.name.substring(0, 30)}..
                 </Link>
               </div>
