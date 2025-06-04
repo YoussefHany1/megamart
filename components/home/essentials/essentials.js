@@ -10,27 +10,27 @@ function Essentials() {
             </div>
             <div className="essentials d-flex justify-content-center align-items-center p-lg-5 p-0 mt-4 row">
                 <div className="item col-lg-2 col-md-3 col-6 mb-5">
-                    <div className={`photo align-content-center text-center rounded-4 ${styles.photo}`}><a href="#"><img src="./essentials/daily-essentials.png" className="img-fluid" alt="Dairy, Cheese & Eggs" /></a></div>
+                    <div className={`photo align-content-center text-center rounded-4 overflow-hidden ${styles.photo}`}><a href="#"><img src="./essentials/daily-essentials.png" className="img-fluid" alt="Dairy, Cheese & Eggs" /></a></div>
                         <div className="text text-center mt-3"><a href="#" className="text-decoration-none text-secondary text-nowrap">Dairy, Cheese & Eggs<br /><b className="fs-5 text-heading">UP to 50% OFF</b></a></div>
                     </div>
                 <div className="item col-lg-2 col-md-3 col-6 mb-5">
-                    <div className={`photo align-content-center text-center rounded-4 ${styles.photo}`}><a href="#"><img src="./essentials/fruits.png" className="img-fluid" alt="Fruits and Vegetables" /></a></div>
+                    <div className={`photo align-content-center text-center rounded-4 overflow-hidden ${styles.photo}`}><a href="#"><img src="./essentials/fruits.png" className="img-fluid" alt="Fruits and Vegetables" /></a></div>
                     <div className="text text-center mt-3"><a href="#" className="text-decoration-none text-secondary text-nowrap">Fruits & Vegetables<br /><b className="fs-5 text-heading">UP to 50% OFF</b></a></div>
                 </div>
                 <div className="item col-lg-2 col-md-3 col-6 mb-5">
-                    <div className={`photo align-content-center text-center rounded-4 ${styles.photo}`}><a href="#"><img src="./essentials/bread.webp" className="img-fluid" alt="Beard" /></a></div>
+                    <div className={`photo align-content-center text-center rounded-4 overflow-hidden ${styles.photo}`}><a href="#"><img src="./essentials/bread.webp" className="img-fluid" alt="Beard" /></a></div>
                     <div className="text text-secondary text-center mt-3"><a href="#" className="text-decoration-none text-secondary text-nowrap">Breads & Bakery<br /><b className="fs-5 text-heading">UP to 50% OFF</b></a></div>
                 </div>
                 <div className="item col-lg-2 col-md-3 col-6 mb-5">
-                    <div className={`photo align-content-center text-center rounded-4 ${styles.photo}`}><a href="#"><img src="./essentials/home-care.webp" className="img-fluid" alt="Home Care & Cleaning" /></a></div>
+                    <div className={`photo align-content-center text-center rounded-4 overflow-hidden ${styles.photo}`}><a href="#"><img src="./essentials/home-care.webp" className="img-fluid" alt="Home Care & Cleaning" /></a></div>
                     <div className="text text-center mt-3"><a href="#" className="text-decoration-none text-secondary text-nowrap">Home Care & Cleaning<br /><b className="fs-5 text-heading">UP to 50% OFF</b></a></div>
                 </div>
                 <div className="item col-lg-2 col-md-3 col-6 mb-5">
-                    <div className={`photo align-content-center text-center rounded-4 ${styles.photo}`}><a href="#"><img src="./essentials/beverages.webp" className="img-fluid" alt="Beverages" /></a></div>
+                    <div className={`photo align-content-center text-center rounded-4 overflow-hidden ${styles.photo}`}><a href="#"><img src="./essentials/beverages.webp" className="img-fluid" alt="Beverages" /></a></div>
                     <div className="text text-center mt-3"><a href="#" className="text-decoration-none text-secondary text-nowrap">Beverages<br /><b className="fs-5 text-heading">UP to 50% OFF</b></a></div>
                 </div>
                 <div className="item col-lg-2 col-md-3 col-6 mb-5">
-                    <div className={`photo align-content-center text-center rounded-4 ${styles.photo}`}><a href="#"><img src="./essentials/food.webp" className="img-fluid" alt="Food" /></a></div>
+                    <div className={`photo align-content-center text-center rounded-4 overflow-hidden ${styles.photo}`}><a href="#"><img src="./essentials/food.webp" className="img-fluid" alt="Food" /></a></div>
                     <div className="text text-center mt-3"><a href="#" className="text-decoration-none text-secondary text-nowrap">Food<br /><b className="fs-5 text-heading">UP to 50% OFF</b></a></div>
                 </div>
             </div>

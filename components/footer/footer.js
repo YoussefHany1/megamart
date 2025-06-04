@@ -21,8 +21,8 @@ function Footer() {
                     <div className="app">
                         <div className="text pb-2 fw-medium fs-5"><b>Download App</b></div>
                         <div className="photos d-flex justify-content-between">
-                            <Link href="/" className='me-1'><img src="/footer/apple.png" alt="APP Store" className="apple img-fluid" /></Link>
-                            <Link href="/" className='ms-1'><img src="/footer/google.png" alt="Google Play" className="google img-fluid" /></Link>
+                            <Link href="/" className='me-1'><img src="/footer/apple.webp" alt="APP Store" className="apple img-fluid" /></Link>
+                            <Link href="/" className='ms-1'><img src="/footer/google.webp" alt="Google Play" className="google img-fluid" /></Link>
                         </div>
                     </div>
                 </div>

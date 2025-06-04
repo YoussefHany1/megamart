@@ -2,7 +2,7 @@ import Swiper from "../components/home/swiper/swiper";
 import Phones from "../components/home/smartphones/phones";
 import TopCategories from "../components/home/top-categories/top-categories";
 import PhoneBrands from "../components/home/phone-brands/phone-brands";
-import Essentials from "../components/home/essentials/essentials";
+// import Essentials from "../components/home/essentials/essentials";
 import './home.css'
 export const metadata = {
     title: 'MegaMart',
@@ -15,7 +15,7 @@ function Home() {
         <Phones />
         <TopCategories />
         <PhoneBrands />
-        <Essentials />
+        {/* <Essentials /> */}
         </>
     );
 }

@@ -14,15 +14,15 @@ function ElectronicsBrands() {
                 </div>
                 <div className={`brands mt-5 py-4 ${styles.brands}`}>
                     <Splide options={ {type: 'loop', gap: '1rem', drag: 'free', arrows: false, pagination: false, perPage: 4, autoScroll: {speed: 2, pauseOnHover: true},}} extensions={{ AutoScroll }}>
-                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/apple.png" alt="Apple" className={`rounded-4 img-fluid ${styles.brands}`} /></Link></SplideSlide>
-                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/realme.png" alt="Realme" className="rounded-4 img-fluid" /></Link></SplideSlide>
-                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/mi.png" alt="Xiaomi" className="rounded-4 img-fluid" /></Link></SplideSlide>
-                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/samsung.png" alt="Samsung" className="rounded-4 img-fluid" /></Link></SplideSlide>
-                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/oppo.png" alt="Oppo" className="rounded-4 img-fluid" /></Link></SplideSlide>
-                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/huawei.png" alt="Huawei" className="rounded-4 img-fluid" /></Link></SplideSlide>
-                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/infinix.png" alt="Infinix" className="rounded-4 img-fluid" /></Link></SplideSlide>
-                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/honor.png" alt="Honor" className="rounded-4 img-fluid" /></Link></SplideSlide>
-                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/oneplus.png" alt="One Plus" className="rounded-4 img-fluid" /></Link></SplideSlide>
+                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/apple.webp" alt="Apple" className={`rounded-4 img-fluid ${styles.brands}`} /></Link></SplideSlide>
+                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/realme.webp" alt="Realme" className="rounded-4 img-fluid" /></Link></SplideSlide>
+                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/mi.webp" alt="Xiaomi" className="rounded-4 img-fluid" /></Link></SplideSlide>
+                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/samsung.webp" alt="Samsung" className="rounded-4 img-fluid" /></Link></SplideSlide>
+                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/oppo.webp" alt="Oppo" className="rounded-4 img-fluid" /></Link></SplideSlide>
+                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/huawei.webp" alt="Huawei" className="rounded-4 img-fluid" /></Link></SplideSlide>
+                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/infinix.webp" alt="Infinix" className="rounded-4 img-fluid" /></Link></SplideSlide>
+                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/honor.webp" alt="Honor" className="rounded-4 img-fluid" /></Link></SplideSlide>
+                        <SplideSlide><Link href="/phones" className="image"><img src="phone-brands/oneplus.webp" alt="One Plus" className="rounded-4 img-fluid" /></Link></SplideSlide>
                     </Splide>
                 </div>
             </section>
