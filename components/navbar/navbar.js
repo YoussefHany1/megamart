@@ -39,12 +39,13 @@ function Navbar() {
             </a>
           </div>
         </div>
+        <Link href="/" className="logo text-lg-start text-center text-primary mt-2 fs-1 text-decoration-none fw-bold d-sm-none d-block">MegaMart</Link>
         <div className="nav py-3 d-flex justify-content-between flex-nowrap align-items-center">
           <div className="menu d-flex">
             <span><button type="button" className="btn rounded-3 navbar-toggler p-2 me-3" variant="primary" onClick={handleShow}><svg fill="currentColor"><path d="M3 8h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2m18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2m0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2" /></svg></button></span>
             <SideNav show={show} handleClose={handleClose} />
           </div>
-          <Link href="/" className="logo d-lg-block d-none fs-2 ps-3 pe-5 text-decoration-none fw-bold">MegaMart</Link>
+          <Link href="/" className="logo text-lg-start text-center fs-2 ps-3 pe-5 text-decoration-none fw-bold d-sm-block d-none">MegaMart</Link>
           <div className="search rounded-3 d-flex w-100 flex-nowrap mx-0 mx-lg-auto ">
             <button className="border-0 ms-lg-4 ms-3 bg-transparent"><svg viewBox="0 0 16 16"><path fill="currentColor" d="m15.7 14.3-4.2-4.2c-.2-.2-.5-.3-.8-.3.8-1 1.3-2.4 1.3-3.8 0-3.3-2.7-6-6-6S0 2.7 0 6s2.7 6 6 6c1.4 0 2.8-.5 3.8-1.4 0 .3 0 .6.3.8l4.2 4.2c.2.2.5.3.7.3s.5-.1.7-.3c.4-.3.4-.9 0-1.3M6 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5"/></svg></button>
             <input type="text" className="border-0 rounded-3 py-3 ms-lg-4 ms-2 w-75" placeholder="What are you locking for?" />
@@ -55,7 +56,7 @@ function Navbar() {
               Sign In/Sign Up
             </a>
             <SignIn show={showModal} handleClose={handleCloseModal} />
-            <a className="cart d-flex fw-bold ps-3 text-decoration-none" data-bs-toggle="modal" data-bs-target="#">
+            <a className="cart d-flex fw-bold ps-3 text-decoration-none" href="/cart" data-bs-toggle="modal" data-bs-target="#">
               <svg fill="none" className='me-2'><path d="M5 7h13.79a2 2 0 0 1 1.99 2.199l-.6 6A2 2 0 0 1 18.19 17H8.64a2 2 0 0 1-1.962-1.608z" stroke="currentColor" strokeWidth={2} strokeLinejoin="round" /> <path d="m5 7-.81-3.243A1 1 0 0 0 3.22 3H2m6 18h2m6 0h2" stroke="#008ECC" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" /></svg>
               Cart
             </a>

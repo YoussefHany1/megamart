@@ -23,10 +23,10 @@ function Phone () {
         </div>
         {error && (<p className="text-danger fs-1 fw-bold text-center ">there was an error, pls try again later</p>)}
         {!error && (
-            <Splide options={ {rewind: true, type:'slide', perMove: 1, pagination: false} } className={`phones d-flex align-items-center justify-content-center mt-5 pb-5" ${styles.splide}`} id="phones">
+            <Splide options={ {rewind: true, type:'slide', perMove: 1, pagination: false, gap: 30} } className={`phones d-flex align-items-center justify-content-center mt-5 pb-5" ${styles.splide}`} id="phones">
                 {phones.map((product) => (
                 product.discount && (
-                    <SplideSlide key={product.id} className={`product card m-3 border-0 rounded-4 flex-shrink-1 ${styles.product}`}>
+                    <SplideSlide key={product.id} className={`product card border-0 rounded-4 flex-shrink-1 ${styles.product}`}>
                         <Link href={`/product-page/phones/${product.id}`} className="image w-100 d-flex justify-content-center bg-white position-relative m-auto rounded-top-4">
                             <img src={product.pic} className="card-img-top p-2" alt={product.name} />
                         </Link>

@@ -5,7 +5,7 @@ function Footer() {
     <>
         <footer className={`footer bg-primary text-white position-relative overflow-hidden pt-5 ${styles.footer}`}>
             <div className="text position-relative d-flex pb-5">
-                <div className="contactUs d-flex flex-column justify-content-between pe-5 me-5">
+                <div className="contactUs d-flex flex-column justify-content-between pe-md-5 me-md-5">
                     <Link href="/" className="text-decoration-none pb-2 text-white fw-bold fs-1">MegaMart</Link>
                     <div className="fw-medium fs-4 pb-2"><b>Contact US</b></div>
                     <div className="whatsapp">
@@ -21,8 +21,8 @@ function Footer() {
                     <div className="app">
                         <div className="text pb-2 fw-medium fs-5"><b>Download App</b></div>
                         <div className="photos d-flex justify-content-between">
-                            <Link href="/" className='me-1'><img src="/footer/apple.webp" alt="APP Store" className="apple img-fluid" /></Link>
-                            <Link href="/" className='ms-1'><img src="/footer/google.webp" alt="Google Play" className="google img-fluid" /></Link>
+                            <Link href="/" className='me-1'><img src="/footer/apple.webp" alt="Download on the APP Store" className="apple img-fluid" /></Link>
+                            <Link href="/" className='ms-1'><img src="/footer/google.webp" alt="Get it on Google Play" className="google img-fluid" /></Link>
                         </div>
                     </div>
                 </div>
