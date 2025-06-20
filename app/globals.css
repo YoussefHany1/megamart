@@ -65,3 +65,9 @@ svg{
 body > section, body > footer, header{
   padding: 0 10%;
 }
+@media (max-width: 576px) {
+  .contactUs, .contactUs .down{
+    text-align: center;
+  }
+  
+}

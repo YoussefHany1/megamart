@@ -4,7 +4,7 @@ function Footer() {
     return (
     <>
         <footer className={`footer bg-primary text-white position-relative overflow-hidden pt-5 ${styles.footer}`}>
-            <div className="text position-relative d-flex pb-5">
+            <div className="text position-relative d-sm-flex d-block pb-5">
                 <div className="contactUs d-flex flex-column justify-content-between pe-md-5 me-md-5">
                     <Link href="/" className="text-decoration-none pb-2 text-white fw-bold fs-1">MegaMart</Link>
                     <div className="fw-medium fs-4 pb-2"><b>Contact US</b></div>
