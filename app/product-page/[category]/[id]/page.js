@@ -1,24 +1,21 @@
-'use client';
 import './product-page.css';
-import { use } from 'react';
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+import categories from "../../../../stores/data.json";
 
-function ProductPage({ params }) {
-  const { id, category } = use(params); 
-  const [product, setProduct] = useState(null);
-
-  useEffect(() => {
-    if (id && category) {
-      const products = JSON.parse(localStorage.getItem(category));  
-      const foundProduct = products?.find((product) => product.id == id);
-      setProduct(foundProduct);
-    }else{
-      localStorage.setItem(category, JSON.stringify(products));
-    }
-  }, [id, category]);
+async function ProductPage({ params }) {
+  const { id, category } = params;
+  const url = categories[category];
+  let product;
+  try {
+      const res = await axios.get(url);
+      const products = res.data.products;
+      product = products.find((p) => p.id == id);
+  } catch (error) {
+      console.error("Error fetching product data:", error);
+  }
 
   if (!product) {
-    return <p className="text-danger">Product not found</p>;
+    return <p className="text-danger text-center my-5 fs-3">Product not found</p>;
   }
 
   return (

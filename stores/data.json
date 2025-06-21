@@ -1,0 +1,9 @@
+{
+    "phones": "https://gist.githubusercontent.com/YoussefHany1/33ca89b7508ef3794d5c27d913803a47/raw/72b0b370f8e0bc13c7c043e26b0449f9ee3f08c0/phoneData.json",
+    "computers": "https://gist.githubusercontent.com/YoussefHany1/7c9c34655b1826b779740c6793c3efef/raw/1d0809d41544f5eea1f1c5fa076a4a0bb1a84e1e/computers.json",
+    "tablets": "https://gist.githubusercontent.com/YoussefHany1/8fa719a681a9ad0b15ae46ac2edec9da/raw/6f566a62320a85acfd1bfcd24c61167e178071f5/tablets.json",
+    "camera": "https://gist.githubusercontent.com/YoussefHany1/d6c18d5196d090432448ecc82c80509f/raw/6c524309284e9d36d849565a2769e5f783be7509/camera.json",
+    "television": "https://gist.githubusercontent.com/YoussefHany1/de3895f0d4ba03861c3f4e51a5dd7c75/raw/9e3e726170c236bf9dcc7bf5f73bb2e5d4f1a9e2/tv.json",
+    "video-games": "https://gist.githubusercontent.com/YoussefHany1/e8f379d8cb4e29d1800c28a986dc242a/raw/c7ecbb736d3819ebf734c6a66e169a9700a837be/video-games.json",
+    "wearables": "https://gist.githubusercontent.com/YoussefHany1/e32941d88b96cc9fba113566611a7499/raw/66f314f4bad8771f986f64d2e115ca290f34f074/wearables.json"
+}

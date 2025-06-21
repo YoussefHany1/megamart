@@ -1,9 +1,9 @@
 'use client'
 import './navbar.css'
 import Link from 'next/link'
-import SideNav from './sideNav/sideNav'
 import { useState } from 'react';
 import { Nav } from 'react-bootstrap';
+import SideNav from './sideNav/sideNav'
 import SignIn from './signIn/signIn';
 function Navbar() {
   // for a side nav
@@ -65,25 +65,25 @@ function Navbar() {
         <div className="navbar navbar-expand-md btn-group-lg d-flex">
           <Nav className="collapse navbar-collapse py-3 px-3 justify-content-between m-0">
             <Nav.Item>
-              <Nav.Link href="/phones" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Mobiles & Accessories</Nav.Link>
+              <Nav.Link href={`/product-page/phones`} className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Mobiles & Accessories</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/computers" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Computers & Accessories</Nav.Link>
+              <Nav.Link href={`/product-page/computers`} className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Computers & Accessories</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/wearables" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Wearables</Nav.Link>
+              <Nav.Link href={`/product-page/wearables`} className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Wearables</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/video-games" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Video Games</Nav.Link>
+              <Nav.Link href={`/product-page/video-games`} className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Video Games</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/television" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Television & Video</Nav.Link>
+              <Nav.Link href={`/product-page/television`} className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Television & Video</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/camera" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Camera & Photo</Nav.Link>
+              <Nav.Link href={`/product-page/camera`} className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Camera & Photo</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="/tablets" className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Tablets & Accessories</Nav.Link>
+              <Nav.Link href={`/product-page/tablets`} className="rounded-5 px-3 py-2 mb-3 mb-xxl-0">Tablets & Accessories</Nav.Link>
             </Nav.Item>
           </Nav>
         </div>
