@@ -144,21 +144,11 @@ Be sure to follow the existing code style and include appropriate tests when add
 
 ---
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
 ## Contact
 
-👤 **Your Name**
+👤 **Youssef Hany**
 
-- GitHub: [@your-username](https://github.com/your-username)
+- GitHub: [@YoussefHany1](https://github.com/YoussefHany1)
 - Email: youremail@example.com
 
 Feel free to open issues or reach out if you need any help!
-
----
-
-_This README was generated on July 12, 2025_
