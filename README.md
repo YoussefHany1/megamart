@@ -26,6 +26,10 @@ MegaMart aims to be a clean, high‑performance online storefront. Leveraging Ne
 
 ---
 
+> **Note:** The project is still under development. Features and content will be updated regularly as new sections are completed.
+
+---
+
 ## Features
 
 - **Home page** with featured products carousel (Swiper)
@@ -56,7 +60,7 @@ MegaMart aims to be a clean, high‑performance online storefront. Leveraging Ne
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/<your-username>/MegaMart.git
+   git clone https://github.com/YoussefHany1/megamart.git
    cd MegaMart
    ```
 
@@ -99,22 +103,42 @@ MegaMart aims to be a clean, high‑performance online storefront. Leveraging Ne
 
 ```
 MegaMart/
-├── app/
-│   ├── cart/                # Cart page & styles
-│   ├── product-page/        # Dynamic category & product routes
-│   ├── layout.js            # Root layout
-│   ├── globals.css          # Global styles
-│   └── page.js              # Home page
-├── components/              # Reusable UI components
-│   ├── navbar/
-│   ├── swiper/
-│   └── ProductList/
-├── public/                  # Static assets (images, icons)
-├── stores/
-│   └── data.json            # Sample product data
+├── .gitignore
+├── jsconfig.json
 ├── next.config.mjs
+├── package-lock.json
 ├── package.json
-└── README.md                # This file
+├── README.md
+├── app/
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── home.css
+│   ├── layout.js
+│   ├── loading.js
+│   ├── not-found.js
+│   ├── page.js             # Home page
+│   ├── cart/
+│   │   ├── cart.css
+│   │   └── page.js         # /cart page
+│   ├── product-page/
+│   │   ├── [category]/
+│   │   │   ├── page.js     # /product-page/[category]
+│   │   │   └── [id]/
+│   │   │       ├── page.js # /product-page/[category]/[id]
+│   │   │       └── product-page.css
+│   ├── swiper/             # Carousel assets
+│   │   ├── Untitled-1.webp
+│   │   ├── Untitled-2.webp
+│   │   ├── Untitled-3.webp
+│   │   ├── Untitled-4.webp
+│   │   └── Untitled-5.webp
+│   └── top-categories/     # Top Categories Section icons
+│       ├── mobile.webp
+│       ├── pc.webp
+│       ├── tv.webp
+│       └── watches.webp
+└── stores/
+    └── data.json           # Sample product data
 ```
 
 ---
