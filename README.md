@@ -1,36 +1,164 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MegaMart
 
-## Getting Started
+A modern, responsive e‑commerce storefront built with Next.js (App Router) and React.  
+MegaMart is designed to showcase products by category, support dynamic routing, and manage a shopping cart. Though still under active development, it already includes core UI components, routing logic, and state management hooks to jump‑start your online marketplace.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [Features](#features)
+3. [Tech Stack](#tech-stack)
+4. [Installation & Setup](#installation--setup)
+5. [Usage](#usage)
+6. [Project Structure](#project-structure)
+7. [Roadmap](#roadmap)
+8. [Contributing](#contributing)
+9. [License](#license)
+10. [Contact](#contact)
+
+---
+
+## Project Overview
+
+MegaMart aims to be a clean, high‑performance online storefront. Leveraging Next.js’s App Router, it organizes routes for home, category listing, product details, and cart pages. A simple JSON store provides sample data; later iterations will replace this with a real backend API.
+
+---
+
+## Features
+
+- **Home page** with featured products carousel (Swiper)
+- **Category pages** (`/product-page/[category]`) generated via dynamic routing
+- **Product detail pages** (`/product-page/[category]/[id]`)
+- **Shopping cart** with add/remove and quantity controls
+- **Responsive design** optimized for mobile and desktop
+- **Global styles** and component‑level CSS modules
+- **Client‑side data fetching** from local `stores/data.json`
+- **Loading** and **404** fallbacks
+
+---
+
+## Tech Stack
+
+- **Framework**: Next.js (App Router)
+- **Language**: JavaScript (ES6+)
+- **UI**: React, CSS Modules, global CSS
+- **State**: React Context & Hooks
+- **Data**: Static JSON store (to be replaced with real API)
+- **Bundler**: Vite (via Next.js)
+- **Version Control**: Git & GitHub
+
+---
+
+## Installation & Setup
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/<your-username>/MegaMart.git
+   cd MegaMart
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Run the development server**
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+4. **Build for production**
+   ```bash
+   npm run build
+   npm start
+   ```
+
+---
+
+## Usage
+
+- **Home**: Browse featured and top‑category products.
+- **Categories**: Click any category card to view all products under that category.
+- **Product Details**: Click a product to see detailed info and “Add to Cart.”
+- **Cart**: View cart contents, update quantities, or remove items.
+
+---
+
+## Project Structure
+
+```
+MegaMart/
+├── app/
+│   ├── cart/                # Cart page & styles
+│   ├── product-page/        # Dynamic category & product routes
+│   ├── layout.js            # Root layout
+│   ├── globals.css          # Global styles
+│   └── page.js              # Home page
+├── components/              # Reusable UI components
+│   ├── navbar/
+│   ├── swiper/
+│   └── ProductList/
+├── public/                  # Static assets (images, icons)
+├── stores/
+│   └── data.json            # Sample product data
+├── next.config.mjs
+├── package.json
+└── README.md                # This file
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Roadmap
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [ ] Integrate real backend (GraphQL/REST API)
+- [ ] User authentication & profiles
+- [ ] Checkout workflow & payment integration
+- [ ] Admin dashboard for inventory management
+- [ ] Unit & integration tests
+- [ ] SEO optimizations & performance audits
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Contributing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Contributions are welcome! Please:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/xyz`)
+3. Commit your changes (`git commit -m 'feat: add xyz'`)
+4. Push to your branch (`git push origin feature/xyz`)
+5. Open a Pull Request
 
-## Deploy on Vercel
+Be sure to follow the existing code style and include appropriate tests when adding new functionality.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+👤 **Your Name**
+
+- GitHub: [@your-username](https://github.com/your-username)
+- Email: youremail@example.com
+
+Feel free to open issues or reach out if you need any help!
+
+---
+
+_This README was generated on July 12, 2025_

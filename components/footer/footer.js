@@ -51,7 +51,7 @@ function Footer() {
                     </ul>
                     </div>
             </div>
-            <div className="down d-flex justify-content-center text-light py-4 border-top border-2">
+            <div className="down d-flex justify-content-center text-light py-4 border-top border-2 text-center">
                 &copy; 2025 All rights reserved. Reliance Retail Ltd.
             </div>
         </footer>

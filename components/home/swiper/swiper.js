@@ -1,8 +1,8 @@
 'use client'
-import './swiper.css'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/css';
 import Link from 'next/link';
+import './swiper.css'
 function Swiper() {
     return (
     <>
