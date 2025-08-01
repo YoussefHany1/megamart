@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { MarkProvider } from "../context/MarkContext";
 import "./globals.css";
-import 'bootstrap/dist/css/bootstrap.min.css'
+import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 
@@ -23,9 +24,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar />
-        {children}
-        <Footer />
+        <MarkProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </MarkProvider>
       </body>
     </html>
   );

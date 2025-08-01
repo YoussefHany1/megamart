@@ -1,0 +1,4 @@
+.product-image {
+  /* background-color: var(--background1); */
+  outline: 3px solid var(--background1);
+}
