@@ -2,7 +2,7 @@ import ProductList from "../../../components/ProductList/ProductList";
 import categories from "../../../stores/data.json";
 
 async function CategoryPage({ params }) {
-  const { category } = params;
+  const { category } = await params;
   const apiUrl = categories[category] || null;
   return (
     <>

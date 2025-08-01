@@ -1,25 +1,26 @@
-.phones{
-    padding: 0 10%;
-    & img{
-        max-width: 100%;
+.phones {
+  padding: 0 10%;
+  & img {
+    max-width: 100%;
+  }
+  & .sub {
+    color: var(--text);
+  }
+  & tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  & table {
+    & td {
+      color: var(--text);
     }
-    & .sub{
-        color: var(--text);
-    }
-    & tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    & table{
-        & td{
-            color: var(--text);
-        }
-    }
+  }
 }
 @media (min-width: 992px) {
-    .phones img{
-        max-width: 450px;
-    }
-    .phones table td, .phones table th {
-        white-space: nowrap;
-    }
+  .phones img {
+    max-width: 450px;
+  }
+  .phones table td,
+  .phones table th {
+    white-space: nowrap;
+  }
 }

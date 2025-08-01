@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import useFetchProducts from "../../hooks/useFetchProducts";
 import "./productList.css";
@@ -41,9 +42,11 @@ function ProductList({ apiUrl, category, productsPerPage = 25 }) {
                   href={`/product-page/${category}/${product.id}`}
                   className="image w-100 d-flex justify-content-center bg-white position-relative m-auto rounded-top-4"
                 >
-                  <img
+                  <Image
                     src={product.pic}
-                    className="card-img-top p-2"
+                    width={200}
+                    height={200}
+                    className="card-img-top p-3"
                     alt={product.name}
                   />
                 </Link>

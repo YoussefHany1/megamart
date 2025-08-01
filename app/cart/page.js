@@ -10,7 +10,7 @@ function Cart() {
   const clearCart = useCartStore((state) => state.clearCart);
   const increaseQty = useCartStore((state) => state.increaseQty);
   const decreaseQty = useCartStore((state) => state.decreaseQty);
-  console.log(items);
+  // console.log(items);
   return (
     <section className="cart-page">
       {items.length === 0 && (
@@ -20,10 +20,7 @@ function Cart() {
             <br />
             <span className="text-center text-dark fs-4 mb-5">
               Your Shopping Cart lives to serve.
-              <Link
-                href="/"
-                className="text-decorationnone text-primary underline"
-              >
+              <Link href="/" className="text-primary">
                 Continue shopping
               </Link>
             </span>
@@ -34,12 +31,12 @@ function Cart() {
         <div key={item.id} className="py-5 border-bottom border-1 border-gray">
           <div className="d-flex justify-content-between align-items-start">
             <div>
-              <Link
-                href={`/product-page/phones/${item.id}`}
+              <h3
+                // href={`/product-page/phones/${item.id}`}
                 className="product-title fw-bold me-4 text-decoration-none text-dark fs-3"
               >
                 {item.name.substring(0, 100)}..
-              </Link>
+              </h3>
               <p className="fw-medium fs-4 m-0">{item.price}LE</p>
               <p className="fw-medium fs-5 mb-0 mt-1">
                 Quantity: {item.quantity}

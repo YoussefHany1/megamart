@@ -1,6 +1,7 @@
 import axios from "axios";
 import categories from "../../../../stores/data.json";
 import AddToCartButton from "../../../../components/addToCartButton/addToCartButton";
+import Image from "next/image";
 import "./product-page.css";
 
 async function ProductPage({ params }) {
@@ -25,9 +26,11 @@ async function ProductPage({ params }) {
     <div className={`${category} py-5`} id={category}>
       <div className="product d-flex flex-lg-row flex-column justify-content-around pb-5">
         <div className="image pe-lg-5 me-lg-5 m-auto">
-          <img
+          <Image
+            width={400}
+            height={400}
             src={product.pic}
-            className="img-fluid ps-lg-5"
+            className="product-image img-fluid ps-lg-5"
             alt={product.name}
           />
         </div>

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { use, useState } from "react";
+import { useState } from "react";
 import { Nav } from "react-bootstrap";
 import SideNav from "./sideNav/sideNav";
 import SignIn from "./signIn/signIn";
@@ -8,7 +8,6 @@ import { useMark } from "../../context/MarkContext";
 import "./navbar.css";
 
 function Navbar() {
-  console.log(useMark());
   const { showMark } = useMark();
   // for a side nav
   const [show, setShow] = useState(false);
@@ -29,7 +28,7 @@ function Navbar() {
         <div className="welcome d-lg-flex d-none justify-content-between align-items-center py-2">
           <div>Welcome to worldwide Megamart!</div>
           <div className="d-flex">
-            <a
+            <Link
               href="#"
               className="text-decoration-none mx-2 d-flex align-items-center"
             >
@@ -40,8 +39,8 @@ function Navbar() {
                 />
               </svg>
               Deliver to 423651
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="line text-decoration-none px-2 d-flex align-items-center"
             >
@@ -63,8 +62,8 @@ function Navbar() {
                 />{" "}
               </svg>
               Track
-            </a>
-            <a
+            </Link>
+            <Link
               href="#"
               className="text-decoration-none mx-2 d-flex align-items-center"
             >
@@ -76,7 +75,7 @@ function Navbar() {
                 />
               </svg>
               All Offers
-            </a>
+            </Link>
           </div>
         </div>
         <Link
@@ -123,7 +122,8 @@ function Navbar() {
             />
           </div>
           <div className="sign align-items-center d-none d-lg-flex ms-5">
-            <a
+            <Link
+              href="#"
               className="open d-flex fw-bold pe-3 text-decoration-none"
               onClick={handleOpenModal}
             >
@@ -131,9 +131,9 @@ function Navbar() {
                 <path d="M15.71 12.71a6 6 0 1 0-7.42 0 10 10 0 0 0-6.22 8.18 1 1 0 0 0 2 .22 8 8 0 0 1 15.9 0 1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1 10 10 0 0 0-6.25-8.19M12 12a4 4 0 1 1 4-4 4 4 0 0 1-4 4" />
               </svg>
               Sign In/Sign Up
-            </a>
+            </Link>
             <SignIn show={showModal} handleClose={handleCloseModal} />
-            <a
+            <Link
               className="cart d-flex fw-bold ps-3 text-decoration-none"
               href="/cart"
               data-bs-toggle="modal"
@@ -155,7 +155,7 @@ function Navbar() {
                 />
               </svg>
               Cart
-            </a>
+            </Link>
             {showMark && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
