@@ -2,3 +2,8 @@
   /* background-color: var(--background1); */
   outline: 3px solid var(--background1);
 }
+@media (max-width: 576px) {
+  .product-title {
+    font-size: 1.3rem !important;
+  }
+}
