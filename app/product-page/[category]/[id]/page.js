@@ -1,125 +1,254 @@
 import axios from "axios";
+import Image from "next/image";
+// import { notFound } from "next/navigation";
 import categories from "../../../../stores/data.json";
 import AddToCartButton from "../../../../components/addToCartButton/addToCartButton";
-import Image from "next/image";
-import "./product-page.css";
 
-async function ProductPage({ params }) {
-  const { id, category } = await params;
+// Utility Functions
+const formatPrice = (price) => {
+  if (!price) return "N/A";
+  return price.replace(/[.]/, "");
+};
+
+const extractNumber = (str) => {
+  if (!str) return "";
+  return Number(str.replace(/[^0-9.]/g, ""));
+};
+
+const capitalizeFirstLetter = (str) => {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
+
+// Fetch product data
+async function getProduct(category, id) {
   const url = categories[category];
-  let product;
+
+  if (!url) {
+    return null;
+  }
+
   try {
     const res = await axios.get(url);
     const products = res.data.products;
-    product = products.find((p) => p.id == id);
+    return products.find((p) => p.id == id);
   } catch (error) {
     console.error("Error fetching product data:", error);
+    return null;
   }
+}
 
+// Product Image Component
+const ProductImage = ({ product }) => (
+  <div className="image lg:pr-5 lg:mr-5 mx-auto">
+    <Image
+      width={400}
+      height={400}
+      src={product.pic}
+      className="product-image max-w-full h-auto p-5 lg:p-0 min-w-42"
+      alt={product.name}
+      priority
+      quality={90}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+    />
+  </div>
+);
+
+// Product Header Component
+const ProductHeader = ({ product }) => {
+  const brandName = product.specifications?.[0]?.pecifications
+    ? capitalizeFirstLetter(product.specifications[0].pecifications)
+    : "Unknown";
+
+  return (
+    <header className="header border-b border-(--border)">
+      <h1 className="font-extrabold text-black text-2xl md:text-3xl">
+        {product.name}
+      </h1>
+      <div className="brand mb-3">
+        Brand: <span className="text-(--primary)">{brandName}</span>
+      </div>
+    </header>
+  );
+};
+
+// Product Rating Component
+const ProductRating = ({ rating }) => {
+  if (!rating) return null;
+
+  return (
+    <div className="save my-2 font-semibold text-green-600">
+      <strong>{rating}</strong> out of 5 stars
+    </div>
+  );
+};
+
+// Product Price Component
+const ProductPrice = ({ product }) => {
+  const currentPrice = formatPrice(product.price);
+  const oldPrice = extractNumber(product.old_price);
+
+  return (
+    <div className="price-section my-3">
+      {product.discount && (
+        <span className="mr-3 px-2 py-1 text-sm bg-red-600 text-white rounded">
+          {product.discount}
+        </span>
+      )}
+      <span className="mr-3 text-2xl font-bold">{currentPrice} LE</span>
+      {oldPrice && <del className="text-gray-500 text-lg">{oldPrice} LE</del>}
+    </div>
+  );
+};
+
+// Product About Component
+const ProductAbout = ({ about }) => {
+  if (!about || about.length === 0) return null;
+
+  return (
+    <div className="about py-3">
+      <h2 className="font-bold text-xl">About this item:</h2>
+      <ul>
+        {about.map((item, index) => (
+          <li className="about py-1" key={index}>
+            • {item.item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+// Product Actions Component
+const ProductActions = ({ product }) => (
+  <div className="buttons mx-auto w-full flex lg:flex-row flex-col">
+    <button
+      type="button"
+      className="w-full lg:mx-3 lg:mb-0 mb-3 whitespace-nowrap px-6 py-3 rounded-md bg-[var(--primary)] text-white hover:bg-[#0279ac] transition"
+      aria-label={`Buy ${product.name} now`}
+    >
+      Buy Now
+    </button>
+    <AddToCartButton product={product} />
+  </div>
+);
+
+// Technical Details Component
+const TechnicalDetails = ({ specifications, details }) => {
+  const hasData =
+    (specifications && specifications.length > 0) ||
+    (details && details.length > 0);
+
+  if (!hasData) return null;
+
+  return (
+    <div className="technical-details">
+      <h2 id="technical-details" className="font-bold text-xl text-black mb-4">
+        Technical Details:
+      </h2>
+      <table className="w-full">
+        <tbody>
+          {specifications?.map((item, index) => (
+            <tr
+              key={`spec-${index}`}
+              className={index % 2 === 1 ? "bg-gray-100" : ""}
+            >
+              <th
+                className="py-2 px-3 font-semibold text-black text-start lg:text-nowrap"
+                scope="row"
+              >
+                {item.name}
+              </th>
+              <td className="py-2 px-3 text-(--text) lg:text-nowrap">
+                {item.pecifications}
+              </td>
+            </tr>
+          ))}
+          {details?.map((item, index) => (
+            <tr
+              key={`detail-${index}`}
+              className={index % 2 === 1 ? "bg-gray-100" : ""}
+            >
+              <th
+                className="py-2 px-3 font-semibold text-black text-start lg:text-nowrap"
+                scope="row"
+              >
+                {item.th}
+              </th>
+              <td className="py-2 px-3 text-(--text) lg:text-nowrap">
+                {item.td}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+// Product Description Component
+const ProductDescription = ({ desc }) => {
+  if (!desc) return null;
+
+  return (
+    <div className="desc lg:ml-12">
+      <h3 className="font-bold text-black text-xl mb-4">Description:</h3>
+      <p className="text-gray-500">{desc}</p>
+    </div>
+  );
+};
+
+// Error State Component
+const ProductNotFound = () => (
+  <div className="container my-5 text-center">
+    <div
+      className="bg-red-100 text-red-700 border border-red-300 rounded p-4"
+      role="alert"
+    >
+      <h2 className="text-2xl font-bold">Product Not Found</h2>
+      <p className="mb-0">
+        The product you're looking for doesn't exist or has been removed.
+      </p>
+    </div>
+  </div>
+);
+
+// Main Product Page Component
+async function ProductPage({ params }) {
+  const { id, category } = await params;
+  const product = await getProduct(category, id);
+
+  // Handle product not found
   if (!product) {
-    return (
-      <p className="text-danger text-center my-5 fs-3">Product not found</p>
-    );
+    return <ProductNotFound />;
   }
 
   return (
-    <div className={`${category} py-5`} id={category}>
-      <div className="product d-flex flex-lg-row flex-column justify-content-around pb-5">
-        <div className="image pe-lg-5 me-lg-5 m-auto">
-          <Image
-            width={400}
-            height={400}
-            src={product.pic}
-            className="product-image img-fluid ps-lg-5"
-            alt={product.name}
+    <main className={`${category} py-5`} id={category}>
+      {/* Product Overview Section */}
+      <article className="product flex lg:flex-row flex-col justify-around pb-5">
+        <ProductImage product={product} />
+
+        <div className="text pt-4 lg:mx-5 lg:pb-3 flex flex-col">
+          <ProductHeader product={product} />
+          <ProductRating rating={product.rating} />
+          <ProductPrice product={product} />
+          <ProductAbout about={product.about} />
+          <ProductActions product={product} />
+        </div>
+      </article>
+
+      {/* Technical Details Section */}
+      <section className="header pt-5" aria-labelledby="technical-details">
+        <div className="details lg:flex block">
+          <TechnicalDetails
+            specifications={product.specifications}
+            details={product.details}
           />
+          <ProductDescription desc={product.desc} />
         </div>
-        <div className="text pt-4 mx-lg-5 pb-lg-3 d-flex flex-column ">
-          <div className="header border-bottom">
-            <h2 className="fw-bolder text-black">{product.name}</h2>
-            <div className="brand mb-3">
-              Brand:{" "}
-              <span className="text-primary">
-                {product.specifications[0].pecifications
-                  .charAt(0)
-                  .toUpperCase() +
-                  product.specifications[0].pecifications
-                    .slice(1)
-                    .toLowerCase()}
-              </span>
-            </div>
-          </div>
-          <div className="save my-2 fw-semibold text-success">
-            <b>{product.rating}</b> out of 5 stars
-          </div>
-          <p>
-            <span className="me-3 p-2 fs-5 text-bg-danger badge ">
-              {product.discount}
-            </span>
-            <span className="me-3 fs-3 fw-bold">
-              {product.price ? product.price.replace(/[.]/, "") : "N/A"} LE
-            </span>
-            <del className="text-muted fs-5">
-              {product.old_price
-                ? Number(product.old_price.replace(/[^0-9.]/g, ""))
-                : ""}{" "}
-              LE
-            </del>
-          </p>
-          <div className="about py-3">
-            <h4 className="fw-bold">About this item:</h4>
-            {product.about &&
-              product.about.map((item, index) => (
-                <li className="about py-1" key={index}>
-                  {item.item}
-                </li>
-              ))}
-          </div>
-          <div className="buttons mx-auto w-100 d-flex flex-lg-row flex-column">
-            <button
-              type="button"
-              className="btn btn-primary btn-lg w-100 mx-lg-3 mb-lg-0 mb-3 text-nowrap"
-            >
-              Buy Now
-            </button>
-            <AddToCartButton product={product} />
-          </div>
-        </div>
-      </div>
-      <div className="header pt-5">
-        <span className="fw-bold fs-4 text-black">Technical Details:</span>
-        <div className="details d-xxl-flex d-block">
-          <table className="d-flex justify-content-center w-100 p-3">
-            <tbody className="">
-              {product.specifications &&
-                product.specifications.map((item, index) => (
-                  <tr key={index}>
-                    <th className="w-100 py-1 px-4 fw-semibold text-black">
-                      {item.name}
-                    </th>
-                    <td className="w-100 py-1 px-5">{item.pecifications}</td>
-                  </tr>
-                ))}
-              {product.details &&
-                product.details.map((item, index) => (
-                  <tr key={index}>
-                    <th className="w-100 py-1 px-4 fw-semibold text-black">
-                      {item.th}
-                    </th>
-                    <td className="w-100 py-1 px-5">{item.td}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-          {product.desc && (
-            <div className="desc ms-xxl-5">
-              <h4 className="fw-bold text-black">Description:</h4>
-              <p>{product.desc}</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 

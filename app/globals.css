@@ -1,73 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   font-family: "Hanken Grotesk";
-  margin: 0;
-  padding: 0;
+  /* margin: 0; */
+  /* padding: 0; */
 }
-:root{
-  --primary: #008ECC;
+:root {
+  --primary: #008ecc;
+  --secondary: #666666;
   --text: #666666;
   --heading: #222222;
   --light: #888888;
-  --border: #EDEDED;
+  --border: #ededed;
   --background1: #f5f5f5;
-  --background2: #F6F6FC;
-  --background3: #F3F9FB;
-  --yellow: #E3BC01;
-  --line: #D9D9D9;
-
-  /* bootstrap colors override */
-
-  --bs-primary: #008ECC ! important;
-  --bs-primary-rgb: 0, 142, 204 !important;
-
-  --bs-secondary: #666666 ! important;
-  --bs-secondary-rgb: 102, 102, 102 !important;
+  --background2: #f6f6fc;
+  --background3: #f3f9fb;
+  --yellow: #e3bc01;
+  --line: #d9d9d9;
 }
-.text-heading{
+.text-heading {
   color: var(--heading);
-}
-.btn-primary {
-  --bs-btn-bg: var(--primary) !important;
-  --bs-btn-border-color: var(--primary) !important;
-  --bs-btn-hover-bg: #0279ac !important;
-  --bs-btn-hover-border-color: var(--primary) !important;
-  --bs-btn-active-bg: #005174 !important;
-  --bs-btn-active-border-color: #003247 !important;
-  --bs-btn-disabled-bg: var(--primary) !important;
-  --bs-btn-disabled-border-color: var(--primary) !important;
-}
-.btn-outline-primary {
-  --bs-btn-color: var(--primary) !important;
-  --bs-btn-border-color: var(--primary) !important;
-  --bs-btn-hover-bg: var(--primary) !important;
-  --bs-btn-hover-border-color: var(--primary) !important;
-  --bs-btn-active-bg: var(--primary) !important;
-  --bs-btn-active-border-color: var(--primary) !important;
-  --bs-btn-disabled-color: var(--primary) !important;
-  --bs-btn-disabled-border-color: var(--primary) !important;
 }
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--primary); 
+  background: var(--primary);
 }
-svg{
-  color: var(--primary);
+svg {
   width: 1em;
   height: 1em;
   font-size: 2cap;
 }
-body > section, body > footer, header{
+.splide svg {
+  fill: var(--primary) !important;
+}
+body {
   padding: 0 10%;
 }
-@media (max-width: 576px) {
-  .contactUs, .contactUs .down{
-    text-align: center;
-  }
-  
+.splide__arrow {
+  background: transparent !important;
+}
+.smartPhones .splide__track {
+  width: 80% !important;
+}
+.smartPhones .splide__list {
+  margin: 1rem !important;
 }

@@ -1,5 +1,4 @@
 {
-  "homepage": "https://YoussefHany1.github.io/megamart",
   "name": "megamart",
   "version": "0.1.0",
   "private": true,
@@ -7,21 +6,24 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "export": "next export",
-    "deploy": "next build && next export"
-  },
+    "lint": "eslint"
+  }, 
   "dependencies": {
-    "@splidejs/react-splide": "^0.7.12",
+        "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide": "^4.1.4",
     "@splidejs/splide-extension-auto-scroll": "^0.5.3",
-    "axios": "^1.8.4",
-    "bootstrap": "^5.3.5",
-    "next": "^15.2.3",
-    "react": "^19.1.0",
-    "react-bootstrap": "^2.10.9",
-    "react-dom": "^19.1.0",
-    "splide-nextjs": "^2.4.23",
+        "axios": "^1.8.4",
+    "next": "16.1.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+        "splide-nextjs": "^2.4.23",
     "zustand": "^5.0.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.1",
+    "tailwindcss": "^4"
   }
 }

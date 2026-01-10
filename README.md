@@ -32,10 +32,10 @@ MegaMart aims to be a clean, high‑performance online storefront. Leveraging Ne
 
 ## Features
 
-- **Home page** with featured products carousel (Swiper)
+- **Home page** with featured products carousel (Splide.js)
 - **Category pages** (`/product-page/[category]`) generated via dynamic routing
 - **Product detail pages** (`/product-page/[category]/[id]`)
-- **Shopping cart** with add/remove and quantity controls
+- **Shopping cart (Coming Soon)** with add/remove and quantity controls
 - **Responsive design** optimized for mobile and desktop
 - **Global styles** and component‑level CSS modules
 - **Client‑side data fetching** from local `stores/data.json`
@@ -173,6 +173,6 @@ Be sure to follow the existing code style and include appropriate tests when add
 👤 **Youssef Hany**
 
 - GitHub: [@YoussefHany1](https://github.com/YoussefHany1)
-- Email: youremail@example.com
+- Email: youssefhany.2005.yh@gmail.com
 
 Feel free to open issues or reach out if you need any help!

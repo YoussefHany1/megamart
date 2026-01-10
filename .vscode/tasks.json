@@ -1,0 +1,10 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Patch swiper classes",
+			"type": "shell",
+			"command": "echo Patching swiper.js to Tailwind classes"
+		}
+	]
+}

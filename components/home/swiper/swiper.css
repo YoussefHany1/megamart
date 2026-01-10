@@ -1,16 +1,17 @@
-.slideshow {
-    & .splide__pagination__page.is-active {
-        background: var(--primary) ! important;
-        opacity: 1 ! important;
-    }
-    & .splide__pagination__page {
-        background: var(--primary) ! important;
-    }
-    & .splide__slide, .splide__track{
-        min-width: 400px;
-        text-align: center;
-    }
-    & .splide{
-        min-width: 400px;
-    }
-}
+/* .slideshow {
+  & .splide__pagination__page.is-active {
+    background: var(--primary) !important;
+    opacity: 1 !important;
+  }
+  & .splide__pagination__page {
+    background: var(--primary) !important;
+  }
+  & .splide__slide,
+  .splide__track {
+    min-width: 400px;
+    text-align: center;
+  }
+  & .splide {
+    min-width: 400px;
+  }
+} */

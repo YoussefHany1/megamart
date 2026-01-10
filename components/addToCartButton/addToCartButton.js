@@ -10,7 +10,7 @@ export default function ButtonComponent({ product }) {
   return (
     <button
       type="button"
-      className="btn btn-outline-primary btn-lg w-100 mx-lg-3 text-nowrap"
+      className="w-full lg:mx-3 whitespace-nowrap px-6 py-3 border rounded-md border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--primary)] hover:text-white transition"
       // onClick={() => setShowMark(true)}
       onClick={() => addItem(product)}
     >

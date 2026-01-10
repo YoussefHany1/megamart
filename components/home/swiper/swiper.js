@@ -1,62 +1,102 @@
 "use client";
+
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import Link from "next/link";
 import Image from "next/image";
+import "@splidejs/react-splide/css";
 import "./swiper.css";
+// Slider configuration
+const SPLIDE_OPTIONS = {
+  rewind: true,
+  perPage: 1,
+  autoplay: true,
+  type: "slide",
+  interval: 3000,
+  pauseOnHover: true,
+  pauseOnFocus: true,
+  arrows: true,
+  pagination: true,
+  speed: 800,
+  gap: "1rem",
+};
+
+// Slides data
+const SLIDES = [
+  {
+    id: "smartphones",
+    href: "/phones",
+    imageSrc: "/swiper/Untitled-2.webp",
+    imageAlt: "Latest SmartPhones Collection - Discover amazing deals",
+    title: "SmartPhones",
+  },
+  {
+    id: "smartwatch",
+    href: "/wearables",
+    imageSrc: "/swiper/Untitled-1.webp",
+    imageAlt: "Premium SmartWatch Collection - Shop now",
+    title: "SmartWatch",
+  },
+  {
+    id: "cosmetics",
+    href: "/cosmetics",
+    imageSrc: "/swiper/Untitled-3.webp",
+    imageAlt: "Beauty & Cosmetics Products - Explore our range",
+    title: "Cosmetics",
+  },
+  {
+    id: "electronics",
+    href: "/electronics",
+    imageSrc: "/swiper/Untitled-4.webp",
+    imageAlt: "Electronics & Gadgets - Browse latest tech",
+    title: "Electronics",
+  },
+];
+
+// Slide Component
+const SlideItem = ({ slide }) => {
+  const { id, href, imageSrc, imageAlt, title } = slide;
+
+  return (
+    <SplideSlide key={id}>
+      <Link
+        href={href}
+        className="rounded-xl block"
+        aria-label={`View ${title} collection`}
+      >
+        <Image
+          width={1201}
+          height={316}
+          src={imageSrc}
+          alt={imageAlt}
+          className="rounded-xl w-fit h-auto justify-self-center"
+          priority={id === "smartphones"} // First slide loads with priority
+          loading={id === "smartphones" ? "eager" : "lazy"}
+          quality={85}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+        />
+      </Link>
+    </SplideSlide>
+  );
+};
+
+// Main Swiper Component
 function Swiper() {
   return (
-    <>
-      <header className="slideshow d-flex justify-content-center align-items-center my-5 rounded-4 overflow-hidden">
-        <Splide
-          options={{ rewind: true, perPage: 1, autoplay: true, type: "slide" }}
-        >
-          <SplideSlide>
-            <Link href="/phones" className="rounded-4">
-              <Image
-                width={1200}
-                height={300}
-                src="swiper/Untitled-2.webp"
-                className="rounded-4 img-fluid"
-                alt="SmartPhones"
-              />
-            </Link>
-          </SplideSlide>
-          <SplideSlide>
-            <Link href="/wearables" className="rounded-4">
-              <Image
-                width={1200}
-                height={300}
-                src="swiper/Untitled-1.webp"
-                className="rounded-4 img-fluid"
-                alt="SmartWatch"
-              />
-            </Link>
-          </SplideSlide>
-          <SplideSlide>
-            <Link href="#!" className="rounded-4">
-              <Image
-                width={1200}
-                height={300}
-                src="swiper/Untitled-3.webp"
-                className="rounded-4 img-fluid"
-                alt="Cosmetics"
-              />
-            </Link>
-          </SplideSlide>
-          <SplideSlide>
-            <Link href="#!" className="rounded-4">
-              <Image
-                width={1200}
-                height={300}
-                src="swiper/Untitled-4.webp"
-                className="rounded-4 img-fluid"
-                alt="Electronics"
-              />
-            </Link>
-          </SplideSlide>
-        </Splide>
-      </header>
-    </>
+    <section
+      className="slideshow flex justify-center mb-24 rounded-xl mt-8 mx-[-12.5%] md:mx-0"
+      aria-label="Featured products carousel"
+    >
+      <Splide
+        options={SPLIDE_OPTIONS}
+        aria-label="Product promotions slider"
+        className="w-fit min-w-2xs"
+      >
+        {SLIDES.map((slide) => (
+          <SlideItem key={slide.id} slide={slide} />
+        ))}
+      </Splide>
+    </section>
   );
 }
+
 export default Swiper;

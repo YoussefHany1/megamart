@@ -1,128 +1,220 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import useFetchProducts from "../../hooks/useFetchProducts";
-import "./productList.css";
 
-function ProductList({ apiUrl, category, productsPerPage = 25 }) {
+const PRODUCTS_PER_PAGE = 25;
+const MAX_NAME_LENGTH = 50;
+
+// Product Card Component
+const ProductCard = ({ product, category }) => {
+  const truncatedName = useMemo(() => {
+    if (product.name.length > MAX_NAME_LENGTH) {
+      return `${product.name.substring(0, MAX_NAME_LENGTH)}...`;
+    }
+    return product.name;
+  }, [product.name]);
+
+  const hasDiscount = product.discount;
+  const discountValue = hasDiscount
+    ? Number(product.discount.replace(/[^0-9.]/g, ""))
+    : 0;
+
+  const formatPrice = (price) => {
+    return price ? price.replace(/[.]/, "LE") : "N/A";
+  };
+
+  const formatOldPrice = (oldPrice) => {
+    return `${Number(oldPrice.replace(/[^0-9.]/g, ""))}LE`;
+  };
+
+  const renderRating = (rating) => {
+    const numericRating = Number(rating);
+    if (isNaN(numericRating)) {
+      return <span>N/A</span>;
+    }
+    return (
+      <span>
+        <b>{rating}</b> out of 5 stars
+      </span>
+    );
+  };
+
+  return (
+    <div className="product border-0 rounded-xl shrink m-5 max-w-70 pb-3 bg-(--background1) outline-2 outline-(--background1) hover:outline-(--primary) duration-300">
+      <Link
+        href={`/product-page/${category}/${product.id}`}
+        className="image w-full flex h-52 justify-center bg-white relative mx-auto rounded-t-xl"
+        aria-label={`View details for ${product.name}`}
+      >
+        <Image
+          src={product.pic}
+          width={200}
+          height={200}
+          className="p-3 object-contain"
+          alt={product.name}
+          loading="lazy"
+          quality={85}
+        />
+        {/* Discount Badge */}
+        {hasDiscount && (
+          <div
+            className="text-center text-white font-bold py-2 absolute text-sm w-12 bg-(--primary) top-0 right-0 rounded-bl-xl rounded-tr-xl leading-tight"
+            aria-label={`${discountValue}% discount`}
+          >
+            {discountValue}%
+            <br />
+            OFF
+          </div>
+        )}
+      </Link>
+
+      <div className="text leading-tight p-5 pb-0">
+        {/* Product Name */}
+        <div>
+          <Link
+            href={`/product-page/${category}/${product.id}`}
+            className="font-semibold text-(--heading)"
+            title={product.name}
+          >
+            {truncatedName}
+          </Link>
+        </div>
+        {/* Price Section */}
+        <div className="mt-3">
+          <p>
+            <span className="mr-3 font-bold text-lg">
+              {formatPrice(product.price)}
+            </span>
+            {product.old_price && (
+              <del className="text-gray-500">
+                {formatOldPrice(product.old_price)} LE
+              </del>
+            )}
+          </p>
+        </div>
+        <hr className="my-2" />
+        {/* Rating */}
+        {product.rating && (
+          <div className="rate font-semibold text-green-600">
+            {renderRating(product.rating)}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Pagination Component
+const Pagination = ({ currentPage, totalPages, onNext, onPrev }) => {
+  return (
+    <div className="pagination flex justify-center mb-5">
+      <button
+        className="px-4 py-2 border rounded-md text-(--primary) border-(--primary) hover:bg-(--primary) hover:text-white transition mr-2"
+        onClick={onPrev}
+        disabled={currentPage === 1}
+        aria-label="Previous page"
+      >
+        Previous
+      </button>
+      <span className="self-center px-2">
+        Page {currentPage} of {totalPages}
+      </span>
+      <button
+        className="px-4 py-2 border rounded-md text-(--primary) border-(--primary) hover:bg-(--primary) hover:text-white transition ml-2"
+        onClick={onNext}
+        disabled={currentPage === totalPages}
+        aria-label="Next page"
+      >
+        Next
+      </button>
+    </div>
+  );
+};
+
+// Error Message Component
+const ErrorMessage = ({ message }) => (
+  <p className="text-red-600 text-4xl font-bold text-center" role="alert">
+    {message}
+  </p>
+);
+
+// Main ProductList Component
+function ProductList({
+  apiUrl,
+  category,
+  productsPerPage = PRODUCTS_PER_PAGE,
+}) {
   const { items: products, error } = useFetchProducts(apiUrl, category);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(products.length / productsPerPage);
-  const start = (currentPage - 1) * productsPerPage;
-  const currentProducts = products.slice(start, start + productsPerPage);
+  // Filter valid products
+  const validProducts = useMemo(
+    () => products.filter((product) => product.name && product.pic),
+    [products]
+  );
 
-  const next = () =>
-    currentPage < totalPages && setCurrentPage(currentPage + 1);
-  const prev = () => currentPage > 1 && setCurrentPage(currentPage - 1);
+  // Calculate pagination
+  const totalPages = Math.ceil(validProducts.length / productsPerPage);
 
+  const currentProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * productsPerPage;
+    return validProducts.slice(startIndex, startIndex + productsPerPage);
+  }, [validProducts, currentPage, productsPerPage]);
+
+  // Navigation handlers
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  // Error state
   if (error) {
     return (
-      <p className="text-danger fs-1 fw-bold text-center">
-        there was an error, try again later
+      <ErrorMessage message="There was an error. Please try again later." />
+    );
+  }
+
+  // Empty state
+  if (validProducts.length === 0) {
+    return (
+      <p className="text-center text-xl mt-5">
+        No products available at the moment.
       </p>
     );
   }
+
   return (
     <>
       <div
-        className="products d-flex flex-wrap align-items-center justify-content-center mt-5 pb-5"
+        className="products flex flex-wrap items-center justify-center mt-5 pb-5"
         id="phones"
       >
-        {currentProducts.map(
-          (product) =>
-            product.name &&
-            product.pic && (
-              <div
-                key={product.id}
-                className="product card border-0 m-3 rounded-4 flex-shrink-1"
-              >
-                <Link
-                  href={`/product-page/${category}/${product.id}`}
-                  className="image w-100 d-flex justify-content-center bg-white position-relative m-auto rounded-top-4"
-                >
-                  <Image
-                    src={product.pic}
-                    width={200}
-                    height={200}
-                    className="card-img-top p-3"
-                    alt={product.name}
-                  />
-                </Link>
-                <div className="text card-body lh-1 m-auto">
-                  <div className="h">
-                    <Link
-                      href={`/product-page/${category}/${product.id}`}
-                      className="name text-decoration-none text-heading fw-semibold"
-                    >
-                      {product.name.substring(0, 30)}..
-                    </Link>
-                  </div>
-                  <br />
-                  <p className="price m-0">
-                    {" "}
-                    {product.price ? (
-                      <b className="me-3">
-                        {product.price.replace(/[.]/, "LE")}
-                      </b>
-                    ) : (
-                      <b>N/A</b>
-                    )}
-                    {product.old_price && (
-                      <del className="oldPrice">
-                        {Number(product.old_price.replace(/[^0-9.]/g, ""))}LE
-                      </del>
-                    )}
-                  </p>
-                  <hr className="my-2" />
-                  {/* {product.rating && (<div className="rate fw-semibold text-success"><b>{Number(product.rating)}</b> out of 5 stars</div>)} */}
-                  {product.rating && (
-                    <div className="rate fw-semibold text-success">
-                      {Number(product.rating) !== NaN ? (
-                        <span>
-                          <b>{product.rating}</b> out of 5 stars
-                        </span>
-                      ) : (
-                        <span>N/A</span>
-                      )}
-                    </div>
-                  )}
-                  <div>
-                    {product.discount && (
-                      <div className="discount text-center align-content-center text-white fw-bold py-2 position-absolute">
-                        {Number(product.discount.replace(/[^0-9.]/g, ""))}%{" "}
-                        <br />
-                        OFF
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )
-        )}
+        {currentProducts.map((product) => (
+          <ProductCard key={product.id} product={product} category={category} />
+        ))}
       </div>
 
-      <div className="pagination d-flex justify-content-center mb-5">
-        <button
-          className="btn btn-outline-primary me-2"
-          onClick={prev}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span className="align-self-center px-2">
-          page {currentPage} from {totalPages}
-        </span>
-        <button
-          className="btn btn-outline-primary ms-2"
-          onClick={next}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onNext={handleNext}
+          onPrev={handlePrev}
+        />
+      )}
     </>
   );
 }
+
 export default ProductList;

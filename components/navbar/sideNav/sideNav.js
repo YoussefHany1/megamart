@@ -1,47 +1,254 @@
-import { NavDropdown, Dropdown, Nav, Offcanvas } from 'react-bootstrap';
-import Link from 'next/link'
-import './sideNav.css'
+import Link from "next/link";
+import { useState, useEffect, useCallback } from "react";
+
+// Navigation items configuration
+const NAV_ITEMS = [
+  { id: "account", label: "Your Account", href: "/account" },
+  { id: "cart", label: "Your Cart", href: "/cart" },
+  { id: "wishlist", label: "Wishlist", href: "/wishlist" },
+  { id: "orders", label: "Orders", href: "/orders" },
+  { id: "payments", label: "Payments", href: "/payments" },
+  { id: "help", label: "Help", href: "/help" },
+  { id: "contact", label: "Contact Us", href: "/contact" },
+];
+
+// Categories configuration
+const CATEGORIES = [
+  { id: "phones", label: "Mobiles & Accessories", href: "/phones" },
+  { id: "computers", label: "Computers & Accessories", href: "/computers" },
+  { id: "wearables", label: "Wearables", href: "/wearables" },
+  { id: "video-games", label: "Video Games", href: "/video-games" },
+  { id: "television", label: "Television & Video", href: "/television" },
+  { id: "camera", label: "Camera & Photo", href: "/camera" },
+  { id: "tablets", label: "Tablets & Accessories", href: "/tablets" },
+];
+
+/**
+ * CloseIcon Component
+ */
+const CloseIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-8 w-8"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    aria-hidden="true"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+);
+
+/**
+ * ChevronIcon Component
+ */
+const ChevronIcon = ({ isOpen }) => (
+  <svg
+    className={`h-5 w-5 transition-transform duration-200 ${
+      isOpen ? "rotate-180" : ""
+    }`}
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    aria-hidden="true"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 9l-7 7-7-7"
+    />
+  </svg>
+);
+
+/**
+ * NavItem Component
+ */
+const NavItem = ({ label, href, onClick }) => (
+  <li>
+    <Link
+      href={href}
+      onClick={onClick}
+      className="block py-2 text-white transition-colors duration-200 hover:text-gray-200"
+    >
+      {label}
+    </Link>
+  </li>
+);
+
+/**
+ * CategoryDropdown Component
+ */
+const CategoryDropdown = ({ isOpen, onToggle, onCategoryClick }) => (
+  <li className="block md:hidden">
+    <hr className="mb-2 border-white/30" />
+    <button
+      onClick={onToggle}
+      className="flex w-full items-center justify-between py-2 text-white transition-colors duration-300 hover:text-gray-200"
+      aria-expanded={isOpen}
+      aria-controls="categories-dropdown"
+    >
+      <span>Categories</span>
+      <ChevronIcon isOpen={isOpen} />
+    </button>
+
+    <div
+      id="categories-dropdown"
+      className={`ml-4 flex flex-col space-y-2 border-l-2 border-white/20 pl-4 text-lg transition-all duration-300 ${
+        isOpen
+          ? "mt-2 max-h-96 opacity-100"
+          : "max-h-0 overflow-hidden opacity-0"
+      }`}
+      role="region"
+      aria-label="Product categories"
+    >
+      {CATEGORIES.map((category) => (
+        <Link
+          key={category.id}
+          href={category.href}
+          onClick={onCategoryClick}
+          className="block py-1 text-white/90 transition-colors duration-200 hover:text-white"
+        >
+          {category.label}
+        </Link>
+      ))}
+    </div>
+  </li>
+);
+
+/**
+ * SideNav Component
+ * A responsive side navigation drawer with overlay
+ */
 const SideNav = ({ show, handleClose }) => {
-    return (
-        <>
-            <Offcanvas show={show} onHide={handleClose} className='bg-primary'>
-                <Offcanvas.Header closeButton className='pe-4'>
-                <Offcanvas.Title><Link href="/" className='text-decoration-none text-white fw-bold fs-1'>MegaMart</Link></Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                <Nav as="ul" className='flex-column fs-4 fw-semibold' aria-labelledby="offcanvasNavbar">
-                        <Nav.Item as="li"><Nav.Link href="#" className="text-white">Your Account</Nav.Link></Nav.Item>
-                        <hr />
-                        <Nav.Item as="li"><Nav.Link href="#" className="text-white">Your Cart</Nav.Link></Nav.Item>
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-                        {/* "Categories" appear only on small screens, when it disappears on nav bar */}
-                        <Nav.Item as="li" className="dropdown d-block d-md-none">
-                            <hr />
-                            <NavDropdown title="Categories" className='text-white'>
-                                <Dropdown.Item href="/phones">Mobiles & Accessories</Dropdown.Item>
-                                <Dropdown.Item href="/computers">Computers & Accessories</Dropdown.Item>
-                                <Dropdown.Item href="/wearables">Wearables</Dropdown.Item>
-                                <Dropdown.Item href="/video-games">Video Games</Dropdown.Item>
-                                <Dropdown.Item href="/television">Television & Video</Dropdown.Item>
-                                <Dropdown.Item href="/camera">Camera & Photo</Dropdown.Item>
-                                <Dropdown.Item href="/tablets">Tablets & Accessories</Dropdown.Item>
-                            </NavDropdown>
-                        </Nav.Item>
+  // Close dropdown when sidenav closes
+  useEffect(() => {
+    if (!show) {
+      setIsDropdownOpen(false);
+    }
+  }, [show]);
 
-                        <hr />
-                        <Nav.Item as="li"><Nav.Link href="#" className='text-white'>Wishlist</Nav.Link></Nav.Item>
-                        <hr />
-                        <Nav.Item as="li"><Nav.Link href="#" className='text-white'>Orders</Nav.Link></Nav.Item>
-                        <hr />
-                        <Nav.Item as="li"><Nav.Link href="#" className='text-white'>Payments</Nav.Link></Nav.Item>
-                        <hr />
-                        <Nav.Item as="li"><Nav.Link href="#" className='text-white'>Help</Nav.Link></Nav.Item>
-                        <hr />
-                        <Nav.Item as="li"><Nav.Link href="#" className='text-white'>Contact Us</Nav.Link></Nav.Item>
-                    </Nav>
-                </Offcanvas.Body>
-            </Offcanvas>
-        </>
-    );
-}
-export default SideNav
+  // Handle ESC key press to close
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape" && show) {
+        handleClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [show, handleClose]);
+
+  // Prevent body scroll when sidenav is open
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [show]);
+
+  const toggleDropdown = useCallback(() => {
+    setIsDropdownOpen((prev) => !prev);
+  }, []);
+
+  const handleNavClick = useCallback(() => {
+    handleClose();
+  }, [handleClose]);
+
+  return (
+    <>
+      {/* Overlay */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
+          show ? "visible opacity-100" : "invisible opacity-0"
+        }`}
+        onClick={handleClose}
+        aria-hidden="true"
+      />
+
+      {/* Side Navigation */}
+      <aside
+        className={`fixed left-0 top-0 z-50 h-full w-80 bg-[var(--primary)] text-white shadow-xl transition-transform duration-300 ease-in-out ${
+          show ? "translate-x-0" : "-translate-x-full"
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Side navigation"
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4">
+          <h2 className="text-4xl font-bold">
+            <Link href="/" onClick={handleNavClick} className="text-white">
+              MegaMart
+            </Link>
+          </h2>
+
+          {/* Close Button */}
+          <button
+            onClick={handleClose}
+            className="text-white transition-colors duration-200 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+            aria-label="Close navigation"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+
+        {/* Navigation Body */}
+        <nav className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-2">
+          <ul className="flex flex-col space-y-2 text-xl font-semibold">
+            {/* Account */}
+            <NavItem
+              label={NAV_ITEMS[0].label}
+              href={NAV_ITEMS[0].href}
+              onClick={handleNavClick}
+            />
+            <hr className="border-white/30" />
+
+            {/* Cart */}
+            <NavItem
+              label={NAV_ITEMS[1].label}
+              href={NAV_ITEMS[1].href}
+              onClick={handleNavClick}
+            />
+
+            {/* Categories Dropdown (Mobile Only) */}
+            <CategoryDropdown
+              isOpen={isDropdownOpen}
+              onToggle={toggleDropdown}
+              onCategoryClick={handleNavClick}
+            />
+
+            <hr className="border-white/30" />
+
+            {/* Remaining Nav Items */}
+            {NAV_ITEMS.slice(2).map((item) => (
+              <div key={item.id}>
+                <NavItem
+                  label={item.label}
+                  href={item.href}
+                  onClick={handleNavClick}
+                />
+                <hr className="border-white/30" />
+              </div>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+    </>
+  );
+};
+
+export default SideNav;
