@@ -3,9 +3,10 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/css";
 import Link from "next/link";
-import Image from "next/image";
 import { useMemo } from "react";
 import useFetchProducts from "../../../hooks/useFetchProducts";
+// قم بتعديل المسار التالي حسب مكان حفظك للملف الجديد
+import ProductCard from "../../ProductCard/ProductCard";
 
 // Constants
 const API_URL =
@@ -16,27 +17,14 @@ const SPLIDE_OPTIONS = {
   type: "slide",
   perMove: 1,
   pagination: false,
-  gap: 30,
-  perPage: 4,
+  gap: 0,
+  perPage: 4.5,
   breakpoints: {
     1200: { perPage: 3 },
     768: { perPage: 2 },
     576: { perPage: 1 },
   },
   arrows: true,
-};
-
-const MAX_NAME_LENGTH = 30;
-
-// Utility functions
-const formatPrice = (price) => {
-  if (!price) return "N/A";
-  return price.replace(/[.]/, " LE");
-};
-
-const extractNumber = (str) => {
-  if (!str) return null;
-  return Number(str.replace(/[^0-9.]/g, ""));
 };
 
 // Arrow Icon Component
@@ -49,92 +37,6 @@ const ArrowIcon = () => (
     />
   </svg>
 );
-
-// Product Card Component
-const ProductCard = ({ product }) => {
-  const truncatedName = useMemo(() => {
-    if (product.name.length > MAX_NAME_LENGTH) {
-      return `${product.name.substring(0, MAX_NAME_LENGTH)}...`;
-    }
-    return product.name;
-  }, [product.name]);
-
-  const discountPercentage = useMemo(() => {
-    return extractNumber(product.discount);
-  }, [product.discount]);
-
-  const oldPriceValue = useMemo(() => {
-    return extractNumber(product.old_price);
-  }, [product.old_price]);
-
-  return (
-    <SplideSlide
-      className={`product border-0 max-w-56 pb-3 rounded-xl shrink bg-(--background1) outline-2 outline-(--background1) hover:outline-(--primary) duration-300`}
-    >
-      <Link
-        href={`/product-page/phones/${product.id}`}
-        className="image w-full flex justify-center bg-white relative mx-auto rounded-t-xl h-50"
-        aria-label={`View details for ${product.name}`}
-      >
-        <Image
-          width={200}
-          height={200}
-          src={product.pic}
-          className="p-3 object-contain"
-          alt={product.name}
-          loading="lazy"
-          quality={85}
-        />
-
-        {/* Discount Badge */}
-        {discountPercentage && (
-          <div
-            className="text-center text-white font-bold py-2 absolute text-sm w-12 bg-(--primary) top-0 right-0 rounded-bl-xl rounded-tr-xl leading-tight"
-            aria-label={`${discountPercentage}% discount`}
-          >
-            {discountPercentage}%
-            <br />
-            OFF
-          </div>
-        )}
-      </Link>
-
-      <div className="text leading-tight p-5 pb-0">
-        {/* Product Name */}
-        <div>
-          <Link
-            href={`/product-page/phones/${product.id}`}
-            className="font-semibold text-(--heading)"
-            title={product.name}
-          >
-            {truncatedName}
-          </Link>
-        </div>
-
-        {/* Price Section */}
-        <div className="mt-3">
-          <p>
-            <span className="mr-3 font-bold text-lg">
-              {formatPrice(product.price)}
-            </span>
-            {oldPriceValue && (
-              <del className="text-gray-500">{oldPriceValue} LE</del>
-            )}
-          </p>
-        </div>
-
-        <hr className="my-2" />
-
-        {/* Rating */}
-        {product.rating && (
-          <div className="rate font-semibold text-green-600">
-            <b>{product.rating}</b> out of 5 stars
-          </div>
-        )}
-      </div>
-    </SplideSlide>
-  );
-};
 
 // Error Message Component
 const ErrorMessage = () => (
@@ -203,12 +105,14 @@ function Phone() {
       {!error && !loading && discountedPhones.length > 0 && (
         <Splide
           options={SPLIDE_OPTIONS}
-          className={`phones flex items-center justify-center mt-14`}
+          className="phones flex items-center justify-center mt-14"
           id="phones"
           aria-label="Smartphones on discount"
         >
           {discountedPhones.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <SplideSlide key={product.id} className="mr-0 p-0.5">
+              <ProductCard category="phones" product={product} />
+            </SplideSlide>
           ))}
         </Splide>
       )}

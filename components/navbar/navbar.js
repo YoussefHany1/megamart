@@ -1,9 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import SideNav from "./sideNav/sideNav";
 import SignIn from "./signIn/signIn";
-import { useMark } from "../../context/MarkContext";
+import { useCartStore } from "../../app/store/cartStore";
+import { useAuth } from "../../context/AuthContext";
 
 const NAV_ITEMS = [
   { href: "/product-page/phones", label: "Mobiles & Accessories" },
@@ -97,10 +99,8 @@ const CartIcon = () => (
 const NotificationDot = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={448}
-    height={448}
     viewBox="0 0 448 448"
-    className="dot relative right-12.5 bottom-1.25 text-sm"
+    className="dot relative right-12.5 bottom-1.25 text-sm w-3.5! h-3.5!"
     aria-label="Notification indicator"
   >
     <circle
@@ -115,9 +115,21 @@ const NotificationDot = () => (
 
 // Main Navbar Component
 function Navbar() {
-  const { showMark } = useMark();
+  const cartCount = useCartStore((state) => state.items.length);
   const [showSideNav, setShowSideNav] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const { user, logOut } = useAuth();
+  const router = useRouter();
+
+  // 3. دالة تنفيذ البحث
+  const handleSearch = (e) => {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+    if (searchQuery.trim()) {
+      // توجيه المستخدم لصفحة البحث مع كلمة البحث
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   // Memoized handlers
   const handleToggleSideNav = useCallback(() => {
@@ -185,7 +197,7 @@ function Navbar() {
         <div className="menu flex">
           <button
             type="button"
-            className="rounded-md p-2 mr-3 border border-(--border) bg-(--background1) duration-300 hover:bg-(--primary) "
+            className="rounded-md cursor-pointer p-2 mr-3 border border-(--border) bg-(--background1) duration-300 hover:bg-(--primary) hover:text-white"
             onClick={handleToggleSideNav}
             aria-label="Toggle navigation menu"
             aria-expanded={showSideNav}
@@ -205,14 +217,15 @@ function Navbar() {
         </Link>
 
         {/* Search Bar */}
-        <div
+        <form
           className="search bg-(--background1) min-w-2/6 rounded-md flex w-full flex-nowrap mx-0 lg:mx-auto "
           role="search"
+          onSubmit={handleSearch} // تشغيل البحث عند ضغط Enter
         >
           <button
             className="border-0 lg:ml-4 ml-3 bg-transparent text-xs lg:text-[1rem]"
             aria-label="Search"
-            type="button"
+            type="submit" // تغيير النوع لـ submit
           >
             <SearchIcon />
           </button>
@@ -221,30 +234,45 @@ function Navbar() {
             className="border-0 rounded-md py-3 lg:ml-4 ml-2 w-3/4 bg-(--background1) min-w-2/6 text-sm lg:text-[1rem] text-(--text) outline-0"
             placeholder="What are you looking for?"
             aria-label="Search products"
+            value={searchQuery} // ربط القيمة بالـ State
+            onChange={(e) => setSearchQuery(e.target.value)} // تحديث الـ State عند الكتابة
           />
-        </div>
+        </form>
 
         {/* Sign In & Cart */}
         <div className="sign items-center flex ml-5">
-          <Link
-            href="#"
-            className="flex font-bold lg:pr-3 w-max text-(--heading)"
-            onClick={handleOpenSignIn}
-            aria-label="Sign in or sign up"
-          >
-            <UserIcon />
-            <span className="hidden lg:block ml-2">Sign In/Sign Up</span>
-          </Link>
+          {user ? (
+            // إذا كان المستخدم مسجل الدخول
+            <div className="flex items-center gap-2">
+              <button
+                onClick={logOut}
+                className="text-red-500 cursor-pointer text-sm font-bold text-nowrap lg:pr-3"
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            // إذا لم يكن مسجل الدخول (الكود القديم)
+            <Link
+              href="#"
+              className="flex font-bold lg:pr-3 w-max text-(--heading)"
+              onClick={handleOpenSignIn}
+              aria-label="Sign in or sign up"
+            >
+              <UserIcon />
+              <span className="hidden lg:block ml-2">Sign In/Sign Up</span>
+            </Link>
+          )}
           <SignIn show={showSignInModal} handleClose={handleCloseSignIn} />
 
           <Link
-            className="flex font-bold lg:pl-3 pl-5 w-max text-(--heading)"
+            className="relative flex font-bold lg:pl-3 pl-5 w-max text-(--heading)"
             href="/cart"
             aria-label="View shopping cart"
           >
             <CartIcon />
             <span className="hidden lg:block ml-2">Cart</span>
-            {showMark && <NotificationDot />}
+            {cartCount > 0 && <NotificationDot />}
           </Link>
         </div>
       </div>

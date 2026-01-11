@@ -60,7 +60,7 @@ const CategoryCard = ({ category }) => {
 
   return (
     <div
-      className={`cat mb-6 w-1/2 md:w-1/3 lg:w-1/4 lg:mb-0 text-center`}
+      className="cat mb-6 w-1/2 md:w-1/3 lg:w-1/4 lg:mb-0 text-center"
       key={id}
     >
       <Link
@@ -112,7 +112,7 @@ function TopCategories() {
 
       {/* Categories Grid */}
       <div
-        className={`categories flex justify-evenly flex-wrap text-center mt-14 min-w-52`}
+        className="categories flex justify-evenly flex-wrap text-center sm:px-24 mt-14 min-w-52"
         role="list"
       >
         {CATEGORIES.map((category) => (

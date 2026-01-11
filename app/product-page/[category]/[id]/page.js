@@ -142,7 +142,7 @@ const TechnicalDetails = ({ specifications, details }) => {
   if (!hasData) return null;
 
   return (
-    <div className="technical-details">
+    <div className="technical-details mb-12 lg:mb-0">
       <h2 id="technical-details" className="font-bold text-xl text-black mb-4">
         Technical Details:
       </h2>
@@ -224,7 +224,7 @@ async function ProductPage({ params }) {
   }
 
   return (
-    <main className={`${category} py-5`} id={category}>
+    <main className={`${category} pt-5 mb-24`} id={category}>
       {/* Product Overview Section */}
       <article className="product flex lg:flex-row flex-col justify-around pb-5">
         <ProductImage product={product} />
@@ -238,7 +238,7 @@ async function ProductPage({ params }) {
         </div>
       </article>
 
-      {/* Technical Details Section */}
+      {/* Product Details Section */}
       <section className="header pt-5" aria-labelledby="technical-details">
         <div className="details lg:flex block">
           <TechnicalDetails

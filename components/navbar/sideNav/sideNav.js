@@ -199,7 +199,7 @@ const SideNav = ({ show, handleClose }) => {
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className="text-white transition-colors duration-200 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+            className="text-white cursor-pointer  transition-colors duration-200 hover:text-gray-200 "
             aria-label="Close navigation"
           >
             <CloseIcon />

@@ -7,16 +7,17 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
-  }, 
+  },
   "dependencies": {
-        "@splidejs/react-splide": "^0.7.12",
+    "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide": "^4.1.4",
     "@splidejs/splide-extension-auto-scroll": "^0.5.3",
-        "axios": "^1.8.4",
+    "axios": "^1.8.4",
+    "firebase": "^12.7.0",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-        "splide-nextjs": "^2.4.23",
+    "splide-nextjs": "^2.4.23",
     "zustand": "^5.0.7"
   },
   "devDependencies": {
