@@ -4,9 +4,11 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import Link from "next/link";
 import Image from "next/image";
 import "@splidejs/react-splide/css";
-import "./swiper.css";
+import "@splidejs/splide/css";
+
 // Slider configuration
 const SPLIDE_OPTIONS = {
+  type: "loop",
   rewind: true,
   perPage: 1,
   autoplay: true,
@@ -24,31 +26,31 @@ const SPLIDE_OPTIONS = {
 const SLIDES = [
   {
     id: "smartphones",
-    href: "/phones",
+    href: "/product-page/phones",
     imageSrc: "/swiper/Untitled-2.webp",
     imageAlt: "Latest SmartPhones Collection - Discover amazing deals",
     title: "SmartPhones",
   },
   {
     id: "smartwatch",
-    href: "/wearables",
+    href: "/product-page/wearables",
     imageSrc: "/swiper/Untitled-1.webp",
     imageAlt: "Premium SmartWatch Collection - Shop now",
     title: "SmartWatch",
   },
   {
-    id: "cosmetics",
-    href: "/cosmetics",
+    id: "games",
+    href: "/product-page/video-games",
     imageSrc: "/swiper/Untitled-3.webp",
-    imageAlt: "Beauty & Cosmetics Products - Explore our range",
-    title: "Cosmetics",
+    imageAlt: "Video Games Products - Explore our range",
+    title: "Games",
   },
   {
-    id: "electronics",
-    href: "/electronics",
+    id: "tablets",
+    href: "/product-page/tablets",
     imageSrc: "/swiper/Untitled-4.webp",
-    imageAlt: "Electronics & Gadgets - Browse latest tech",
-    title: "Electronics",
+    imageAlt: "Tablets & Accessories - Browse latest tech",
+    title: "Tablets",
   },
 ];
 

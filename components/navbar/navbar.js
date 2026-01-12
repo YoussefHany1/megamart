@@ -2,10 +2,11 @@
 import Link from "next/link";
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import SideNav from "./sideNav/sideNav";
-import SignIn from "./signIn/signIn";
+const SideNav = dynamic(() => import("./sideNav/sideNav"));
+const SignIn = dynamic(() => import("./signIn/signIn"));
 import { useCartStore } from "../../app/store/cartStore";
 import { useAuth } from "../../context/AuthContext";
+import dynamic from "next/dynamic";
 
 const NAV_ITEMS = [
   { href: "/product-page/phones", label: "Mobiles & Accessories" },
@@ -100,7 +101,7 @@ const NotificationDot = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 448 448"
-    className="dot relative right-12.5 bottom-1.25 text-sm w-3.5! h-3.5!"
+    className="dot relative right-1.5 lg:right-12.5 bottom-1.25 text-sm w-3.5! h-3.5!"
     aria-label="Notification indicator"
   >
     <circle
@@ -152,7 +153,7 @@ function Navbar() {
   return (
     <nav aria-label="Main navigation">
       {/* Top Welcome Bar */}
-      <div className="welcome hidden text-(--text) text-sm md:flex justify-between items-center py-2 px-[10%] mx-[-12.5%] bg-(--background1)">
+      <div className="welcome hidden text-(--text) text-sm md:flex justify-between items-center py-2 px-[10%] mx-[-9.5%] bg-(--background1)">
         <div>Welcome to worldwide Megamart!</div>
         <div className="flex">
           <Link
@@ -192,7 +193,7 @@ function Navbar() {
       </Link>
 
       {/* Main Navigation Bar */}
-      <div className="nav py-3 flex justify-between flex-nowrap items-center px-[10%] text-(--primary)">
+      <div className="nav py-3 flex justify-between flex-nowrap items-center lg:px-28 text-(--primary)">
         {/* Menu Button */}
         <div className="menu flex">
           <button

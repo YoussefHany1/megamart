@@ -3,11 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import Link from "next/link";
-import Image from "next/image";
-import categories from "../../stores/data.json"; // تأكد من مسار استيراد ملف data.json
+import categories from "../../stores/data.json";
 import ProductCard from "../../components/ProductCard/ProductCard";
-// إعادة استخدام مكون كارت المنتج بشكل مبسط (يفضل فصله في ملف منفصل لاحقاً)
 
 export default function SearchPage() {
   const searchParams = useSearchParams();

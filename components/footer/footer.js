@@ -6,7 +6,7 @@ function Footer() {
   return (
     <>
       <footer
-        className={`footer bg-(--primary) text-white relative overflow-hidden pt-5 px-[10%] mx-[-12.5%] ${styles.footer}`}
+        className={`footer bg-(--primary) text-white relative overflow-hidden pt-5 px-[10%] mx-[-9.5%] ${styles.footer}`}
       >
         {/* Contact Section */}
         <div className="text relative sm:flex block p-10">

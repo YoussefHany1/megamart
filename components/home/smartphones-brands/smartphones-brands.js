@@ -6,7 +6,6 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import "@splidejs/splide/css";
 
-// Constants
 const SPLIDE_OPTIONS = {
   type: "loop",
   gap: "2rem",
@@ -146,7 +145,7 @@ const SectionHeader = () => (
 function ElectronicsBrands() {
   return (
     <section
-      className="phone-brands mb-24 mx-[-12.5%]"
+      className="phone-brands mb-24 mx-[-9.5%]"
       aria-labelledby="phone-brands-heading"
     >
       <SectionHeader />
