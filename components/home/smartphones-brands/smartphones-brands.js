@@ -124,7 +124,7 @@ const BrandCard = ({ brand }) => {
 
 // Section Header
 const SectionHeader = () => (
-  <header className="header text-(--secondary) flex justify-between font-bold items-center border-b border-(--border) w-[80%] justify-self-center">
+  <header className="header text-(--secondary) flex justify-between font-bold items-center border-b border-(--border) w-[84%] justify-self-center">
     <h2 className="line text-2xl pb-3 mb-0 border-b-3 border-(--primary)">
       Top <span className="text-(--primary)">SmartPhone Brands</span>
     </h2>

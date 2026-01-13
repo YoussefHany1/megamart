@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import categories from "../../stores/data.json";
-import ProductCard from "../../components/ProductCard/ProductCard";
+import ProductCard from "../../components/product/ProductCard";
 
 export default function SearchPage() {
   const searchParams = useSearchParams();

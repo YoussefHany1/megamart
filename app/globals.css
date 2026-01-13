@@ -34,7 +34,7 @@ svg {
   height: 1em;
   font-size: 2cap;
 }
-.splide svg {
+.splide .splide__arrows svg {
   fill: var(--primary) !important;
 }
 body {

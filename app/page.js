@@ -8,7 +8,6 @@ const PhoneBrands = dynamic(() =>
   import("../components/home/smartphones-brands/smartphones-brands")
 );
 // import Essentials from "../components/home/essentials/essentials";
-import "./home.css";
 
 function Home() {
   return (

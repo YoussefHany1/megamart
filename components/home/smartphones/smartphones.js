@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import useFetchProducts from "../../../hooks/useFetchProducts";
 // قم بتعديل المسار التالي حسب مكان حفظك للملف الجديد
-import ProductCard from "../../ProductCard/ProductCard";
+import ProductCard from "../../product/ProductCard";
 
 // Constants
 const API_URL =
@@ -18,9 +18,10 @@ const SPLIDE_OPTIONS = {
   perMove: 1,
   pagination: false,
   gap: 0,
-  perPage: 4.5,
+  perPage: 5,
   breakpoints: {
-    1200: { perPage: 3 },
+    1200: { perPage: 4 },
+    1050: { perPage: 3 },
     768: { perPage: 2 },
     576: { perPage: 1 },
   },
@@ -105,12 +106,15 @@ function Phone() {
       {!error && !loading && discountedPhones.length > 0 && (
         <Splide
           options={SPLIDE_OPTIONS}
-          className="phones flex items-center justify-center mt-14"
+          className="phones flex items-center justify-center mt-14 px-[10%]"
           id="phones"
           aria-label="Smartphones on discount"
         >
           {discountedPhones.map((product) => (
-            <SplideSlide key={product.id} className="mr-0 p-0.5">
+            <SplideSlide
+              key={product.id}
+              className="px-3! py-0.5 justify-items-center"
+            >
               <ProductCard category="phones" product={product} />
             </SplideSlide>
           ))}

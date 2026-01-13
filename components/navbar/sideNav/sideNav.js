@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
+import { useAuth } from "../../../context/AuthContext";
 
 // Navigation items configuration
 const NAV_ITEMS = [
@@ -23,9 +24,6 @@ const CATEGORIES = [
   { id: "tablets", label: "Tablets & Accessories", href: "/tablets" },
 ];
 
-/**
- * CloseIcon Component
- */
 const CloseIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -44,9 +42,6 @@ const CloseIcon = () => (
   </svg>
 );
 
-/**
- * ChevronIcon Component
- */
 const ChevronIcon = ({ isOpen }) => (
   <svg
     className={`h-5 w-5 transition-transform duration-200 ${
@@ -81,9 +76,7 @@ const NavItem = ({ label, href, onClick }) => (
   </li>
 );
 
-/**
- * CategoryDropdown Component
- */
+//CategoryDropdown Component
 const CategoryDropdown = ({ isOpen, onToggle, onCategoryClick }) => (
   <li className="block md:hidden">
     <hr className="mb-2 border-white/30" />
@@ -121,13 +114,19 @@ const CategoryDropdown = ({ isOpen, onToggle, onCategoryClick }) => (
   </li>
 );
 
-/**
- * SideNav Component
- * A responsive side navigation drawer with overlay
- */
+//SideNav Component
 const SideNav = ({ show, handleClose }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { user, logOut } = useAuth();
 
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      handleClose(); // إغلاق القائمة بعد الخروج
+    } catch (error) {
+      console.error("Failed to logout:", error);
+    }
+  };
   // Close dropdown when sidenav closes
   useEffect(() => {
     if (!show) {
@@ -244,6 +243,17 @@ const SideNav = ({ show, handleClose }) => {
                 <hr className="border-white/30" />
               </div>
             ))}
+            {/* logout button */}
+            {user && (
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full py-2 text-left text-white transition-colors duration-200 hover:text-gray-200"
+                >
+                  Sign Out
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </aside>

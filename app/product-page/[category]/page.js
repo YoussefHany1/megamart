@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useParams } from "next/navigation";
-import ProductCard from "../../../components/ProductCard/ProductCard";
+import ProductCard from "../../../components/product/ProductCard";
 import useFetchProducts from "../../../hooks/useFetchProducts";
 import categories from "../../../stores/data.json";
 

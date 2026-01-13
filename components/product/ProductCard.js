@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo } from "react";
-
+import { useWishlistStore } from "../../app/store/wishlistStore";
 const MAX_NAME_LENGTH = 30;
 
 // Utility functions specific to the card
@@ -19,6 +19,9 @@ const extractNumber = (str) => {
 
 const ProductCard = ({ product, category }) => {
   const currentCategory = category || "phones";
+  const { toggleWishlist, isInWishlist } = useWishlistStore();
+  const isLiked = isInWishlist(product.id);
+
   const truncatedName = useMemo(() => {
     if (product.name.length > MAX_NAME_LENGTH) {
       return `${product.name.substring(0, MAX_NAME_LENGTH)}...`;
@@ -33,9 +36,31 @@ const ProductCard = ({ product, category }) => {
   const oldPriceValue = useMemo(() => {
     return extractNumber(product.old_price);
   }, [product.old_price]);
+  // Wishlist click handler
+  const handleWishlistClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist(product);
+  };
 
   return (
-    <div className="product border-0 max-w-56 pb-3 rounded-xl shrink bg-(--background1) outline-2 outline-(--background1) hover:outline-(--primary) duration-300">
+    <div className="product relative border-0 max-w-56 pb-3 rounded-xl shrink bg-(--background1) outline-2 outline-(--background1) hover:outline-(--primary) duration-300">
+      <button
+        onClick={handleWishlistClick}
+        className="absolute top-2 left-2 z-10 p-1.5 rounded-full bg-white/80 hover:bg-white shadow-sm cursor-pointer transition-transform active:scale-90"
+        aria-label="Add to wishlist"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill={isLiked ? "#008ecc" : "none"}
+          stroke={isLiked ? "var(--primary)" : "var(--light)"}
+          strokeWidth="2"
+          className="w-5 h-5 text-gray-600"
+        >
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg>
+      </button>
       <Link
         href={`/product-page/${currentCategory}/${product.id}`}
         className="image w-full flex justify-center bg-white relative mx-auto rounded-t-xl h-50"

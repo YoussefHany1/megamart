@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 const SideNav = dynamic(() => import("./sideNav/sideNav"));
-const SignIn = dynamic(() => import("./signIn/signIn"));
+const SignIn = dynamic(() => import("../signIn/sign"));
 import { useCartStore } from "../../app/store/cartStore";
 import { useAuth } from "../../context/AuthContext";
 import dynamic from "next/dynamic";
@@ -221,12 +221,12 @@ function Navbar() {
         <form
           className="search bg-(--background1) min-w-2/6 rounded-md flex w-full flex-nowrap mx-0 lg:mx-auto "
           role="search"
-          onSubmit={handleSearch} // تشغيل البحث عند ضغط Enter
+          onSubmit={handleSearch} // press Enter to search
         >
           <button
             className="border-0 lg:ml-4 ml-3 bg-transparent text-xs lg:text-[1rem]"
             aria-label="Search"
-            type="submit" // تغيير النوع لـ submit
+            type="submit"
           >
             <SearchIcon />
           </button>
@@ -235,25 +235,26 @@ function Navbar() {
             className="border-0 rounded-md py-3 lg:ml-4 ml-2 w-3/4 bg-(--background1) min-w-2/6 text-sm lg:text-[1rem] text-(--text) outline-0"
             placeholder="What are you looking for?"
             aria-label="Search products"
-            value={searchQuery} // ربط القيمة بالـ State
-            onChange={(e) => setSearchQuery(e.target.value)} // تحديث الـ State عند الكتابة
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </form>
 
         {/* Sign In & Cart */}
         <div className="sign items-center flex ml-5">
           {user ? (
-            // إذا كان المستخدم مسجل الدخول
-            <div className="flex items-center gap-2">
-              <button
-                onClick={logOut}
-                className="text-red-500 cursor-pointer text-sm font-bold text-nowrap lg:pr-3"
-              >
-                Log Out
-              </button>
+            // if user is logged in
+            <div className="md:flex flex-col items-end lg:flex-row lg:items-center gap-1 lg:gap-3 lg:pr-3 hidden">
+              <div className="flex items-center gap-2 text-(--heading) font-bold text-sm text-nowrap">
+                <UserIcon />
+                <span>
+                  {/* show user name*/}
+                  {user.displayName}
+                </span>
+              </div>
             </div>
           ) : (
-            // إذا لم يكن مسجل الدخول (الكود القديم)
+            // if user is not logged in
             <Link
               href="#"
               className="flex font-bold lg:pr-3 w-max text-(--heading)"

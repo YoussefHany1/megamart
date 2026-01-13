@@ -22,11 +22,32 @@ const SignInModal = ({ show, handleClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    // 1. التحقق من كتابة الاسم (فقط في حالة إنشاء حساب جديد)
+    if (isSignUp && !name.trim()) {
+      setError("Please enter your full name.");
+      return;
+    }
 
+    // 2. التحقق من كتابة الإيميل
+    if (!email.trim()) {
+      setError("Please enter your email address.");
+      return;
+    }
+
+    // 3. التحقق من الباسورد (موجود وأكبر من 8 حروف)
+    // لاحظ الشرط: إذا كان فارغاً أو طوله أقل من أو يساوي 8
+    if (!password || password.length <= 8) {
+      setError("Password must be more than 8 characters.");
+      return;
+    }
     try {
       if (isSignUp) {
         // منطق إنشاء حساب جديد
-        await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
         await updateProfile(userCredential.user, {
           displayName: name,
         });
