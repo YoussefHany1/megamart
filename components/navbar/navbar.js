@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 const SideNav = dynamic(() => import("./sideNav/sideNav"));
 const SignIn = dynamic(() => import("../signIn/sign"));
 import { useCartStore } from "../../app/store/cartStore";
@@ -74,13 +74,13 @@ const SearchIcon = () => (
 );
 
 const UserIcon = () => (
-  <svg aria-hidden="true" fill="#008ECC">
+  <svg aria-hidden="true" fill="#008ECC" viewBox="0 0 22 22">
     <path d="M15.71 12.71a6 6 0 1 0-7.42 0 10 10 0 0 0-6.22 8.18 1 1 0 0 0 2 .22 8 8 0 0 1 15.9 0 1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1 10 10 0 0 0-6.25-8.19M12 12a4 4 0 1 1 4-4 4 4 0 0 1-4 4" />
   </svg>
 );
 
 const CartIcon = () => (
-  <svg fill="none" aria-hidden="true">
+  <svg fill="none" aria-hidden="true" viewBox="0 0 22 22">
     <path
       d="M5 7h13.79a2 2 0 0 1 1.99 2.199l-.6 6A2 2 0 0 1 18.19 17H8.64a2 2 0 0 1-1.962-1.608z"
       stroke="#008ECC"
@@ -120,9 +120,9 @@ function Navbar() {
   const [showSideNav, setShowSideNav] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { user, logOut } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
-
+  const pathname = usePathname();
   // 3. دالة تنفيذ البحث
   const handleSearch = (e) => {
     e.preventDefault(); // منع إعادة تحميل الصفحة
@@ -245,13 +245,16 @@ function Navbar() {
           {user ? (
             // if user is logged in
             <div className="md:flex flex-col items-end lg:flex-row lg:items-center gap-1 lg:gap-3 lg:pr-3 hidden">
-              <div className="flex items-center gap-2 text-(--heading) font-bold text-sm text-nowrap">
+              <Link
+                href="/account"
+                className="flex items-center gap-2 text-(--heading) font-bold text-nowrap"
+              >
                 <UserIcon />
                 <span>
                   {/* show user name*/}
                   {user.displayName}
                 </span>
-              </div>
+              </Link>
             </div>
           ) : (
             // if user is not logged in
@@ -280,18 +283,27 @@ function Navbar() {
       </div>
 
       {/* Category Navigation */}
-      <div className="hidden sm:flex px-[12%] my-5 mb-8 justify-center">
+      <div className="hidden lg:flex px-[12%] mt-5 justify-center">
         <ul className="px-3 flex flex-wrap justify-between w-full">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                className="rounded-full px-3 py-2 mb-3 text-(--heading) bg-(--background3) hover:bg-(--primary) hover:text-white hover:px-5 duration-300"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            // 3. التحقق مما إذا كان الرابط الحالي يطابق عنصر القائمة
+            const isActive = pathname?.startsWith(item.href);
+
+            return (
+              <li key={item.href} className="mb-5">
+                <Link
+                  href={item.href}
+                  className={`rounded-full py-2 mb-3 duration-300 ${
+                    isActive
+                      ? "bg-(--primary) text-white px-5" // ستايل الـ Active (مثل الـ Hover)
+                      : "px-3 text-(--heading) bg-(--background3) hover:bg-(--primary) hover:text-white hover:px-5" // الستايل العادي
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>

@@ -78,7 +78,7 @@ const NavItem = ({ label, href, onClick }) => (
 
 //CategoryDropdown Component
 const CategoryDropdown = ({ isOpen, onToggle, onCategoryClick }) => (
-  <li className="block md:hidden">
+  <li className="block lg:hidden">
     <hr className="mb-2 border-white/30" />
     <button
       onClick={onToggle}
@@ -188,7 +188,7 @@ const SideNav = ({ show, handleClose }) => {
         aria-label="Side navigation"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4">
+        <div className="flex items-center justify-between px-6 pt-4">
           <h2 className="text-4xl font-bold">
             <Link href="/" onClick={handleNavClick} className="text-white">
               MegaMart
@@ -204,7 +204,9 @@ const SideNav = ({ show, handleClose }) => {
             <CloseIcon />
           </button>
         </div>
-
+        {user ? (
+          <p className="px-6 pb-3 md:hidden">Hi, {user.displayName}</p>
+        ) : null}
         {/* Navigation Body */}
         <nav className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-2">
           <ul className="flex flex-col space-y-2 text-xl font-semibold">
@@ -248,9 +250,9 @@ const SideNav = ({ show, handleClose }) => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="block w-full py-2 text-left text-white transition-colors duration-200 hover:text-gray-200"
+                  className="block w-full py-2 text-left text-red-400 transition-colors duration-200 hover:text-red-500"
                 >
-                  Sign Out
+                  Log Out
                 </button>
               </li>
             )}

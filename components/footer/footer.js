@@ -71,21 +71,19 @@ function Footer() {
             </div>
           </div>
           {/* Popular Categories Section */}
-          <div className="popular hidden sm:flex flex-col justify-between px-5 lg:ml-52">
+          <div className="popular hidden sm:flex flex-col justify-between px-5 lg:ml-52 sm:ml-22 mr-16">
             <div
-              className={`headerColumn text-white font-semibold text-lg w-fit border-b-2 border-(--border) whitespace-nowrap lg:mr-18`}
+              className={`headerColumn text-white font-semibold text-lg w-fit border-b-2 border-(--border) text-nowrap lg:mr-18`}
             >
-              Most Popular Categories
+              All Categories
             </div>
-            <ul
-              className={`list-disc flex flex-col justify-between font-medium ml-1 mt-4 h-full`}
-            >
+            <ul className="list-disc flex flex-col justify-between font-medium ml-1 mt-4 h-full text-nowrap">
               <li>
                 <Link
                   href="/"
                   className="text-white hover:text-(--heading) duration-300"
                 >
-                  Staples
+                  Mobiles & Accessories
                 </Link>
               </li>
               <li>
@@ -93,7 +91,7 @@ function Footer() {
                   href="/"
                   className="text-white hover:text-(--heading) duration-300"
                 >
-                  Beverages
+                  Computers & Accessories
                 </Link>
               </li>
               <li>
@@ -101,7 +99,7 @@ function Footer() {
                   href="/"
                   className="text-white hover:text-(--heading) duration-300"
                 >
-                  Personal Care
+                  Wearables
                 </Link>
               </li>
               <li>
@@ -109,7 +107,7 @@ function Footer() {
                   href="/"
                   className="text-white hover:text-(--heading) duration-300"
                 >
-                  Home Care
+                  Video Games
                 </Link>
               </li>
               <li>
@@ -117,7 +115,7 @@ function Footer() {
                   href="/"
                   className="text-white hover:text-(--heading) duration-300"
                 >
-                  Baby Care
+                  Television & Video
                 </Link>
               </li>
               <li>
@@ -125,7 +123,7 @@ function Footer() {
                   href="/"
                   className="text-white hover:text-(--heading) duration-300"
                 >
-                  Vegetables & Fruits
+                  Camera & Photo
                 </Link>
               </li>
               <li>
@@ -133,15 +131,7 @@ function Footer() {
                   href="/"
                   className="text-white hover:text-(--heading) duration-300"
                 >
-                  Snacks & Foods
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/"
-                  className="text-white hover:text-(--heading) duration-300"
-                >
-                  Dairy & Bakery
+                  Tablets & Accessories
                 </Link>
               </li>
             </ul>
@@ -158,7 +148,7 @@ function Footer() {
             >
               <li>
                 <Link
-                  href="/"
+                  href="/customer-services/about"
                   className="text-white hover:text-(--heading) duration-300"
                 >
                   About Us
@@ -166,7 +156,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/customer-services/terms-conditions"
                   className="text-white hover:text-(--heading) duration-300"
                 >
                   Terms & Conditions
@@ -174,7 +164,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/customer-services/faq"
                   className="text-white hover:text-(--heading) duration-300"
                 >
                   FAQ
@@ -182,7 +172,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/customer-services/privacy-policy"
                   className="text-white hover:text-(--heading) duration-300"
                 >
                   Privacy Policy
@@ -190,7 +180,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/customer-services/e-waste-policy"
                   className="text-white hover:text-(--heading) duration-300"
                 >
                   E-waste Policy
@@ -198,7 +188,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  href="/"
+                  href="/customer-services/cancellation-policy"
                   className="text-white hover:text-(--heading) duration-300"
                 >
                   Cancellation & Return Policy

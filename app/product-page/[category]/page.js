@@ -51,7 +51,7 @@ function CategoryPage() {
   // 4. فلترة المنتجات الصالحة
   const validProducts = useMemo(
     () => products.filter((product) => product.name && product.pic),
-    [products]
+    [products],
   );
 
   // 5. حسابات التقسيم للصفحات (Pagination Logic)
@@ -87,7 +87,9 @@ function CategoryPage() {
 
   return (
     <main>
-      <h1 className="text-center mt-5 capitalize">{category}</h1>
+      <h2 className="text-center my-12 uppercase text-4xl text-(--primary) font-bold">
+        {category}
+      </h2>
 
       {/* حالة عدم وجود منتجات */}
       {!error && validProducts.length === 0 && (
