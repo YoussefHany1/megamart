@@ -13,7 +13,7 @@ function Cart() {
   const decreaseQty = useCartStore((state) => state.decreaseQty);
 
   return (
-    <main className="cart-page container mx-auto py-5 p-[10%]">
+    <main className="cart-page container mx-auto py-5">
       {items.length === 0 ? (
         <EmptyCart />
       ) : (

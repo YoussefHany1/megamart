@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+// components/cart/CartSummary.js - النسخة المحدثة
+import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import {
@@ -7,8 +8,15 @@ import {
   collection,
   addDoc,
   serverTimestamp,
+  query,
+  where,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "../../lib/firebase";
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "../../lib/stripe";
+import CheckoutForm from "./CheckoutForm";
+import Link from "next/link";
 
 const formatPrice = (price) => {
   if (typeof price === "string") {
@@ -17,21 +25,26 @@ const formatPrice = (price) => {
   return price;
 };
 
-// 1. تعريف قيمة المصاريف الإضافية كثابت
 const CASH_ON_DELIVERY_FEE = 10;
+
+// Card Icon Component
+const CardIcon = ({ brand }) => {
+  const icons = {
+    visa: "💳",
+    mastercard: "💳",
+    amex: "💳",
+  };
+  return <span className="text-2xl">{icons[brand] || "💳"}</span>;
+};
 
 const CartSummary = ({ items, onClearCart }) => {
   const { user } = useAuth();
   const [paymentMethod, setPaymentMethod] = useState("cash");
-  const [cardDetails, setCardDetails] = useState({
-    name: "",
-    number: "",
-    expiry: "",
-    cvc: "",
-  });
-  const [saveCard, setSaveCard] = useState(false);
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [savedCards, setSavedCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [useNewCard, setUseNewCard] = useState(false);
+  const router = useRouter();
 
   const { subtotal, itemCount } = useMemo(() => {
     const total = items.reduce((sum, item) => {
@@ -42,105 +55,226 @@ const CartSummary = ({ items, onClearCart }) => {
     const count = items.reduce((sum, item) => sum + item.quantity, 0);
 
     return {
-      subtotal: total.toFixed(2), // هذا المجموع الفرعي للمنتجات فقط
+      subtotal: total.toFixed(2),
       itemCount: count,
     };
   }, [items]);
 
-  // 2. حساب الإجمالي النهائي (المنتجات + مصاريف الدفع)
   const finalTotal = useMemo(() => {
     const subtotalNum = parseFloat(subtotal);
     const fee = paymentMethod === "cash" ? CASH_ON_DELIVERY_FEE : 0;
     return (subtotalNum + fee).toFixed(2);
   }, [subtotal, paymentMethod]);
 
-  const handleCardInputChange = (e) => {
-    const { name, value } = e.target;
-    setCardDetails((prev) => ({ ...prev, [name]: value }));
-  };
+  // جلب البطاقات المحفوظة
+  useEffect(() => {
+    if (!user) return;
 
-  const handleCheckout = async () => {
-    if (!user) {
-      alert("يجب عليك تسجيل الدخول أولاً لإتمام الطلب.");
+    const fetchSavedCards = async () => {
+      try {
+        const q = query(
+          collection(db, "paymentMethods"),
+          where("userId", "==", user.uid),
+        );
+
+        const querySnapshot = await getDocs(q);
+        const cards = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setSavedCards(cards);
+
+        // اختيار البطاقة الافتراضية تلقائياً
+        const defaultCard = cards.find((card) => card.isDefault);
+        if (defaultCard) {
+          setSelectedCard(defaultCard.id);
+        }
+      } catch (error) {
+        console.error("Error fetching saved cards:", error);
+      }
+    };
+
+    fetchSavedCards();
+  }, [user]);
+
+  // معالجة الدفع بالبطاقة المحفوظة
+  const handlePayWithSavedCard = async () => {
+    if (!user || !selectedCard) {
+      alert("Please select a card");
       return;
     }
 
     setLoading(true);
 
-    if (paymentMethod === "visa") {
-      if (!cardDetails.number || !cardDetails.expiry || !cardDetails.cvc) {
-        alert("Please fill in all card details.");
-        return;
-      }
-      if (saveCard && user) {
-        console.log("Saving card for user:", user.uid);
-      }
-    }
     try {
       const userDocRef = doc(db, "users", user.uid);
       const userDocSnap = await getDoc(userDocRef);
 
-      if (userDocSnap.exists()) {
-        const userData = userDocSnap.data();
-        const hasAddress =
-          userData.addressCountry &&
-          userData.city &&
-          userData.streetName &&
-          userData.addressMobile;
-
-        if (!hasAddress) {
-          alert(
-            "لا يوجد عنوان مسجل. سيتم توجيهك لصفحة الحساب لإضافة عنوان الشحن.",
-          );
-          router.push("/account");
-          setLoading(false);
-          return;
-        }
-
-        const orderItems = items.map((item) => ({
-          id: item.id || "unknown-id",
-          title: item.name || item.title || "No Title",
-          price: item.price || 0,
-          img: item.pic || item.img || item.image || "/placeholder.png",
-          quantity: item.quantity || 1,
-          category: item.category || "General",
-        }));
-
-        const orderData = {
-          userId: user.uid,
-          userEmail: user.email || "No Email",
-          items: orderItems,
-          subtotal: subtotal, // 3. حفظ المجموع الفرعي
-          shippingFee: paymentMethod === "cash" ? CASH_ON_DELIVERY_FEE : 0, // 4. حفظ قيمة المصاريف
-          totalAmount: finalTotal, // 5. حفظ الإجمالي النهائي الجديد
-          paymentMethod: paymentMethod, // 6. حفظ طريقة الدفع
-          itemCount: itemCount || 0,
-          status: "pending",
-          shippingAddress: {
-            country: userData.addressCountry || "",
-            city: userData.city || "",
-            street: userData.streetName || "",
-            building: userData.buildingName || "",
-            mobile: userData.addressMobile || "",
-            details: userData.landmark || "",
-          },
-          createdAt: serverTimestamp(),
-        };
-
-        console.log("Order Data being sent:", orderData);
-
-        await addDoc(collection(db, "orders"), orderData);
-
-        alert("تم تسجيل طلبك بنجاح!");
-        onClearCart();
-        router.push("/orders");
-      } else {
-        alert("يرجى تحديث بيانات حسابك أولاً.");
-        router.push("/account");
+      if (!userDocSnap.exists()) {
+        alert("User data not found");
+        setLoading(false);
+        return;
       }
+
+      const userData = userDocSnap.data();
+      const hasAddress =
+        userData.addressCountry &&
+        userData.city &&
+        userData.streetName &&
+        userData.addressMobile;
+
+      if (!hasAddress) {
+        alert("Please add your shipping address in Account Settings");
+        router.push("/account");
+        setLoading(false);
+        return;
+      }
+
+      // البحث عن البطاقة المختارة
+      const card = savedCards.find((c) => c.id === selectedCard);
+      if (!card) {
+        alert("Card not found");
+        setLoading(false);
+        return;
+      }
+
+      // إجراء الدفع باستخدام البطاقة المحفوظة
+      const res = await fetch("/api/charge-saved-card", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          paymentMethodId: card.stripePaymentMethodId,
+          amount: parseFloat(finalTotal),
+          userId: user.uid,
+          userEmail: user.email,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Payment failed");
+      }
+
+      const { paymentIntentId } = await res.json();
+
+      // حفظ الطلب في Firestore
+      const orderItems = items.map((item) => ({
+        id: item.id || "unknown-id",
+        title: item.name || item.title || "No Title",
+        price: item.price || 0,
+        img: item.pic || item.img || "/placeholder.png",
+        quantity: item.quantity || 1,
+        category: item.category || "General",
+      }));
+
+      const orderData = {
+        userId: user.uid,
+        userEmail: user.email || "No Email",
+        items: orderItems,
+        subtotal: subtotal,
+        shippingFee: 0,
+        totalAmount: finalTotal,
+        paymentMethod: "card",
+        paymentStatus: "paid",
+        stripePaymentIntentId: paymentIntentId,
+        itemCount: itemCount,
+        status: "pending",
+        shippingAddress: {
+          country: userData.addressCountry || "",
+          city: userData.city || "",
+          street: userData.streetName || "",
+          building: userData.buildingName || "",
+          mobile: userData.addressMobile || "",
+          details: userData.landmark || "",
+        },
+        createdAt: serverTimestamp(),
+      };
+
+      await addDoc(collection(db, "orders"), orderData);
+
+      alert("Payment successful! Order created.");
+      onClearCart();
+      router.push("/orders");
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert("Payment failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // معالجة الدفع كاش
+  const handleCashCheckout = async () => {
+    if (!user) {
+      alert("يجب عليك تسجيل الدخول أولاً");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (!userDocSnap.exists()) {
+        alert("User data not found");
+        setLoading(false);
+        return;
+      }
+
+      const userData = userDocSnap.data();
+      const hasAddress =
+        userData.addressCountry &&
+        userData.city &&
+        userData.streetName &&
+        userData.addressMobile;
+
+      if (!hasAddress) {
+        alert("Please add shipping address");
+        router.push("/account");
+        setLoading(false);
+        return;
+      }
+
+      const orderItems = items.map((item) => ({
+        id: item.id || "unknown-id",
+        title: item.name || item.title || "No Title",
+        price: item.price || 0,
+        img: item.pic || item.img || "/placeholder.png",
+        quantity: item.quantity || 1,
+        category: item.category || "General",
+      }));
+
+      const orderData = {
+        userId: user.uid,
+        userEmail: user.email || "No Email",
+        items: orderItems,
+        subtotal: subtotal,
+        shippingFee: CASH_ON_DELIVERY_FEE,
+        totalAmount: finalTotal,
+        paymentMethod: "cash",
+        paymentStatus: "pending",
+        itemCount: itemCount,
+        status: "pending",
+        shippingAddress: {
+          country: userData.addressCountry || "",
+          city: userData.city || "",
+          street: userData.streetName || "",
+          building: userData.buildingName || "",
+          mobile: userData.addressMobile || "",
+          details: userData.landmark || "",
+        },
+        createdAt: serverTimestamp(),
+      };
+
+      await addDoc(collection(db, "orders"), orderData);
+
+      alert("Order placed successfully!");
+      onClearCart();
+      router.push("/orders");
     } catch (error) {
       console.error("Error placing order:", error);
-      alert("حدث خطأ أثناء إتمام الطلب: " + error.message);
+      alert("Failed to place order: " + error.message);
     } finally {
       setLoading(false);
     }
@@ -156,33 +290,18 @@ const CartSummary = ({ items, onClearCart }) => {
           type="button"
           className="flex px-3 py-2 border rounded-md border-red-500 text-red-600 hover:bg-red-50 text-sm whitespace-nowrap"
           onClick={onClearCart}
-          aria-label="Clear all items from cart"
           disabled={items.length === 0 || loading}
         >
-          {/* SVG Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-            aria-hidden="true"
-            className="mr-1"
-          >
-            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-          </svg>
           Clear Cart
         </button>
       </div>
 
       <div className="summary-details">
-        {/* Subtotal Display */}
         <div className="flex justify-between mb-2">
           <span className="text-gray-500">Subtotal ({itemCount} items):</span>
           <span className="font-semibold">{subtotal} LE</span>
         </div>
 
-        {/* 7. عرض مصاريف الدفع عند الاستلام إذا تم اختيار كاش */}
         {paymentMethod === "cash" && (
           <div className="flex justify-between mb-2 animate-fadeIn">
             <span className="text-gray-500">Cash on Delivery Fee:</span>
@@ -194,12 +313,12 @@ const CartSummary = ({ items, onClearCart }) => {
 
         <hr />
 
-        {/* --- Payment Method Section Start --- */}
+        {/* Payment Method Selection */}
         <div className="payment-method my-4">
           <h4 className="font-bold mb-2">Payment Method</h4>
 
-          <div className="flex gap-4 mb-3">
-            <label className="flex items-center cursor-pointer sm:text-nowrap">
+          <div className="space-y-2 mb-3">
+            <label className="flex items-center cursor-pointer p-2 border rounded hover:bg-gray-50">
               <input
                 type="radio"
                 name="payment"
@@ -210,81 +329,108 @@ const CartSummary = ({ items, onClearCart }) => {
               />
               Cash on Delivery (+10 LE)
             </label>
-            <label className="flex items-center cursor-pointer sm:text-nowrap">
+
+            <label className="flex items-center cursor-pointer p-2 border rounded hover:bg-gray-50">
               <input
                 type="radio"
                 name="payment"
-                value="visa"
-                checked={paymentMethod === "visa"}
-                onChange={() => setPaymentMethod("visa")}
+                value="card"
+                checked={paymentMethod === "card"}
+                onChange={() => setPaymentMethod("card")}
                 className="mr-2"
               />
-              Visa / MasterCard
+              Credit/Debit Card
             </label>
           </div>
 
-          {/* Visa Details Form */}
-          {paymentMethod === "visa" && (
-            <div className="visa-details bg-white p-3 rounded border border-gray-200 text-sm animate-fadeIn">
-              {/* ... (نفس حقول الفيزا السابقة) ... */}
-              <div className="mb-2">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Cardholder Name"
-                  value={cardDetails.name}
-                  onChange={handleCardInputChange}
-                  className="w-full p-2 rounded outline-2 outline-(--border) focus-visible:outline-(--primary)! transition"
-                />
-              </div>
-              <div className="mb-2">
-                <input
-                  type="text"
-                  name="number"
-                  placeholder="Card Number"
-                  maxLength="16"
-                  value={cardDetails.number}
-                  onChange={handleCardInputChange}
-                  className="w-full p-2 rounded outline-2 outline-(--border) focus-visible:outline-(--primary)! transition"
-                />
-              </div>
-              <div className="flex gap-2 mb-2">
-                <input
-                  type="text"
-                  name="expiry"
-                  placeholder="MM/YY"
-                  maxLength="5"
-                  value={cardDetails.expiry}
-                  onChange={handleCardInputChange}
-                  className="w-1/2 p-2 rounded outline-2 outline-(--border) focus-visible:outline-(--primary)! transition"
-                />
-                <input
-                  type="text"
-                  name="cvc"
-                  placeholder="CVC"
-                  maxLength="3"
-                  value={cardDetails.cvc}
-                  onChange={handleCardInputChange}
-                  className="w-1/2 p-2 rounded outline-2 outline-(--border) focus-visible:outline-(--primary)! transition"
-                />
-              </div>
-              {user && (
-                <label className="flex items-center text-xs text-gray-600 mt-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={saveCard}
-                    onChange={(e) => setSaveCard(e.target.checked)}
-                    className="mr-2"
-                  />
-                  Save card for future purchases
-                </label>
+          {/* Card Payment Options */}
+          {paymentMethod === "card" && (
+            <div className="bg-white p-4 rounded-md border border-gray-200 space-y-3">
+              {/* Saved Cards */}
+              {savedCards.length > 0 && !useNewCard && (
+                <div className="space-y-2">
+                  <h5 className="font-semibold text-sm">Saved Cards</h5>
+                  {savedCards.map((card) => (
+                    <label
+                      key={card.id}
+                      className="flex items-center justify-between p-3 border rounded cursor-pointer hover:bg-gray-50"
+                    >
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="savedCard"
+                          checked={selectedCard === card.id}
+                          onChange={() => setSelectedCard(card.id)}
+                        />
+                        <CardIcon brand={card.brand} />
+                        <div>
+                          <p className="font-semibold capitalize text-sm">
+                            {card.brand}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            •••• {card.last4}
+                          </p>
+                        </div>
+                      </div>
+                      {card.isDefault && (
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
+                          Default
+                        </span>
+                      )}
+                    </label>
+                  ))}
+
+                  <button
+                    onClick={() => setUseNewCard(true)}
+                    className="w-full text-sm text-(--primary) hover:underline"
+                  >
+                    + Use a different card
+                  </button>
+                </div>
               )}
+
+              {/* New Card Form */}
+              {(savedCards.length === 0 || useNewCard) && (
+                <div>
+                  {useNewCard && (
+                    <button
+                      onClick={() => setUseNewCard(false)}
+                      className="text-sm text-gray-600 hover:underline mb-2"
+                    >
+                      ← Back to saved cards
+                    </button>
+                  )}
+                  <Elements
+                    stripe={stripePromise}
+                    options={{
+                      mode: "payment",
+                      amount: Math.round(parseFloat(finalTotal) * 100),
+                      currency: "egp",
+                    }}
+                  >
+                    <CheckoutForm
+                      amount={finalTotal}
+                      items={items}
+                      onSuccess={() => {
+                        onClearCart();
+                        router.push("/orders");
+                      }}
+                    />
+                  </Elements>
+                </div>
+              )}
+
+              {/* Link to manage cards */}
+              <Link
+                href="/payments"
+                className="block text-center text-sm text-(--primary) hover:underline mt-2"
+              >
+                Manage payment methods
+              </Link>
             </div>
           )}
         </div>
-        {/* --- Payment Method Section End --- */}
 
-        {/* 8. عرض الإجمالي النهائي بدلاً من الـ Subtotal فقط */}
         <div className="flex justify-between mb-3 border-t pt-2">
           <span className="text-lg font-bold">Total Amount:</span>
           <span className="text-lg font-bold text-green-600">
@@ -292,19 +438,36 @@ const CartSummary = ({ items, onClearCart }) => {
           </span>
         </div>
 
-        <button
-          type="button"
-          onClick={handleCheckout}
-          disabled={loading || items.length === 0}
-          className={`px-6 py-3 mt-5 rounded-md text-white transition w-full ${
-            loading || items.length === 0
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-(--primary) hover:bg-[#0279ac]"
-          }`}
-          aria-label="Proceed to checkout"
-        >
-          {loading ? "Processing..." : `Checkout (${finalTotal} LE)`}
-        </button>
+        {/* Checkout Button */}
+        {paymentMethod === "cash" && (
+          <button
+            type="button"
+            onClick={handleCashCheckout}
+            disabled={loading || items.length === 0}
+            className={`px-6 py-3 mt-5 rounded-md text-white transition w-full ${
+              loading || items.length === 0
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
+            }`}
+          >
+            {loading ? "Processing..." : `Place Order (${finalTotal} LE)`}
+          </button>
+        )}
+
+        {paymentMethod === "card" && savedCards.length > 0 && !useNewCard && (
+          <button
+            type="button"
+            onClick={handlePayWithSavedCard}
+            disabled={loading || items.length === 0 || !selectedCard}
+            className={`px-6 py-3 mt-5 rounded-md text-white transition w-full ${
+              loading || items.length === 0 || !selectedCard
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
+            }`}
+          >
+            {loading ? "Processing..." : `Pay ${finalTotal} LE`}
+          </button>
+        )}
       </div>
     </div>
   );
