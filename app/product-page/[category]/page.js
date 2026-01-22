@@ -5,10 +5,11 @@ import { useParams } from "next/navigation";
 import ProductCard from "../../../components/product/ProductCard";
 import useFetchProducts from "../../../hooks/useFetchProducts";
 import categories from "../../../stores/data.json";
+import Loading from "../../loading";
 
 const PRODUCTS_PER_PAGE = 25;
 
-// مكون Pagination الصغير (تم نقله هنا)
+// Pagination component
 const Pagination = ({ currentPage, totalPages, onNext, onPrev }) => {
   return (
     <div className="pagination flex justify-center mb-5">
@@ -35,26 +36,29 @@ const Pagination = ({ currentPage, totalPages, onNext, onPrev }) => {
   );
 };
 
-// مكون الصفحة الرئيسي
+// Main page component
 function CategoryPage() {
-  // 1. الحصول على اسم القسم من الرابط
+  // 1. get category name from URL
   const params = useParams();
   const category = params.category;
 
-  // 2. تحديد رابط الـ API بناءً على القسم
+  // 2. select API URL based on category
   const apiUrl = categories[category] || null;
 
-  // 3. جلب البيانات
-  const { items: products, error } = useFetchProducts(apiUrl, category);
+  const {
+    items: products,
+    error,
+    loading,
+  } = useFetchProducts(apiUrl, category);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // 4. فلترة المنتجات الصالحة
+  // filter out invalid products
   const validProducts = useMemo(
     () => products.filter((product) => product.name && product.pic),
     [products],
   );
 
-  // 5. حسابات التقسيم للصفحات (Pagination Logic)
+  // Pagination Logic for Category Page
   const totalPages = Math.ceil(validProducts.length / PRODUCTS_PER_PAGE);
 
   const currentProducts = useMemo(() => {
@@ -76,7 +80,7 @@ function CategoryPage() {
     }
   };
 
-  // معالجة الأخطاء والتحميل
+  // معالجة الأخطاء
   if (error) {
     return (
       <p className="text-red-600 text-4xl font-bold text-center mt-10">
@@ -91,24 +95,28 @@ function CategoryPage() {
         {category}
       </h2>
 
-      {/* حالة عدم وجود منتجات */}
-      {!error && validProducts.length === 0 && (
+      {loading && <Loading />}
+
+      {/* if there is no products */}
+      {!loading && !error && validProducts.length === 0 && (
         <p className="text-center text-xl mt-5">
-          Loading or No products available...
+          No products available right now.
         </p>
       )}
 
-      {/* عرض قائمة المنتجات */}
-      <div className="products flex flex-wrap items-center justify-center mt-5 pb-5">
-        {currentProducts.map((product) => (
-          <span key={product.id} className="m-5">
-            <ProductCard product={product} category={category} />
-          </span>
-        ))}
-      </div>
+      {/* product list (only shows when not loading) */}
+      {!loading && (
+        <div className="products flex flex-wrap items-center justify-center mt-5 pb-5">
+          {currentProducts.map((product) => (
+            <span key={product.id} className="m-5">
+              <ProductCard product={product} category={category} />
+            </span>
+          ))}
+        </div>
+      )}
 
-      {/* عرض أزرار التنقل إذا كان هناك أكثر من صفحة */}
-      {totalPages > 1 && (
+      {/* pagination buttons */}
+      {!loading && totalPages > 1 && (
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}

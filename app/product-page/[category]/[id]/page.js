@@ -25,11 +25,13 @@ async function getProduct(category, id) {
 // Main Product Page Component
 async function ProductPage({ params }) {
   const { id, category } = await params;
-  const product = await getProduct(category, id);
+  const fetchedProduct = await getProduct(category, id);
 
   if (!product) {
     return <ProductNotFound />;
   }
+
+  const product = { ...fetchedProduct, category: category };
 
   return (
     <main className={`${category} pt-5 mb-24`} id={category}>

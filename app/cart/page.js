@@ -17,7 +17,7 @@ function Cart() {
       {items.length === 0 ? (
         <EmptyCart />
       ) : (
-        <div className="flex sm:flex-nowrap flex-wrap items-center justify-center lg:gap-20 gap-5 mb-16">
+        <div className="flex md:flex-nowrap flex-wrap justify-center lg:gap-20 gap-5 mb-16">
           <div className="lg:col-span-8">
             <div className="cart-items">
               {items.map((item) => (

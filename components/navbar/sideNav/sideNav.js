@@ -9,8 +9,8 @@ const NAV_ITEMS = [
   { id: "wishlist", label: "Wishlist", href: "/wishlist" },
   { id: "orders", label: "Orders", href: "/orders" },
   { id: "payments", label: "Payments", href: "/payments" },
-  { id: "help", label: "Help", href: "/help" },
-  { id: "contact", label: "Contact Us", href: "/contact" },
+  { id: "help", label: "Help", href: "/customer-services/help" },
+  { id: "contact", label: "Contact Us", href: "/customer-services/contact" },
 ];
 
 // Categories configuration
@@ -61,9 +61,7 @@ const ChevronIcon = ({ isOpen }) => (
   </svg>
 );
 
-/**
- * NavItem Component
- */
+// NavItem Component
 const NavItem = ({ label, href, onClick }) => (
   <li>
     <Link
@@ -76,7 +74,7 @@ const NavItem = ({ label, href, onClick }) => (
   </li>
 );
 
-//CategoryDropdown Component
+// CategoryDropdown Component
 const CategoryDropdown = ({ isOpen, onToggle, onCategoryClick }) => (
   <li className="block lg:hidden">
     <hr className="mb-2 border-white/30" />
@@ -180,7 +178,7 @@ const SideNav = ({ show, handleClose }) => {
 
       {/* Side Navigation */}
       <aside
-        className={`fixed left-0 top-0 z-50 h-full w-80 bg-[var(--primary)] text-white shadow-xl transition-transform duration-300 ease-in-out ${
+        className={`fixed left-0 top-0 z-50 h-full w-80 bg-(--primary) text-white shadow-xl transition-transform duration-300 ease-in-out ${
           show ? "translate-x-0" : "-translate-x-full"
         }`}
         role="dialog"

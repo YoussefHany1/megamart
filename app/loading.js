@@ -1,14 +1,6 @@
 function Loading() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "2rem",
-      }}
-    >
+    <div className="h-screen flex items-center justify-center text-7xl">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
         <circle
           fill="#008ECC"
