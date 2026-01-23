@@ -7,12 +7,28 @@ import {
 } from "@stripe/react-stripe-js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../lib/firebase";
+// استيراد مكونات Material UI
+import { Alert, Snackbar } from "@mui/material";
 
 export default function AddCardForm({ userId, onSuccess, onCancel }) {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
+  // حالة للتحكم في رسائل التنبيه (Snackbar)
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success", // 'success' | 'error' | 'warning' | 'info'
+  });
+
+  // دالة لإغلاق التنبيه
+  const handleCloseToast = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setToast({ ...toast, open: false });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,16 +38,12 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
     }
 
     setLoading(true);
-    setError(null);
 
     try {
-      // 1. تأكيد الإعداد مباشرة (لأن clientSecret موجود بالفعل في Elements Provider)
+      // 1. تأكيد الإعداد
       const { error: confirmError, setupIntent } = await stripe.confirmSetup({
         elements,
-        confirmParams: {
-          // يمكن إضافة return_url هنا لو احتجت
-          // return_url: "https://example.com/account",
-        },
+        confirmParams: {},
         redirect: "if_required",
       });
 
@@ -40,7 +52,6 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
       }
 
       // 2. جلب تفاصيل Payment Method من Stripe Backend
-      // (نفس الكود القديم بتاعك لاستخراج البيانات)
       const paymentMethodId = setupIntent.payment_method;
 
       const paymentMethodRes = await fetch("/api/get-payment-method", {
@@ -71,13 +82,28 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
 
       const docRef = await addDoc(collection(db, "paymentMethods"), cardData);
 
-      onSuccess({
-        id: docRef.id,
-        ...cardData,
+      // إظهار رسالة نجاح
+      setToast({
+        open: true,
+        message: "Card saved successfully!",
+        severity: "success",
       });
+
+      // تأخير تنفيذ onSuccess قليلاً ليتمكن المستخدم من رؤية رسالة النجاح
+      setTimeout(() => {
+        onSuccess({
+          id: docRef.id,
+          ...cardData,
+        });
+      }, 1500);
     } catch (err) {
       console.error("Error adding card:", err);
-      setError(err.message || "Failed to add card.");
+      // إظهار رسالة خطأ
+      setToast({
+        open: true,
+        message: err.message || "Failed to add card.",
+        severity: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -118,6 +144,23 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
       <p className="text-xs text-gray-500 text-center">
         Your card information is encrypted and securely stored by Stripe
       </p>
+
+      {/* مكون التنبيه من Material UI */}
+      <Snackbar
+        open={toast.open}
+        autoHideDuration={6000}
+        onClose={handleCloseToast}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseToast}
+          severity={toast.severity}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {toast.message}
+        </Alert>
+      </Snackbar>
     </form>
   );
 }

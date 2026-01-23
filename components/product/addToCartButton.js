@@ -9,6 +9,7 @@ export default function ButtonComponent({ product }) {
       type="button"
       className="w-full lg:mx-3 whitespace-nowrap px-6 py-3 border rounded-md border-(--primary) text-(--primary) hover:bg-(--primary) hover:text-white transition"
       onClick={() => addItem(product)}
+      disabled={!product.price}
     >
       Add to Cart
     </button>

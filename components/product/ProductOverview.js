@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { formatPrice, extractNumber, capitalizeFirstLetter } from "./utils";
-import ProductActions from "./ProductActions"; // استدعاء الأزرار هنا للحفاظ على التنسيق
+import ProductActions from "./ProductActions";
 
-// --- 1. كود الصورة (نقلناه هنا) ---
+// image
 const ProductImage = ({ product }) => (
   <div className="image lg:pr-5 lg:mr-5 mx-auto">
     <Image
@@ -18,7 +18,7 @@ const ProductImage = ({ product }) => (
   </div>
 );
 
-// --- 2. مكونات المعلومات الفرعية (Headers, Price, etc.) ---
+// product name + brand name
 const ProductHeader = ({ product }) => {
   const brandName = product.specifications?.[0]?.pecifications
     ? capitalizeFirstLetter(product.specifications[0].pecifications)
@@ -35,7 +35,7 @@ const ProductHeader = ({ product }) => {
     </header>
   );
 };
-
+// rating
 const ProductRating = ({ rating }) => {
   if (!rating) return null;
   return (
@@ -44,8 +44,9 @@ const ProductRating = ({ rating }) => {
     </div>
   );
 };
-
+// price
 const ProductPrice = ({ product }) => {
+  console.log(product.price);
   const currentPrice = formatPrice(product.price);
   const oldPrice = extractNumber(product.old_price);
 
@@ -61,7 +62,7 @@ const ProductPrice = ({ product }) => {
     </div>
   );
 };
-
+// about this item
 const ProductAbout = ({ about }) => {
   if (!about || about.length === 0) return null;
   return (
@@ -78,21 +79,20 @@ const ProductAbout = ({ about }) => {
   );
 };
 
-// --- 3. المكون الرئيسي المدمج (Overview) ---
+// --- 3. main integrated component (Overview) ---
 const ProductOverview = ({ product }) => {
   return (
     <article className="product flex lg:flex-row flex-col justify-around pb-5">
-      {/* الجزء الأيسر: الصورة */}
+      {/* image */}
       <ProductImage product={product} />
 
-      {/* الجزء الأيمن: المعلومات والأزرار */}
+      {/* info and buttons */}
       <div className="text pt-4 lg:mx-5 lg:pb-3 flex flex-col">
         <ProductHeader product={product} />
         <ProductRating rating={product.rating} />
         <ProductPrice product={product} />
         <ProductAbout about={product.about} />
 
-        {/* وضعنا الأزرار هنا لأنها جزء من العمود النصي */}
         <ProductActions product={product} />
       </div>
     </article>

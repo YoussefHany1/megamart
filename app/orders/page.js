@@ -14,10 +14,33 @@ import Loading from "../loading";
 import Link from "next/link";
 import Image from "next/image";
 
+// استيراد مكونات Material UI
+import {
+  Alert,
+  Snackbar,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from "@mui/material";
+
 export default function OrdersPage() {
   const { user } = useAuth();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // حالة للتحكم في رسائل التنبيه (Snackbar)
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  // حالة للتحكم في نافذة التأكيد (Dialog)
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   useEffect(() => {
     if (!user) {
@@ -27,12 +50,9 @@ export default function OrdersPage() {
 
     const fetchOrders = async () => {
       try {
-        // الاستعلام عن الطلبات الخاصة بالمستخدم الحالي
         const q = query(
           collection(db, "orders"),
           where("userId", "==", user.uid),
-          // ملاحظة: لاستخدام orderBy مع where، قد يطلب منك Firestore إنشاء Index في الـ Console
-          // orderBy("createdAt", "desc")
         );
 
         const querySnapshot = await getDocs(q);
@@ -41,7 +61,6 @@ export default function OrdersPage() {
           ...doc.data(),
         }));
 
-        // ترتيب الطلبات حسب التاريخ (الأحدث أولاً) يدوياً لتجنب مشاكل الـ Index مؤقتاً
         ordersData.sort((a, b) => {
           const dateA = a.createdAt?.toDate
             ? a.createdAt.toDate()
@@ -63,15 +82,32 @@ export default function OrdersPage() {
     fetchOrders();
   }, [user]);
 
-  const handleCancelOrder = async (orderId) => {
-    // تأكيد من المستخدم
-    const confirmCancel = confirm(
-      "Are you sure you want to cancel this order?",
-    );
-    if (!confirmCancel) return;
+  // دالة إغلاق التنبيه
+  const handleCloseToast = (event, reason) => {
+    if (reason === "clickaway") return;
+    setToast({ ...toast, open: false });
+  };
+
+  // دوال فتح وإغلاق نافذة التأكيد
+  const handleOpenDialog = (orderId) => {
+    setSelectedOrderId(orderId);
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+    setSelectedOrderId(null);
+  };
+
+  // دالة تنفيذ الإلغاء الفعلية (بعد التأكيد من النافذة المنبثقة)
+  const confirmCancelOrder = async () => {
+    if (!selectedOrderId) return;
+
+    // إغلاق النافذة المنبثقة أولاً
+    handleCloseDialog();
 
     try {
-      const orderRef = doc(db, "orders", orderId);
+      const orderRef = doc(db, "orders", selectedOrderId);
 
       // تحديث الحالة في قاعدة البيانات
       await updateDoc(orderRef, {
@@ -81,14 +117,26 @@ export default function OrdersPage() {
       // تحديث الواجهة فوراً (Optimistic Update)
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
-          order.id === orderId ? { ...order, status: "cancelled" } : order,
+          order.id === selectedOrderId
+            ? { ...order, status: "cancelled" }
+            : order,
         ),
       );
 
-      alert("Order has been cancelled.");
+      // إظهار رسالة نجاح
+      setToast({
+        open: true,
+        message: "Order has been cancelled successfully.",
+        severity: "success",
+      });
     } catch (error) {
       console.error("Error cancelling order:", error);
-      alert("Failed to cancel order. Please check your connection.");
+      // إظهار رسالة خطأ
+      setToast({
+        open: true,
+        message: "Failed to cancel order. Please check your connection.",
+        severity: "error",
+      });
     }
   };
 
@@ -165,7 +213,8 @@ export default function OrdersPage() {
                   {order.status === "pending" && (
                     <div>
                       <button
-                        onClick={() => handleCancelOrder(order.id)}
+                        // هنا نفتح الـ Dialog بدلاً من تنفيذ الدالة مباشرة
+                        onClick={() => handleOpenDialog(order.id)}
                         className="px-4 py-2 text-sm text-red-600 border border-red-200 rounded hover:bg-red-50 transition"
                       >
                         Cancel Order
@@ -183,7 +232,6 @@ export default function OrdersPage() {
                     className="flex items-center py-4 border-b last:border-0 border-gray-100"
                   >
                     <div className="shrink-0 w-16 h-16 relative border rounded bg-gray-100">
-                      {/* تأكد من أن الصور لها روابط صحيحة أو استخدم صورة افتراضية */}
                       <Image
                         src={item.img || "/placeholder.png"}
                         alt={item.title}
@@ -206,7 +254,7 @@ export default function OrdersPage() {
                 ))}
               </div>
 
-              {/* عنوان الشحن (اختياري) */}
+              {/* عنوان الشحن */}
               <div className="px-4 py-3 bg-gray-50/50 border-t border-gray-100 text-sm text-gray-600">
                 <span className="font-semibold">Shipping to: </span>
                 {order.shippingAddress?.street}, {order.shippingAddress?.city}
@@ -215,6 +263,47 @@ export default function OrdersPage() {
           ))}
         </div>
       )}
+
+      {/* نافذة تأكيد الإلغاء (Dialog) */}
+      <Dialog
+        open={dialogOpen}
+        onClose={handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Cancel Order?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to cancel this order? This action cannot be
+            undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            No, Keep it
+          </Button>
+          <Button onClick={confirmCancelOrder} color="error" autoFocus>
+            Yes, Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* رسائل التنبيه (Snackbar) */}
+      <Snackbar
+        open={toast.open}
+        autoHideDuration={6000}
+        onClose={handleCloseToast}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseToast}
+          severity={toast.severity}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {toast.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

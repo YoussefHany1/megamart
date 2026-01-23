@@ -8,23 +8,30 @@ export const useWishlistStore = create(
 
       toggleWishlist: (item) => {
         const { wishlistItems } = get();
-        const exists = wishlistItems.find((i) => i.id === item.id);
+        // looking for an element that matches both the ID and the category
+        const exists = wishlistItems.find(
+          (i) => i.id === item.id && i.category === item.category,
+        );
 
         if (exists) {
           set({
-            wishlistItems: wishlistItems.filter((i) => i.id !== item.id),
+            wishlistItems: wishlistItems.filter(
+              (i) => !(i.id === item.id && i.category === item.category),
+            ),
           });
         } else {
           set({ wishlistItems: [...wishlistItems, item] });
         }
       },
 
-      isInWishlist: (id) => {
-        return !!get().wishlistItems.find((item) => item.id === id);
+      isInWishlist: (id, category) => {
+        return !!get().wishlistItems.find(
+          (item) => item.id === id && item.category === category,
+        );
       },
     }),
     {
-      name: "wishlist-storage", // localStorage key name
-    }
-  )
+      name: "wishlist-storage",
+    },
+  ),
 );

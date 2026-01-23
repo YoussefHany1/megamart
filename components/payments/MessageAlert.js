@@ -1,29 +1,24 @@
-"use client";
-import { useState, useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
-import { useRouter } from "next/navigation";
-import { Elements } from "@stripe/react-stripe-js";
-import { stripePromise } from "../../lib/stripe";
-import Loading from "../loading";
-import AddCardForm from "../../components/payments/AddCardForm";
-import PaymentMethodCard from "../../components/payments/PaymentMethodCard";
-import EmptyState from "../../components/payments/EmptyState";
-import SecurityInfo from "../../components/payments/SecurityInfo";
-import MessageAlert from "../../components/payments/MessageAlert";
-import {
-  fetchPaymentMethods,
-  deletePaymentMethod,
-  setDefaultPaymentMethod,
-  createSetupIntent,
-} from "../../services/paymentService";
+export default function MessageAlert({ message }) {
+  if (!message.text) return null;
 
-const STRIPE_APPEARANCE = { theme: "stripe" };
-const MESSAGE_TIMEOUT = 3000;
+  return (
+    <div
+      className={`p-4 mb-4 rounded ${
+        message.type === "success"
+          ? "bg-green-100 text-green-700 border border-green-300"
+          : "bg-red-100 text-red-700 border border-red-300"
+      }`}
+    >
+      {message.text}
+    </div>
+  );
+}
 
 export default function PaymentMethodsPage() {
   const { user } = useAuth();
   const router = useRouter();
 
+  // State management
   const [loading, setLoading] = useState(true);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [showAddCard, setShowAddCard] = useState(false);
@@ -102,7 +97,7 @@ export default function PaymentMethodsPage() {
         paymentMethods.map((card) => ({
           ...card,
           isDefault: card.id === cardId,
-        })),
+        }))
       );
       showMessage("success", "Default card updated!");
     } catch (error) {

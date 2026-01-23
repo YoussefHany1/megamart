@@ -14,11 +14,12 @@ export default function BuyNowButton({ product }) {
   return (
     <button
       type="button"
-      className="w-full lg:mx-3 lg:mb-0 mb-3 whitespace-nowrap px-6 py-3 rounded-md bg-[var(--primary)] text-white hover:bg-[#0279ac] transition"
+      className="w-full lg:mx-3 lg:mb-0 mb-3 whitespace-nowrap px-6 py-3 rounded-md bg-(--primary) text-white hover:bg-[#0279ac] transition"
       onClick={handleBuyNow}
       aria-label={`Buy ${product.name} now`}
+      disabled={!product.price}
     >
-      Buy Now
+      {!product.price ? "product not available" : "Buy Now"}
     </button>
   );
 }

@@ -22,7 +22,7 @@ async function getProduct(category, id) {
   }
 }
 
-// Main Product Page Component
+// Main Component
 async function ProductPage({ params }) {
   const { id, category } = await params;
   const fetchedProduct = await getProduct(category, id);

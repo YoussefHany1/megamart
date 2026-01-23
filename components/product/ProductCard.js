@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo } from "react";
@@ -20,7 +19,7 @@ const extractNumber = (str) => {
 const ProductCard = ({ product, category }) => {
   const currentCategory = category || "phones";
   const { toggleWishlist, isInWishlist } = useWishlistStore();
-  const isLiked = isInWishlist(product.id);
+  const isLiked = isInWishlist(product.id, currentCategory);
 
   const truncatedName = useMemo(() => {
     if (product.name.length > MAX_NAME_LENGTH) {
@@ -40,7 +39,7 @@ const ProductCard = ({ product, category }) => {
   const handleWishlistClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleWishlist(product);
+    toggleWishlist({ ...product, category: currentCategory });
   };
 
   return (

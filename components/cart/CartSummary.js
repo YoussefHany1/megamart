@@ -1,4 +1,3 @@
-// components/cart/CartSummary.js - النسخة المحدثة
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
@@ -17,6 +16,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../lib/stripe";
 import CheckoutForm from "./CheckoutForm";
 import Link from "next/link";
+// استيراد مكونات التنبيه
+import { Alert, Snackbar } from "@mui/material";
 
 const formatPrice = (price) => {
   if (typeof price === "string") {
@@ -45,6 +46,21 @@ const CartSummary = ({ items, onClearCart }) => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [useNewCard, setUseNewCard] = useState(false);
   const router = useRouter();
+
+  // حالة للتحكم في رسائل التنبيه (Snackbar)
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success", // 'success' | 'error' | 'warning' | 'info'
+  });
+
+  // دالة لإغلاق التنبيه
+  const handleCloseToast = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setToast({ ...toast, open: false });
+  };
 
   const { subtotal, itemCount } = useMemo(() => {
     const total = items.reduce((sum, item) => {
@@ -101,7 +117,11 @@ const CartSummary = ({ items, onClearCart }) => {
   // معالجة الدفع بالبطاقة المحفوظة
   const handlePayWithSavedCard = async () => {
     if (!user || !selectedCard) {
-      alert("Please select a card");
+      setToast({
+        open: true,
+        message: "Please select a card",
+        severity: "warning",
+      });
       return;
     }
 
@@ -112,7 +132,11 @@ const CartSummary = ({ items, onClearCart }) => {
       const userDocSnap = await getDoc(userDocRef);
 
       if (!userDocSnap.exists()) {
-        alert("User data not found");
+        setToast({
+          open: true,
+          message: "User data not found",
+          severity: "error",
+        });
         setLoading(false);
         return;
       }
@@ -125,8 +149,15 @@ const CartSummary = ({ items, onClearCart }) => {
         userData.addressMobile;
 
       if (!hasAddress) {
-        alert("Please add your shipping address in Account Settings");
-        router.push("/account");
+        setToast({
+          open: true,
+          message: "Please add your shipping address in Account Settings",
+          severity: "warning",
+        });
+        // تأخير التوجيه ليقرأ المستخدم الرسالة
+        setTimeout(() => {
+          router.push("/account");
+        }, 1500);
         setLoading(false);
         return;
       }
@@ -134,7 +165,7 @@ const CartSummary = ({ items, onClearCart }) => {
       // البحث عن البطاقة المختارة
       const card = savedCards.find((c) => c.id === selectedCard);
       if (!card) {
-        alert("Card not found");
+        setToast({ open: true, message: "Card not found", severity: "error" });
         setLoading(false);
         return;
       }
@@ -192,12 +223,22 @@ const CartSummary = ({ items, onClearCart }) => {
 
       await addDoc(collection(db, "orders"), orderData);
 
-      alert("Payment successful! Order created.");
+      setToast({
+        open: true,
+        message: "Payment successful! Order created.",
+        severity: "success",
+      });
       onClearCart();
-      router.push("/orders");
+      setTimeout(() => {
+        router.push("/orders");
+      }, 1500);
     } catch (error) {
       console.error("Payment error:", error);
-      alert("Payment failed: " + error.message);
+      setToast({
+        open: true,
+        message: "Payment failed: " + error.message,
+        severity: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -206,7 +247,11 @@ const CartSummary = ({ items, onClearCart }) => {
   // معالجة الدفع كاش
   const handleCashCheckout = async () => {
     if (!user) {
-      alert("يجب عليك تسجيل الدخول أولاً");
+      setToast({
+        open: true,
+        message: "يجب عليك تسجيل الدخول أولاً",
+        severity: "warning",
+      });
       return;
     }
 
@@ -217,7 +262,11 @@ const CartSummary = ({ items, onClearCart }) => {
       const userDocSnap = await getDoc(userDocRef);
 
       if (!userDocSnap.exists()) {
-        alert("User data not found");
+        setToast({
+          open: true,
+          message: "User data not found",
+          severity: "error",
+        });
         setLoading(false);
         return;
       }
@@ -230,8 +279,14 @@ const CartSummary = ({ items, onClearCart }) => {
         userData.addressMobile;
 
       if (!hasAddress) {
-        alert("Please add shipping address");
-        router.push("/account");
+        setToast({
+          open: true,
+          message: "Please add shipping address",
+          severity: "warning",
+        });
+        setTimeout(() => {
+          router.push("/account");
+        }, 1500);
         setLoading(false);
         return;
       }
@@ -269,12 +324,22 @@ const CartSummary = ({ items, onClearCart }) => {
 
       await addDoc(collection(db, "orders"), orderData);
 
-      alert("Order placed successfully!");
+      setToast({
+        open: true,
+        message: "Order placed successfully!",
+        severity: "success",
+      });
       onClearCart();
-      router.push("/orders");
+      setTimeout(() => {
+        router.push("/orders");
+      }, 1500);
     } catch (error) {
       console.error("Error placing order:", error);
-      alert("Failed to place order: " + error.message);
+      setToast({
+        open: true,
+        message: "Failed to place order: " + error.message,
+        severity: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -314,122 +379,142 @@ const CartSummary = ({ items, onClearCart }) => {
         <hr />
 
         {/* Payment Method Selection */}
-        <div className="payment-method my-4">
-          <h4 className="font-bold mb-2">Payment Method</h4>
+        {user ? (
+          <div className="payment-method my-4">
+            <h4 className="font-bold mb-2">Payment Method</h4>
 
-          <div className="space-y-2 mb-3">
-            <label className="flex items-center cursor-pointer p-2 border rounded hover:bg-gray-50">
-              <input
-                type="radio"
-                name="payment"
-                value="cash"
-                checked={paymentMethod === "cash"}
-                onChange={() => setPaymentMethod("cash")}
-                className="mr-2"
-              />
-              Cash on Delivery (+10 LE)
-            </label>
-
-            <label className="flex items-center cursor-pointer p-2 border rounded hover:bg-gray-50">
-              <input
-                type="radio"
-                name="payment"
-                value="card"
-                checked={paymentMethod === "card"}
-                onChange={() => setPaymentMethod("card")}
-                className="mr-2"
-              />
-              Credit/Debit Card
-            </label>
-          </div>
-
-          {/* Card Payment Options */}
-          {paymentMethod === "card" && (
-            <div className="bg-white p-4 rounded-md border border-gray-200 space-y-3">
-              {/* Saved Cards */}
-              {savedCards.length > 0 && !useNewCard && (
-                <div className="space-y-2">
-                  <h5 className="font-semibold text-sm">Saved Cards</h5>
-                  {savedCards.map((card) => (
-                    <label
-                      key={card.id}
-                      className="flex items-center justify-between p-3 border rounded cursor-pointer hover:bg-gray-50"
-                    >
-                      <div className="flex items-center gap-3">
-                        <input
-                          type="radio"
-                          name="savedCard"
-                          checked={selectedCard === card.id}
-                          onChange={() => setSelectedCard(card.id)}
-                        />
-                        <CardIcon brand={card.brand} />
-                        <div>
-                          <p className="font-semibold capitalize text-sm">
-                            {card.brand}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            •••• {card.last4}
-                          </p>
-                        </div>
-                      </div>
-                      {card.isDefault && (
-                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">
-                          Default
-                        </span>
-                      )}
-                    </label>
-                  ))}
-
-                  <button
-                    onClick={() => setUseNewCard(true)}
-                    className="w-full text-sm text-(--primary) hover:underline"
-                  >
-                    + Use a different card
-                  </button>
-                </div>
-              )}
-
-              {/* New Card Form */}
-              {(savedCards.length === 0 || useNewCard) && (
-                <div>
-                  {useNewCard && (
-                    <button
-                      onClick={() => setUseNewCard(false)}
-                      className="text-sm text-gray-600 hover:underline mb-2"
-                    >
-                      ← Back to saved cards
-                    </button>
-                  )}
-                  <Elements
-                    stripe={stripePromise}
-                    options={{
-                      mode: "payment",
-                      amount: Math.round(parseFloat(finalTotal) * 100),
-                      currency: "egp",
-                    }}
-                  >
-                    <CheckoutForm
-                      amount={finalTotal}
-                      items={items}
-                      onSuccess={() => {
-                        onClearCart();
-                        router.push("/orders");
-                      }}
-                    />
-                  </Elements>
-                </div>
-              )}
-
-              {/* Link to manage cards */}
-              <Link
-                href="/payments"
-                className="block text-center text-sm text-(--primary) hover:underline mt-2"
+            <div className="space-y-2 mb-3">
+              <label
+                className={`flex items-center cursor-pointer p-2 border border-(--border) rounded hover:bg-gray-50 transition ${paymentMethod === "cash" ? "border-(--primary)" : ""}`}
               >
-                Manage payment methods
-              </Link>
+                <input
+                  type="radio"
+                  name="payment"
+                  value="cash"
+                  checked={paymentMethod === "cash"}
+                  onChange={() => setPaymentMethod("cash")}
+                  className="mr-2"
+                />
+                Cash on Delivery (+10 LE)
+              </label>
+
+              <label
+                className={`flex items-center cursor-pointer p-2 border border-(--border) rounded hover:bg-gray-50 transition ${paymentMethod === "card" ? "border-(--primary)" : ""}`}
+              >
+                <input
+                  type="radio"
+                  name="payment"
+                  value="card"
+                  checked={paymentMethod === "card"}
+                  onChange={() => setPaymentMethod("card")}
+                  className="mr-2"
+                />
+                Credit/Debit Card
+              </label>
             </div>
-          )}
-        </div>
+
+            {/* Card Payment Options */}
+            {paymentMethod === "card" && (
+              <div className="bg-white p-4 rounded-md border border-gray-200 space-y-3">
+                {/* Saved Cards */}
+                {savedCards.length > 0 && !useNewCard && (
+                  <div className="space-y-2">
+                    <h5 className="font-semibold text-sm">Saved Cards</h5>
+                    {savedCards.map((card) => (
+                      <label
+                        key={card.id}
+                        className="flex items-center justify-between p-3 border rounded cursor-pointer hover:bg-gray-50"
+                      >
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="radio"
+                            name="savedCard"
+                            checked={selectedCard === card.id}
+                            onChange={() => setSelectedCard(card.id)}
+                          />
+                          <CardIcon brand={card.brand} />
+                          <div>
+                            <p className="font-semibold capitalize text-sm">
+                              {card.brand}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              •••• {card.last4}
+                            </p>
+                          </div>
+                        </div>
+                        {card.isDefault && (
+                          <span className="text-xs bg-blue-100 text-(--primary) px-2 py-1 rounded">
+                            Default
+                          </span>
+                        )}
+                      </label>
+                    ))}
+
+                    <button
+                      onClick={() => setUseNewCard(true)}
+                      className="w-full text-sm text-(--primary) hover:underline"
+                    >
+                      + Use a different card
+                    </button>
+                  </div>
+                )}
+
+                {/* New Card Form */}
+                {(savedCards.length === 0 || useNewCard) && (
+                  <div>
+                    {useNewCard && (
+                      <button
+                        onClick={() => setUseNewCard(false)}
+                        className="text-sm text-gray-600 hover:underline mb-2"
+                      >
+                        ← Back to saved cards
+                      </button>
+                    )}
+                    <Elements
+                      stripe={stripePromise}
+                      options={{
+                        mode: "payment",
+                        amount: Math.round(parseFloat(finalTotal) * 100),
+                        currency: "egp",
+                      }}
+                    >
+                      <CheckoutForm
+                        amount={finalTotal}
+                        items={items}
+                        onSuccess={() => {
+                          // إضافة رسالة نجاح هنا أيضاً لعملية الدفع ببطاقة جديدة
+                          setToast({
+                            open: true,
+                            message: "Order placed successfully!",
+                            severity: "success",
+                          });
+                          onClearCart();
+                          setTimeout(() => {
+                            router.push("/orders");
+                          }, 1500);
+                        }}
+                      />
+                    </Elements>
+                  </div>
+                )}
+
+                {/* Link to manage cards */}
+                <Link
+                  href="/payments"
+                  className="block text-center text-sm text-(--primary) hover:underline mt-2"
+                >
+                  Manage payment methods
+                </Link>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div>
+            <p className="text-center font-bold text-red-600 py-5">
+              Please Login first to proceed with checkout.
+            </p>
+          </div>
+        )}
 
         <div className="flex justify-between mb-3 border-t pt-2">
           <span className="text-lg font-bold">Total Amount:</span>
@@ -447,7 +532,7 @@ const CartSummary = ({ items, onClearCart }) => {
             className={`px-6 py-3 mt-5 rounded-md text-white transition w-full ${
               loading || items.length === 0
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700"
+                : "bg-(--primary) hover:bg-blue-700"
             }`}
           >
             {loading ? "Processing..." : `Place Order (${finalTotal} LE)`}
@@ -462,13 +547,30 @@ const CartSummary = ({ items, onClearCart }) => {
             className={`px-6 py-3 mt-5 rounded-md text-white transition w-full ${
               loading || items.length === 0 || !selectedCard
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700"
+                : "bg-(--primary) hover:bg-blue-700"
             }`}
           >
             {loading ? "Processing..." : `Pay ${finalTotal} LE`}
           </button>
         )}
       </div>
+
+      {/* مكون التنبيه من Material UI */}
+      <Snackbar
+        open={toast.open}
+        autoHideDuration={6000}
+        onClose={handleCloseToast}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseToast}
+          severity={toast.severity}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {toast.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
