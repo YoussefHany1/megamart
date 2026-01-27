@@ -1,22 +1,21 @@
 "use client";
 import { useState } from "react";
-// استيراد مكونات Material UI
-import { Alert, Snackbar } from "@mui/material";
+import Button from "@mui/material/Button";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../lib/firebase";
-
+import { Alert, Snackbar, TextField, CircularProgress } from "@mui/material";
 const ForgotPasswordForm = ({ handleClose, onSwitchToSignIn }) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // حالة للتحكم في رسائل التنبيه (Snackbar)
+  // Snackbar
   const [toast, setToast] = useState({
     open: false,
     message: "",
-    severity: "success", // 'success' | 'error' | 'warning' | 'info'
+    severity: "success",
   });
 
-  // دالة لإغلاق التنبيه
+  // close toast handler
   const handleCloseToast = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -40,18 +39,18 @@ const ForgotPasswordForm = ({ handleClose, onSwitchToSignIn }) => {
     try {
       await sendPasswordResetEmail(auth, email);
 
-      // إظهار رسالة النجاح
+      // success message
       setToast({
         open: true,
         message: "Password reset email sent! Check your inbox.",
         severity: "success",
       });
 
-      // العودة لشاشة الدخول بعد 3 ثواني ليتمكن المستخدم من قراءة الرسالة
+      // return to sign-in screen after 3 seconds
       setTimeout(() => onSwitchToSignIn(), 3000);
     } catch (err) {
       console.error(err);
-      // إظهار رسالة الخطأ
+      // error message
       setToast({
         open: true,
         message: "Error sending reset email. Please check the email address.",
@@ -65,55 +64,70 @@ const ForgotPasswordForm = ({ handleClose, onSwitchToSignIn }) => {
   return (
     <form onSubmit={handleResetPassword} className="space-y-4 px-2">
       <h2 className="text-center text-2xl mb-5">Reset Password</h2>
-
-      {/* تم إزالة رسائل الخطأ والنجاح النصية القديمة من هنا */}
-
+      {/* email input */}
       <div>
-        <input
-          type="email"
-          placeholder="Email address"
+        <TextField
           required
+          fullWidth
+          label="Email Address"
+          name="email"
+          placeholder="example@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled={loading}
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/50 disabled:opacity-50"
+          variant="outlined"
         />
       </div>
 
       <div className="mt-4 px-2 space-y-2">
-        <button
+        {/* back to sign in button */}
+        <Button
           type="button"
+          variant="text"
           onClick={onSwitchToSignIn}
           disabled={loading}
-          className="font-semibold text-(--primary) hover:text-blue-800 hover:underline bg-transparent border-0 cursor-pointer disabled:opacity-50"
+          sx={{
+            textTransform: "none",
+            color: "var(--color-primary)",
+            padding: 0,
+            backgroundColor: "transparent",
+            "&:hover": { color: "rgba(0, 142, 204, 0.7)" },
+          }}
         >
           Back to Sign In
-        </button>
+        </Button>
       </div>
-
-      <div className="flex justify-end gap-3 pt-4">
-        <button
-          onClick={handleClose}
-          type="button"
-          disabled={loading}
-          className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700 transition duration-200 disabled:opacity-50"
-        >
-          Close
-        </button>
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded bg-(--primary) px-4 py-2 text-white hover:bg-blue-700 transition duration-200 disabled:opacity-50"
-        >
-          {loading ? "Sending..." : "Send Reset Link"}
-        </button>
-      </div>
-
       <p className="text-gray-800 text-center mt-4 text-xs">
         *Check your spam folder in your email.*
       </p>
+      <div className="flex justify-end gap-3 pt-4">
+        {/* close button */}
+        <Button
+          type="button"
+          variant="contained"
+          color="error"
+          onClick={handleClose}
+          disabled={loading}
+        >
+          Close
+        </Button>
+        {/* send button */}
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={loading}
+          sx={{ backgroundColor: "var(--color-primary)" }}
+        >
+          {loading ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : (
+            "Send Reset Link"
+          )}
+        </Button>
+      </div>
 
-      {/* مكون التنبيه من Material UI */}
+      {/* snackbar for toast messages */}
       <Snackbar
         open={toast.open}
         autoHideDuration={6000}

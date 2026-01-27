@@ -3,18 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useMemo } from "react";
 import { useWishlistStore } from "../../app/store/wishlistStore";
+import { Card, CardContent, CardMedia, Divider, Rating } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import IconButton from "@mui/material/IconButton";
+import { formatPrice, extractNumber } from "./utils";
+
 const MAX_NAME_LENGTH = 30;
-
-// Utility functions specific to the card
-const formatPrice = (price) => {
-  if (!price) return "N/A";
-  return price.replace(/[.]/, " LE");
-};
-
-const extractNumber = (str) => {
-  if (!str) return null;
-  return Number(str.replace(/[^0-9.]/g, ""));
-};
 
 const ProductCard = ({ product, category }) => {
   const currentCategory = category || "phones";
@@ -43,42 +37,62 @@ const ProductCard = ({ product, category }) => {
   };
 
   return (
-    <div className="product relative border-0 max-w-56 pb-3 rounded-xl shrink bg-(--background1) outline-2 outline-(--background1) hover:outline-(--primary) duration-300">
-      <button
+    <Card
+      sx={{
+        position: "relative",
+        padding: 0,
+        borderRadius: 3,
+        maxWidth: 224,
+        height: 362,
+        backgroundColor: "var(--color-background1)",
+        border: "2px solid var(--color-background1)",
+        transition: "all 0.2s",
+        "&:hover": { borderColor: "var(--color-primary)" },
+      }}
+    >
+      <IconButton
+        variant="outlined"
+        size="large"
         onClick={handleWishlistClick}
-        className="absolute top-2 left-2 z-10 p-1.5 rounded-full bg-white/80 hover:bg-white shadow-sm cursor-pointer transition-transform active:scale-90"
-        aria-label="Add to wishlist"
+        disabled={!product.price}
+        sx={{
+          backgroundColor: "#0000001f",
+          position: "absolute",
+          top: 8,
+          left: 8,
+          zIndex: 10,
+          padding: 1,
+        }}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill={isLiked ? "#008ecc" : "none"}
-          stroke={isLiked ? "var(--primary)" : "var(--light)"}
-          strokeWidth="2"
-          className="w-5 h-5 text-gray-600"
-        >
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-        </svg>
-      </button>
+        <FavoriteIcon
+          sx={{ color: isLiked ? "var(--color-primary)" : "#686868" }}
+        />
+      </IconButton>
       <Link
         href={`/product-page/${currentCategory}/${product.id}`}
         className="image w-full flex justify-center bg-white relative mx-auto rounded-t-xl h-50"
         aria-label={`View details for ${product.name}`}
       >
-        <Image
-          width={200}
-          height={200}
-          src={product.pic}
-          className="p-3 object-contain"
-          alt={product.name}
-          loading="lazy"
-          quality={85}
-        />
+        <CardMedia
+          sx={{
+            display: "flex",
+          }}
+        >
+          <Image
+            width={200}
+            height={200}
+            src={product.pic}
+            className="p-3 object-contain"
+            alt={product.name}
+            loading="lazy"
+            quality={85}
+          />
+        </CardMedia>
 
         {/* Discount Badge */}
         {discountPercentage && (
           <div
-            className="text-center text-white font-bold py-2 absolute text-sm w-12 bg-(--primary) top-0 right-0 rounded-bl-xl rounded-tr-xl leading-tight"
+            className="text-center text-white font-bold py-2 absolute text-sm w-12 bg-primary top-0 right-0 rounded-bl-xl rounded-tr-xl leading-tight"
             aria-label={`${discountPercentage}% discount`}
           >
             {discountPercentage}%
@@ -88,12 +102,12 @@ const ProductCard = ({ product, category }) => {
         )}
       </Link>
 
-      <div className="text leading-tight p-5 pb-0">
+      <CardContent>
         {/* Product Name */}
         <div>
           <Link
             href={`/product-page/${currentCategory}/${product.id}`}
-            className="font-semibold text-(--heading)"
+            className="font-semibold text-heading"
             title={product.name}
           >
             {truncatedName}
@@ -112,16 +126,24 @@ const ProductCard = ({ product, category }) => {
           </p>
         </div>
 
-        <hr className="my-2" />
-
         {/* Rating */}
-        {product.rating && (
-          <div className="rate font-semibold text-green-600">
-            <b>{product.rating}</b> out of 5 stars
-          </div>
-        )}
-      </div>
-    </div>
+        <Divider sx={{ my: 1 }} />
+        <div className="rate font-semibold text-primary pb-3">
+          {Number(product.rating) ? (
+            <Rating
+              name="half-rating-read"
+              size="small"
+              defaultValue={product.rating}
+              precision={0.5}
+              readOnly
+              sx={{ color: "var(--color-primary)" }}
+            />
+          ) : (
+            <p>N/A Rate</p>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

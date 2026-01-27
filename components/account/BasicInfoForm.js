@@ -1,7 +1,19 @@
+import dayjs from "dayjs";
 import { useState } from "react";
-import Input from "../account/Input";
-// استيراد مكونات Material UI
-import { Alert, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Snackbar,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  TextField,
+  CircularProgress,
+  Button,
+} from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 export default function BasicInfoForm({
   initialData,
@@ -13,18 +25,17 @@ export default function BasicInfoForm({
     displayName: initialData.displayName || "",
     email: initialData.email || "",
     gender: initialData.gender || "",
-    birthDate: initialData.birthDate || "",
+    birthDate: initialData.birthDate ? dayjs(initialData.birthDate) : null,
     phoneNumber: initialData.phoneNumber || "",
   });
 
-  // حالة للتحكم في رسائل التنبيه (Snackbar)
   const [toast, setToast] = useState({
     open: false,
     message: "",
-    severity: "success", // 'success' | 'error' | 'warning' | 'info'
+    severity: "success",
   });
 
-  // دالة لإغلاق التنبيه
+  // close toast handler
   const handleCloseToast = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -32,16 +43,16 @@ export default function BasicInfoForm({
     setToast({ ...toast, open: false });
   };
 
+  // update form data handler
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // تعديل دالة الحفظ للتعامل مع التنبيهات
+  // form submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // نفترض أن onSave تعيد Promise
       await onSave(formData);
 
       setToast({
@@ -59,7 +70,7 @@ export default function BasicInfoForm({
     }
   };
 
-  // دالة جديدة للتعامل مع زر تغيير كلمة المرور وإظهار التنبيه
+  // Password reset button click handler
   const handleResetClick = async () => {
     try {
       await onResetPassword();
@@ -89,18 +100,28 @@ export default function BasicInfoForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Name Input */}
-        <Input
+        <TextField
           label="Full Name"
           name="displayName"
-          value={formData.displayName}
+          value={formData.displayName || ""}
           onChange={handleChange}
+          variant="outlined"
         />
         {/* Email Input */}
-        <Input
+        <TextField
           label="Email Address"
           name="email"
-          value={formData.email}
+          value={formData.email || ""}
           disabled={true}
+          variant="outlined"
+          sx={{
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "var(--color-primary)",
+              },
+            },
+          }}
+          required
         />
       </div>
 
@@ -112,66 +133,77 @@ export default function BasicInfoForm({
             Do you want to change your password?
           </p>
         </div>
-        <button
+        <Button
           type="button"
-          // تم استبدال الاستدعاء المباشر بالدالة الجديدة التي تحتوي على التنبيه
+          variant="contained"
           onClick={handleResetClick}
-          className="mt-3 sm:mt-0 text-white bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded text-sm transition duration-200"
+          disabled={loading}
+          startIcon={
+            loading ? <CircularProgress size={20} color="inherit" /> : null
+          }
+          sx={{
+            backgroundColor: "#4a5565",
+            "&:hover": {
+              backgroundColor: "#2d3748",
+            },
+          }}
         >
-          Send Reset Link
-        </button>
+          {loading ? "Sending..." : "Send Reset Link"}
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Gender Input */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Gender
-          </label>
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-(--primary) outline-none"
-          >
-            <option value="" disabled>
-              Select Gender
-            </option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
+          <FormControl fullWidth>
+            <InputLabel id="gender">Gender</InputLabel>
+            <Select
+              labelId="gender"
+              name="gender"
+              value={formData.gender || ""}
+              label="Gender"
+              onChange={handleChange}
+            >
+              <MenuItem value="male">Male</MenuItem>
+              <MenuItem value="female">Female</MenuItem>
+            </Select>
+          </FormControl>
         </div>
         {/* Birth Date Input */}
-        <Input
-          label="Birth Date"
-          type="date"
-          name="birthDate"
-          value={formData.birthDate}
-          onChange={handleChange}
-        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Birth Date"
+            name="birthDate"
+            value={formData.birthDate || null}
+            onChange={(newValue) =>
+              setFormData({ ...formData, birthDate: newValue })
+            }
+          />
+        </LocalizationProvider>
       </div>
 
       {/* Phone Number Input */}
-      <Input
+      <TextField
         label="Primary Phone Number"
-        type="tel"
         name="phoneNumber"
-        value={formData.phoneNumber}
+        value={formData.phoneNumber || ""}
         onChange={handleChange}
+        type="tel"
+        fullWidth
+        variant="outlined"
       />
-
       {/* Save Button */}
-      <div className="flex justify-end pt-2">
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-(--primary) text-white px-6 py-2 rounded hover:bg-blue-700 transition duration-200 disabled:opacity-50"
-        >
-          {loading ? "Saving..." : "Save Basic Info"}
-        </button>
+      <div className="flex justify-end mt-5">
+        <Button type="submit" variant="contained" disabled={loading}>
+          {loading ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : (
+            "Save Basic Info"
+          )}
+        </Button>
       </div>
 
-      {/* مكون التنبيه من Material UI */}
+      {/* alert */}
       <Snackbar
         open={toast.open}
         autoHideDuration={6000}

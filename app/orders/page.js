@@ -13,8 +13,6 @@ import {
 import Loading from "../loading";
 import Link from "next/link";
 import Image from "next/image";
-
-// استيراد مكونات Material UI
 import {
   Alert,
   Snackbar,
@@ -31,14 +29,13 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // حالة للتحكم في رسائل التنبيه (Snackbar)
+  // Snackbar
   const [toast, setToast] = useState({
     open: false,
     message: "",
     severity: "success",
   });
 
-  // حالة للتحكم في نافذة التأكيد (Dialog)
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
 
@@ -82,39 +79,39 @@ export default function OrdersPage() {
     fetchOrders();
   }, [user]);
 
-  // دالة إغلاق التنبيه
+  // close snackbar
   const handleCloseToast = (event, reason) => {
     if (reason === "clickaway") return;
     setToast({ ...toast, open: false });
   };
 
-  // دوال فتح وإغلاق نافذة التأكيد
+  // open dialog
   const handleOpenDialog = (orderId) => {
     setSelectedOrderId(orderId);
     setDialogOpen(true);
   };
-
+  // close dialog
   const handleCloseDialog = () => {
     setDialogOpen(false);
     setSelectedOrderId(null);
   };
 
-  // دالة تنفيذ الإلغاء الفعلية (بعد التأكيد من النافذة المنبثقة)
+  // confirm cancel order
   const confirmCancelOrder = async () => {
     if (!selectedOrderId) return;
 
-    // إغلاق النافذة المنبثقة أولاً
+    // close dialog first
     handleCloseDialog();
 
     try {
       const orderRef = doc(db, "orders", selectedOrderId);
 
-      // تحديث الحالة في قاعدة البيانات
+      // update status in the database
       await updateDoc(orderRef, {
         status: "cancelled",
       });
 
-      // تحديث الواجهة فوراً (Optimistic Update)
+      // update UI immediately
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
           order.id === selectedOrderId
@@ -123,7 +120,7 @@ export default function OrdersPage() {
         ),
       );
 
-      // إظهار رسالة نجاح
+      // success message
       setToast({
         open: true,
         message: "Order has been cancelled successfully.",
@@ -131,7 +128,7 @@ export default function OrdersPage() {
       });
     } catch (error) {
       console.error("Error cancelling order:", error);
-      // إظهار رسالة خطأ
+      // error message
       setToast({
         open: true,
         message: "Failed to cancel order. Please check your connection.",
@@ -148,7 +145,7 @@ export default function OrdersPage() {
         <h2 className="text-2xl font-bold mb-4">
           Please log in to view your orders
         </h2>
-        <Link href="/" className="text-(--primary) hover:underline">
+        <Link href="/" className="text-primary hover:underline">
           Go to Home
         </Link>
       </div>
@@ -157,7 +154,7 @@ export default function OrdersPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen">
-      <h1 className="text-3xl font-bold mb-8 text-(--primary)">My Orders</h1>
+      <h1 className="text-3xl font-bold mb-8 text-primary">My Orders</h1>
 
       {orders.length === 0 ? (
         <div className="text-center py-10 bg-gray-50 rounded-lg">
@@ -166,7 +163,7 @@ export default function OrdersPage() {
           </p>
           <Link
             href="/"
-            className="inline-block bg-(--primary) text-white px-6 py-2 rounded hover:bg-[#0279ac] transition"
+            className="inline-block bg-primary text-white px-6 py-2 rounded hover:bg-[#0279ac] transition"
           >
             Start Shopping
           </Link>
@@ -178,7 +175,6 @@ export default function OrdersPage() {
               key={order.id}
               className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden"
             >
-              {/* رأس الطلب: التاريخ، الإجمالي، الحالة */}
               <div className="bg-gray-50 p-4 border-b border-gray-200 flex flex-wrap justify-between items-center gap-4">
                 <div>
                   <p className="text-sm text-gray-500">Order Placed</p>
@@ -213,7 +209,6 @@ export default function OrdersPage() {
                   {order.status === "pending" && (
                     <div>
                       <button
-                        // هنا نفتح الـ Dialog بدلاً من تنفيذ الدالة مباشرة
                         onClick={() => handleOpenDialog(order.id)}
                         className="px-4 py-2 text-sm text-red-600 border border-red-200 rounded hover:bg-red-50 transition"
                       >
@@ -224,7 +219,7 @@ export default function OrdersPage() {
                 </div>
               </div>
 
-              {/* تفاصيل المنتجات في الطلب */}
+              {/* Order items details */}
               <div className="p-4">
                 {order.items.map((item, index) => (
                   <div
@@ -254,7 +249,7 @@ export default function OrdersPage() {
                 ))}
               </div>
 
-              {/* عنوان الشحن */}
+              {/* Shipping address */}
               <div className="px-4 py-3 bg-gray-50/50 border-t border-gray-100 text-sm text-gray-600">
                 <span className="font-semibold">Shipping to: </span>
                 {order.shippingAddress?.street}, {order.shippingAddress?.city}
@@ -264,7 +259,7 @@ export default function OrdersPage() {
         </div>
       )}
 
-      {/* نافذة تأكيد الإلغاء (Dialog) */}
+      {/* Cancel confirmation dialog */}
       <Dialog
         open={dialogOpen}
         onClose={handleCloseDialog}
@@ -288,7 +283,7 @@ export default function OrdersPage() {
         </DialogActions>
       </Dialog>
 
-      {/* رسائل التنبيه (Snackbar) */}
+      {/* Snackbar */}
       <Snackbar
         open={toast.open}
         autoHideDuration={6000}

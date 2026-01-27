@@ -1,5 +1,5 @@
 import React from "react";
-import ContactContent from "../../../components/contact/contact"; // استيراد المكون الجديد
+import ContactContent from "../../../components/contact/contact";
 
 export const metadata = {
   title: "Contact Us | MegaMart",

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Alert, Snackbar } from "@mui/material";
+import { TextField, CircularProgress, Button } from "@mui/material";
 
 import {
   signInWithEmailAndPassword,
@@ -14,11 +15,11 @@ const SignInForm = ({ handleClose, onSwitchToSignUp, onSwitchToForgot }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // toast state for error and success messages (Snackbar)
+  // Snackbar
   const [toast, setToast] = useState({
     open: false,
     message: "",
-    severity: "success", // 'success' | 'error' | 'warning' | 'info'
+    severity: "success",
   });
 
   // close toast handler
@@ -95,89 +96,121 @@ const SignInForm = ({ handleClose, onSwitchToSignUp, onSwitchToForgot }) => {
     <form onSubmit={handleSubmit} className="space-y-4 px-2">
       <h2 className="text-center text-2xl mb-5">Sign In</h2>
       <div>
-        <input
+        {/* email input */}
+        <TextField
           type="email"
-          placeholder="Email address"
-          required
-          value={email}
+          label="Email Address"
+          placeholder="example@example.com"
           onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={email}
           disabled={loading}
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/50 disabled:opacity-50"
+          variant="outlined"
+          required
+          fullWidth
         />
       </div>
+      {/* password input */}
       <div>
-        <input
+        <TextField
           type="password"
-          placeholder="Password"
-          required
-          value={password}
+          label="Password"
+          placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={password}
           disabled={loading}
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/50 disabled:opacity-50"
+          variant="outlined"
+          required
+          fullWidth
         />
       </div>
 
       <div className="mt-4 px-2 space-y-2">
-        <button
+        <Button
           type="button"
           onClick={onSwitchToForgot}
           disabled={loading}
-          className="font-semibold text-(--primary) hover:text-blue-800 hover:underline bg-transparent border-0 cursor-pointer disabled:opacity-50"
+          variant="text"
+          sx={{
+            textTransform: "none",
+            color: "var(--color-primary)",
+            padding: 0,
+            backgroundColor: "transparent",
+            minWidth: "auto",
+            "&:hover": { color: "rgba(0, 142, 204, 0.7)" },
+          }}
         >
           Forget password?
-        </button>
+        </Button>
       </div>
 
+      {/* google sign-in */}
       <div className="pt-2">
-        <button
+        <Button
           type="button"
           onClick={handleGoogleSignIn}
           disabled={loading}
-          className="w-full flex justify-center items-center gap-2 rounded border border-gray-300 bg-white px-4 py-2 text-gray-700 hover:bg-gray-50 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? (
-            <span>Processing...</span>
-          ) : (
-            <>
+          fullWidth
+          variant="outlined"
+          size="large"
+          startIcon={
+            loading ? null : (
               <img
                 src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
                 alt="Google logo"
                 className="w-5 h-5"
               />
-              Sign in with Google
-            </>
+            )
+          }
+        >
+          {loading ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : (
+            "Sign in with Google"
           )}
-        </button>
+        </Button>
       </div>
-
-      <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-4">
-        <button
-          onClick={handleClose}
-          type="button"
-          disabled={loading}
-          className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700 transition duration-200 disabled:opacity-50"
-        >
-          Close
-        </button>
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded bg-(--primary) px-4 py-2 text-white hover:bg-blue-700 transition duration-200 disabled:opacity-50"
-        >
-          {loading ? "Signing In..." : "Sign In"}
-        </button>
-      </div>
-
+      {/* sign up button */}
       <div className="text-gray-600 mt-4 text-center">
         Don't have an account?{" "}
-        <button
+        <Button
           type="button"
           onClick={onSwitchToSignUp}
           disabled={loading}
-          className="font-bold text-(--primary) hover:text-blue-800 hover:underline bg-transparent border-0 cursor-pointer disabled:opacity-50"
+          variant="text"
+          sx={{
+            textTransform: "none",
+            color: "var(--color-primary)",
+            padding: 0,
+            backgroundColor: "transparent",
+            minWidth: "auto",
+            "&:hover": { color: "rgba(0, 142, 204, 0.7)" },
+          }}
         >
           Sign up
-        </button>
+        </Button>
+      </div>
+      <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-4">
+        {/* close button */}
+        <Button
+          onClick={handleClose}
+          type="button"
+          disabled={loading}
+          variant="contained"
+          color="error"
+        >
+          Close
+        </Button>
+        {/* sign in button */}
+        <Button
+          type="submit"
+          disabled={loading}
+          variant="contained"
+          color="primary"
+        >
+          {loading ? <CircularProgress size={20} color="inherit" /> : "Sign In"}
+        </Button>
       </div>
 
       {/* snackbar for toast messages */}

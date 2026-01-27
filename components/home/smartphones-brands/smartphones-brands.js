@@ -124,16 +124,16 @@ const BrandCard = ({ brand }) => {
 
 // Section Header
 const SectionHeader = () => (
-  <header className="header text-(--secondary) flex justify-between font-bold items-center border-b border-(--border) w-[84%] justify-self-center">
-    <h2 className="line text-2xl pb-3 mb-0 border-b-3 border-(--primary)">
-      Top <span className="text-(--primary)">SmartPhone Brands</span>
+  <header className="header text-secondary flex justify-between font-bold items-center border-b border-border w-[84%] justify-self-center">
+    <h2 className="line text-2xl pb-3 mb-0 border-b-3 border-primary">
+      Top <span className="text-primary">SmartPhone Brands</span>
     </h2>
     <Link
       href="/phones"
       className="flex items-center flex-nowrap"
       aria-label="View all smartphone brands"
     >
-      <small className="font-normal text-sm text-(--heading) flex items-center text-nowrap">
+      <small className="font-normal text-sm text-heading flex items-center text-nowrap">
         View All
         <ArrowIcon />
       </small>

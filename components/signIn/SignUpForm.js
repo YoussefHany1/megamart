@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-// إضافة GoogleAuthProvider و signInWithPopup
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -8,6 +7,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import { Alert, Snackbar } from "@mui/material";
+import { TextField, CircularProgress, Button } from "@mui/material";
 
 const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
   const [email, setEmail] = useState("");
@@ -16,11 +16,11 @@ const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // toast state for error and success messages (Snackbar)
+  // Snackbar
   const [toast, setToast] = useState({
     open: false,
     message: "",
-    severity: "success", // 'success' | 'error' | 'warning' | 'info'
+    severity: "success",
   });
   // close toast handler
   const handleCloseToast = (event, reason) => {
@@ -63,7 +63,7 @@ const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
       } else if (err.code === "auth/weak-password") {
         errorMsg = "Password should be at least 6 characters.";
       }
-      // show error message
+      // error message
       setToast({ open: true, message: errorMsg, severity: "error" });
     } finally {
       setLoading(false);
@@ -105,91 +105,121 @@ const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
     <form onSubmit={handleSubmit} className="space-y-4 px-2">
       <h2 className="text-center text-2xl mb-5">Sign Up</h2>
       <div>
-        <input
+        {/* Email input */}
+        <TextField
           type="email"
-          placeholder="Email address"
-          required
-          value={email}
+          label="Email Address"
+          placeholder="example@example.com"
           onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={email}
           disabled={loading}
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/50 disabled:opacity-50"
+          variant="outlined"
+          required
+          fullWidth
         />
       </div>
+      {/* Password input */}
       <div>
-        <input
+        <TextField
           type="password"
-          placeholder="Password"
-          required
-          value={password}
+          label="Password"
+          placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={password}
           disabled={loading}
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/50 disabled:opacity-50"
+          variant="outlined"
+          required
+          fullWidth
         />
       </div>
+      {/* Confirm Password input */}
       <div>
-        <input
+        <TextField
           type="password"
+          label="Confirm Password"
           placeholder="Confirm Password"
-          required
-          value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          name="confirmPassword"
+          value={confirmPassword}
           disabled={loading}
-          className="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-700 focus:border-(--primary) focus:outline-none focus:ring-2 focus:ring-(--primary)/50 disabled:opacity-50"
+          variant="outlined"
+          required
+          fullWidth
         />
       </div>
 
-      {/* زر التسجيل بجوجل */}
+      {/* sign up with Google */}
       <div className="pt-2">
-        <button
+        <Button
           type="button"
           onClick={handleGoogleSignUp}
           disabled={loading}
-          className="w-full flex justify-center items-center gap-2 rounded border border-gray-300 bg-white px-4 py-2 text-gray-700 hover:bg-gray-50 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? (
-            <span>Processing...</span>
-          ) : (
-            <>
+          fullWidth
+          variant="outlined"
+          size="large"
+          startIcon={
+            loading ? null : (
               <img
                 src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
                 alt="Google logo"
                 className="w-5 h-5"
               />
-              Sign up with Google
-            </>
+            )
+          }
+        >
+          {loading ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : (
+            "Sign up with Google"
           )}
-        </button>
+        </Button>
+      </div>
+      {/* have an account button */}
+      <div className="text-gray-600 mt-4 text-center">
+        Already have an account?
+        <Button
+          type="button"
+          variant="text"
+          onClick={onSwitchToSignIn}
+          disabled={loading}
+          sx={{
+            textTransform: "none",
+            color: "var(--color-primary)",
+            padding: 0,
+            minWidth: "auto",
+            backgroundColor: "transparent",
+            "&:hover": { color: "rgba(0, 142, 204, 0.7)" },
+          }}
+        >
+          Sign in
+        </Button>
       </div>
 
       <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-4">
-        <button
-          onClick={handleClose}
+        {/* close button */}
+        <Button
           type="button"
+          onClick={handleClose}
           disabled={loading}
-          className="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700 transition duration-200 disabled:opacity-50"
+          variant="contained"
+          color="error"
         >
           Close
-        </button>
-        <button
+        </Button>
+        {/* sign up button */}
+        <Button
           type="submit"
           disabled={loading}
-          className="rounded bg-(--primary) px-4 py-2 text-white hover:bg-blue-700 transition duration-200 disabled:opacity-50"
+          variant="contained"
+          color="primary"
         >
-          {loading ? "Signing Up..." : "Sign Up"}
-        </button>
+          {loading ? <CircularProgress size={20} color="inherit" /> : "Sign Up"}
+        </Button>
       </div>
 
-      <div className="text-gray-600 mt-4 text-center">
-        Already have an account?{" "}
-        <button
-          type="button"
-          onClick={onSwitchToSignIn}
-          disabled={loading}
-          className="font-bold text-(--primary) hover:text-blue-800 hover:underline bg-transparent border-0 cursor-pointer disabled:opacity-50"
-        >
-          Sign in
-        </button>
-      </div>
+      {/* snackbar for toast messages */}
       <Snackbar
         open={toast.open}
         autoHideDuration={6000}

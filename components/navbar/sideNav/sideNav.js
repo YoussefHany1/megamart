@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../../context/AuthContext";
-
+import CloseIcon from "@mui/icons-material/Close";
 // Navigation items configuration
 const NAV_ITEMS = [
   { id: "account", label: "Your Account", href: "/account" },
@@ -23,24 +23,6 @@ const CATEGORIES = [
   { id: "camera", label: "Camera & Photo", href: "/camera" },
   { id: "tablets", label: "Tablets & Accessories", href: "/tablets" },
 ];
-
-const CloseIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-8 w-8"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    aria-hidden="true"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M6 18L18 6M6 6l12 12"
-    />
-  </svg>
-);
 
 const ChevronIcon = ({ isOpen }) => (
   <svg
@@ -178,7 +160,7 @@ const SideNav = ({ show, handleClose }) => {
 
       {/* Side Navigation */}
       <aside
-        className={`fixed left-0 top-0 z-50 h-full w-80 bg-(--primary) text-white shadow-xl transition-transform duration-300 ease-in-out ${
+        className={`fixed left-0 top-0 z-50 h-full w-80 bg-primary text-white shadow-xl transition-transform duration-300 ease-in-out ${
           show ? "translate-x-0" : "-translate-x-full"
         }`}
         role="dialog"
@@ -196,10 +178,10 @@ const SideNav = ({ show, handleClose }) => {
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className="text-white cursor-pointer  transition-colors duration-200 hover:text-gray-200 "
+            className="text-white cursor-pointer transition-colors duration-200 hover:text-gray-200 "
             aria-label="Close navigation"
           >
-            <CloseIcon />
+            <CloseIcon fontSize="medium" />
           </button>
         </div>
         {user ? (

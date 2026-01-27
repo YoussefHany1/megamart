@@ -48,9 +48,19 @@ export const useAccountManager = (user) => {
       }
 
       const userRef = doc(db, "users", user.uid);
+      let formattedBirthDate = formData.birthDate;
+      if (
+        formattedBirthDate &&
+        typeof formattedBirthDate.format === "function"
+      ) {
+        formattedBirthDate = formattedBirthDate.format("YYYY-MM-DD");
+      } else if (formattedBirthDate instanceof Date) {
+        formattedBirthDate = formattedBirthDate.toISOString().split("T")[0];
+      }
+
       const basicInfoData = {
         gender: formData.gender || "",
-        birthDate: formData.birthDate || "",
+        birthDate: formattedBirthDate || "",
         phoneNumber: formData.phoneNumber || "",
         displayName: formData.displayName || "",
         email: user.email,

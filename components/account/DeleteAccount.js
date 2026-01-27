@@ -1,4 +1,5 @@
 // Danger Zone Block
+import { CircularProgress, Button } from "@mui/material";
 export default function DeleteAccount({ onDelete, loading }) {
   return (
     <div className="mt-8 bg-white p-6 rounded-lg shadow-md border border-red-200">
@@ -13,14 +14,19 @@ export default function DeleteAccount({ onDelete, loading }) {
             certain.
           </p>
         </div>
-        <button
+        <Button
           type="button"
-          onClick={onDelete}
+          variant="contained"
+          color="error"
           disabled={loading}
-          className="mt-3 sm:mt-0 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition duration-200 text-sm disabled:opacity-50"
+          onClick={onDelete}
         >
-          {loading ? "Deleting..." : "Delete Account"}
-        </button>
+          {loading ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : (
+            "Delete Account"
+          )}
+        </Button>
       </div>
     </div>
   );

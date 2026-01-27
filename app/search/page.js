@@ -8,7 +8,7 @@ import ProductCard from "../../components/product/ProductCard";
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
-  const query = searchParams.get("q"); // الحصول على كلمة البحث من الرابط
+  const query = searchParams.get("q"); // get the search query from URL
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -16,23 +16,23 @@ export default function SearchPage() {
     const fetchAllProducts = async () => {
       setLoading(true);
       try {
-        // جلب جميع الروابط من ملف data.json
+        // Fetch all URLs from data.json
         const categoryPromises = Object.entries(categories).map(
           async ([catKey, url]) => {
             try {
               const res = await axios.get(url);
               const items = res.data.products || res.data || [];
-              // إضافة اسم التصنيف لكل منتج لنتمكن من استخدامه في الرابط
+              // Add category name to each product for use in the link
               return items.map((item) => ({ ...item, category: catKey }));
             } catch (err) {
               console.error(`Error fetching ${catKey}`, err);
               return [];
             }
-          }
+          },
         );
 
         const results = await Promise.all(categoryPromises);
-        // دمج كل المصفوفات في مصفوفة واحدة
+        // Merge all arrays into one array
         const allProducts = results.flat();
         setProducts(allProducts);
       } catch (error) {
@@ -45,20 +45,20 @@ export default function SearchPage() {
     fetchAllProducts();
   }, []);
 
-  // تصفية المنتجات بناءً على كلمة البحث
+  // Filter products based on the search query
   const filteredProducts = useMemo(() => {
     if (!query) return [];
     const lowerQuery = query.toLowerCase();
     return products.filter(
       (product) =>
-        product.name && product.name.toLowerCase().includes(lowerQuery)
+        product.name && product.name.toLowerCase().includes(lowerQuery),
     );
   }, [products, query]);
 
   return (
     <main className="min-h-screen py-10 px-[5%]">
       <h1 className="text-2xl font-bold mb-5 text-center">
-        Search Results for: <span className="text-(--primary)">"{query}"</span>
+        Search Results for: <span className="text-primary">"{query}"</span>
       </h1>
 
       {loading ? (

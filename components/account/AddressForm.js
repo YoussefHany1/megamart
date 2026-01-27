@@ -1,7 +1,11 @@
 import { useState } from "react";
-import Input from "../account/Input";
-// استيراد مكونات Material UI
-import { Alert, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Snackbar,
+  TextField,
+  CircularProgress,
+  Button,
+} from "@mui/material";
 
 export default function AddressForm({ initialData, onSave, loading }) {
   const [formData, setFormData] = useState({
@@ -16,14 +20,13 @@ export default function AddressForm({ initialData, onSave, loading }) {
     landmark: initialData.landmark || "",
   });
 
-  // حالة للتحكم في رسائل التنبيه (Snackbar)
   const [toast, setToast] = useState({
     open: false,
     message: "",
-    severity: "success", // 'success' | 'error' | 'warning' | 'info'
+    severity: "success",
   });
 
-  // دالة لإغلاق التنبيه
+  // close toast handler
   const handleCloseToast = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -39,10 +42,10 @@ export default function AddressForm({ initialData, onSave, loading }) {
     e.preventDefault();
 
     try {
-      // انتظار اكتمال عملية الحفظ القادمة من الأب
+      // save operation from the parent
       await onSave(formData);
 
-      // إظهار رسالة نجاح
+      // success message
       setToast({
         open: true,
         message: "Address saved successfully!",
@@ -50,7 +53,7 @@ export default function AddressForm({ initialData, onSave, loading }) {
       });
     } catch (error) {
       console.error(error);
-      // إظهار رسالة خطأ
+      // error message
       setToast({
         open: true,
         message: "Failed to save address. Please try again.",
@@ -70,90 +73,102 @@ export default function AddressForm({ initialData, onSave, loading }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Country Input */}
-        <Input
+        <TextField
           label="Country / Region"
           name="addressCountry"
           value={formData.addressCountry}
           onChange={handleChange}
           placeholder="e.g. Egypt"
+          variant="outlined"
         />
         {/* Governorate Input */}
-        <Input
+        <TextField
           label="Governorate"
           name="governorate"
           value={formData.governorate}
           onChange={handleChange}
           placeholder="e.g. Cairo"
+          variant="outlined"
         />
         {/* Name Input */}
-        <Input
+        <TextField
           label="Full Name (Recipient)"
           name="addressFullName"
           value={formData.addressFullName}
           onChange={handleChange}
+          variant="outlined"
         />
         {/* Mobile Number Input */}
-        <Input
+        <TextField
           label="Mobile Number (Address)"
-          type="tel"
           name="addressMobile"
           value={formData.addressMobile}
           onChange={handleChange}
-          placeholder="For delivery contact"
+          type="tel"
+          placeholder="e.g. 0 123 456 7890"
+          variant="outlined"
+          helperText="For delivery contact"
         />
         {/* City Input */}
-        <Input
+        <TextField
           label="City / Area"
           name="city"
           value={formData.city}
           onChange={handleChange}
           placeholder="e.g. Nasr City"
+          variant="outlined"
         />
         {/* District Input */}
-        <Input
+        <TextField
           label="District"
           name="district"
           value={formData.district}
           onChange={handleChange}
           placeholder="e.g. 7th District"
+          variant="outlined"
         />
         {/* Street Name Input */}
-        <Input
+        <TextField
           label="Street Name"
           name="streetName"
           value={formData.streetName}
           onChange={handleChange}
+          variant="outlined"
         />
         {/* Building Name Input */}
-        <Input
+        <TextField
           label="Building Name / No"
           name="buildingName"
+          placeholder="e.g. Building 12, Apartment 24"
           value={formData.buildingName}
           onChange={handleChange}
+          variant="outlined"
         />
       </div>
 
       {/* Nearest Landmark Input */}
-      <Input
+      <TextField
         label="Nearest Landmark"
         name="landmark"
         value={formData.landmark}
         onChange={handleChange}
         placeholder="e.g. Near Al-Ahly Club"
+        variant="outlined"
+        fullWidth
       />
 
       {/* Save Button */}
       <div className="flex justify-end pt-4">
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-(--primary) text-white px-6 py-2 rounded hover:bg-blue-700 transition duration-200 disabled:opacity-50"
-        >
-          {loading ? "Saving..." : "Save Address"}
-        </button>
+        <Button type="submit" variant="contained" disabled={loading}>
+          {loading ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : (
+            "Save Address"
+          )}
+        </Button>
       </div>
 
-      {/* مكون التنبيه من Material UI */}
+      {/* alert */}
       <Snackbar
         open={toast.open}
         autoHideDuration={6000}

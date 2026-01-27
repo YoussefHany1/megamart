@@ -11,8 +11,6 @@ import DeleteAccount from "../../components/account/DeleteAccount";
 export default function AccountPage() {
   const { user } = useAuth();
   const router = useRouter();
-
-  // Custom Hook Logic
   const {
     loading: actionLoading,
     fetchUserData,
@@ -52,7 +50,7 @@ export default function AccountPage() {
 
   return (
     <div className="container mx-auto py-8 ">
-      <h1 className="text-3xl font-bold mb-6 text-(--primary) text-nowrap">
+      <h1 className="text-3xl font-bold mb-6 text-primary text-nowrap">
         Account Settings
       </h1>
 

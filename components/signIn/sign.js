@@ -5,10 +5,9 @@ import SignUpForm from "./SignUpForm";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 
 const SignInModal = ({ show, handleClose }) => {
-  // view options: 'signin', 'signup', 'forgot'
   const [view, setView] = useState("signin");
 
-  // إعادة تعيين العرض إلى تسجيل الدخول في كل مرة يتم فيها فتح المودال
+  // reset to sign-in view
   useEffect(() => {
     if (show) {
       setView("signin");
@@ -21,7 +20,7 @@ const SignInModal = ({ show, handleClose }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-xl overflow-hidden animate-fade-in-down">
         <div className="p-6">
-          <h1 className="text-center font-bold text-4xl text-(--primary) mb-8 mt-4">
+          <h1 className="text-center font-bold text-4xl text-primary mb-8 mt-4">
             MegaMart
           </h1>
 

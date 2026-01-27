@@ -41,10 +41,10 @@ export default function ContactContent() {
     <div className="min-h-screen py-12">
       {/* Hero Section */}
       <div className="container mx-auto px-4 mb-12 text-center">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-(--primary)">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
           Contact Us
         </h1>
-        <p className="text-lg max-w-2xl mx-auto text-(--text)">
+        <p className="text-lg max-w-2xl mx-auto text-text">
           We love hearing from our customers. Whether you have a question about
           products, pricing, or anything else, our team is ready to answer all
           your questions.
@@ -57,15 +57,15 @@ export default function ContactContent() {
           <div className="space-y-8">
             <div className="grid gap-6">
               {/* Address */}
-              <div className="flex items-start gap-4 p-6 rounded-2xl border bg-white border-(--border) hover:border-(--primary) duration-300">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full text-xl shrink-0 bg-(--background3) text-(--primary)">
+              <div className="flex items-start gap-4 p-6 rounded-2xl border bg-white border-border hover:border-primary duration-300">
+                <div className="w-12 h-12 flex items-center justify-center rounded-full text-xl shrink-0 bg-background3 text-primary">
                   📍
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg mb-1 text-(--heading)">
+                  <h3 className="font-bold text-lg mb-1 text-heading">
                     Head Office
                   </h3>
-                  <p className="text-sm leading-relaxed text-(--secondary)">
+                  <p className="text-sm leading-relaxed text-secondary">
                     123 MegaMart Street, Cairo Festival City,
                     <br /> New Cairo, Egypt.
                   </p>
@@ -73,33 +73,33 @@ export default function ContactContent() {
               </div>
 
               {/* Phone */}
-              <div className="flex items-start gap-4 p-6 rounded-2xl border bg-white border-(--border) hover:border-(--primary) duration-300">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full text-xl shrink-0 bg-(--background3) text-(--primary)">
+              <div className="flex items-start gap-4 p-6 rounded-2xl border bg-white border-border hover:border-primary duration-300">
+                <div className="w-12 h-12 flex items-center justify-center rounded-full text-xl shrink-0 bg-background3 text-primary">
                   📞
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg mb-1 text-(--heading)">
+                  <h3 className="font-bold text-lg mb-1 text-heading">
                     Phone Number
                   </h3>
-                  <p className="text-sm mb-1 text-(--secondary)">
+                  <p className="text-sm mb-1 text-secondary">
                     Call Us: 010-123-456-78
                   </p>
-                  <p className="text-sm text-(--secondary)">
+                  <p className="text-sm text-secondary">
                     Mon - Sat: 9:00 AM - 6:00 PM
                   </p>
                 </div>
               </div>
 
               {/* Email */}
-              <div className="flex items-start gap-4 p-6 rounded-2xl border bg-white border-(--border) hover:border-(--primary) duration-300">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full text-xl shrink-0 bg-(--background3) text-(--primary)">
+              <div className="flex items-start gap-4 p-6 rounded-2xl border bg-white border-border hover:border-primary duration-300">
+                <div className="w-12 h-12 flex items-center justify-center rounded-full text-xl shrink-0 bg-background3 text-primary">
                   ✉️
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg mb-1 text-(--heading)">
+                  <h3 className="font-bold text-lg mb-1 text-heading">
                     Email Support
                   </h3>
-                  <p className="text-sm mb-1 text-(--secondary)">
+                  <p className="text-sm mb-1 text-secondary">
                     support@megamart.com
                   </p>
                 </div>
@@ -108,8 +108,8 @@ export default function ContactContent() {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-(--border)">
-            <h2 className="text-2xl font-bold mb-6 text-(--heading)">
+          <div className="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-border">
+            <h2 className="text-2xl font-bold mb-6 text-heading">
               Send us a Message
             </h2>
 
@@ -118,7 +118,7 @@ export default function ContactContent() {
                 <div className="space-y-2">
                   <label
                     htmlFor="name"
-                    className="text-sm font-semibold text-(--heading)"
+                    className="text-sm font-semibold text-heading"
                   >
                     Your Name
                   </label>
@@ -128,13 +128,13 @@ export default function ContactContent() {
                     name="user_name"
                     required
                     placeholder="John Doe"
-                    className="w-full p-3 rounded-xl border outline-none focus:ring-2 transition border-(--border) bg-(--background2) focus:ring-(--primary)"
+                    className="w-full p-3 rounded-xl border outline-none focus:ring-2 transition border-border bg-background2 focus:ring-primary"
                   />
                 </div>
                 <div className="space-y-2">
                   <label
                     htmlFor="email"
-                    className="text-sm font-semibold text-(--heading)"
+                    className="text-sm font-semibold text-heading"
                   >
                     Your Email
                   </label>
@@ -144,7 +144,7 @@ export default function ContactContent() {
                     name="user_email"
                     required
                     placeholder="john@example.com"
-                    className="w-full p-3 rounded-xl border outline-none focus:ring-2 transition border-(--border) bg-(--background2) focus:ring-(--primary)"
+                    className="w-full p-3 rounded-xl border outline-none focus:ring-2 transition border-border bg-background2 focus:ring-primary"
                   />
                 </div>
               </div>
@@ -152,7 +152,7 @@ export default function ContactContent() {
               <div className="space-y-2">
                 <label
                   htmlFor="subject"
-                  className="text-sm font-semibold text-(--heading)"
+                  className="text-sm font-semibold text-heading"
                 >
                   Subject
                 </label>
@@ -162,14 +162,14 @@ export default function ContactContent() {
                   name="subject"
                   required
                   placeholder="Order Inquiry / General Question"
-                  className="w-full p-3 rounded-xl border outline-none focus:ring-2 transition border-(--border) bg-(--background2) focus:ring-(--primary)"
+                  className="w-full p-3 rounded-xl border outline-none focus:ring-2 transition border-border bg-background2 focus:ring-primary"
                 />
               </div>
 
               <div className="space-y-2">
                 <label
                   htmlFor="message"
-                  className="text-sm font-semibold text-(--heading)"
+                  className="text-sm font-semibold text-heading"
                 >
                   Message
                 </label>
@@ -179,7 +179,7 @@ export default function ContactContent() {
                   rows="5"
                   required
                   placeholder="Write your message here..."
-                  className="w-full p-3 rounded-xl border outline-none focus:ring-2 transition resize-none border-(--border) bg-(--background2) focus:ring-(--primary)"
+                  className="w-full p-3 rounded-xl border outline-none focus:ring-2 transition resize-none border-border bg-background2 focus:ring-primary"
                 ></textarea>
               </div>
 
@@ -197,7 +197,7 @@ export default function ContactContent() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-4 rounded-xl font-bold text-white transition shadow-md bg-(--primary) ${
+                className={`w-full py-4 rounded-xl font-bold text-white transition shadow-md bg-primary ${
                   loading ? "opacity-70 cursor-not-allowed" : "hover:opacity-90"
                 }`}
               >

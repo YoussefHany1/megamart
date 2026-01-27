@@ -1,3 +1,5 @@
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 export const metadata = {
   title: "FAQ | MegaMart",
   description:
@@ -60,10 +62,10 @@ export default function FAQPage() {
     <div className="min-h-screen py-12">
       {/* Header Section */}
       <div className="container mx-auto px-4 mb-12 text-center">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-(--primary)">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
           Frequently Asked Questions (FAQ)
         </h1>
-        <p className="text-lg max-w-2xl mx-auto text-(--text)">
+        <p className="text-lg max-w-2xl mx-auto text-text">
           Have questions? We're here to help. Find answers to the most common
           questions below.
         </p>
@@ -73,7 +75,7 @@ export default function FAQPage() {
         {faqs.map((section, index) => (
           <div key={index} className="mb-10">
             {/* Category Title */}
-            <h2 className="text-xl font-bold mb-6 pb-2 border-b text-(--primary) border-(--border)">
+            <h2 className="text-xl font-bold mb-6 pb-2 border-b text-primary border-border">
               {section.category}
             </h2>
 
@@ -82,30 +84,18 @@ export default function FAQPage() {
               {section.items.map((item, i) => (
                 <details
                   key={i}
-                  className="group bg-white rounded-xl border shadow-sm border-(--border) transition-shadow duration-300 hover:shadow-md"
+                  className="group bg-white rounded-xl border shadow-sm border-border transition-shadow duration-300 hover:shadow-md"
                 >
                   <summary className="flex cursor-pointer items-center justify-between p-6 list-none">
-                    <span className="font-semibold text-lg text-(--heading)">
+                    <span className="font-semibold text-lg text-heading">
                       {item.q}
                     </span>
-                    <span className="transition group-open:rotate-180 text-(--primary)">
-                      <svg
-                        fill="none"
-                        height="24"
-                        shapeRendering="geometricPrecision"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        viewBox="0 0 24 24"
-                        width="24"
-                      >
-                        <path d="M6 9l6 6 6-6"></path>
-                      </svg>
+                    <span className="transition group-open:rotate-180 text-primary">
+                      <ExpandMoreIcon />
                     </span>
                   </summary>
 
-                  <div className="px-6 pb-6 pt-0 leading-relaxed text-(--secondary)">
+                  <div className="px-6 pb-6 pt-0 leading-relaxed text-secondary">
                     {item.a}
                   </div>
                 </details>
@@ -115,17 +105,17 @@ export default function FAQPage() {
         ))}
 
         {/* Contact Support Box */}
-        <div className="mt-16 p-8 rounded-2xl text-center bg-(--background3)">
-          <h3 className="text-2xl font-bold mb-3 text-(--heading)">
+        <div className="mt-16 p-8 rounded-2xl text-center bg-background3">
+          <h3 className="text-2xl font-bold mb-3 text-heading">
             Still have questions?
           </h3>
-          <p className="mb-6 text-(--text)">
+          <p className="mb-6 text-text">
             Can't find the answer you're looking for? Please chat to our
             friendly team.
           </p>
           <a
             href="mailto:support@megamart.com"
-            className="inline-block px-8 py-3 rounded-full font-semibold text-white transition-opacity hover:opacity-90 bg-(--primary)"
+            className="inline-block px-8 py-3 rounded-full font-semibold text-white transition-opacity hover:opacity-90 bg-primary"
           >
             Contact Support
           </a>

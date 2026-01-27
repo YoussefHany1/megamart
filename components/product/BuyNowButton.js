@@ -1,6 +1,7 @@
 "use client";
 import { useCartStore } from "../../app/store/cartStore";
 import { useRouter } from "next/navigation";
+import Button from "@mui/material/Button";
 
 export default function BuyNowButton({ product }) {
   const addItem = useCartStore((state) => state.addItem);
@@ -12,14 +13,22 @@ export default function BuyNowButton({ product }) {
   };
 
   return (
-    <button
+    <Button
+      fullWidth
       type="button"
-      className="w-full lg:mx-3 lg:mb-0 mb-3 whitespace-nowrap px-6 py-3 rounded-md bg-(--primary) text-white hover:bg-[#0279ac] transition"
       onClick={handleBuyNow}
-      aria-label={`Buy ${product.name} now`}
       disabled={!product.price}
+      variant="contained"
+      size="large"
+      sx={{
+        backgroundColor: "var(--color-primary)",
+        color: "#fff",
+        "&:hover": {
+          backgroundColor: "#0279ac",
+        },
+      }}
     >
       {!product.price ? "product not available" : "Buy Now"}
-    </button>
+    </Button>
   );
 }

@@ -16,7 +16,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../lib/stripe";
 import CheckoutForm from "./CheckoutForm";
 import Link from "next/link";
-// استيراد مكونات التنبيه
 import { Alert, Snackbar } from "@mui/material";
 
 const formatPrice = (price) => {
@@ -47,14 +46,14 @@ const CartSummary = ({ items, onClearCart }) => {
   const [useNewCard, setUseNewCard] = useState(false);
   const router = useRouter();
 
-  // حالة للتحكم في رسائل التنبيه (Snackbar)
+  // Snackbar
   const [toast, setToast] = useState({
     open: false,
     message: "",
     severity: "success", // 'success' | 'error' | 'warning' | 'info'
   });
 
-  // دالة لإغلاق التنبيه
+  // close the toast
   const handleCloseToast = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -82,7 +81,7 @@ const CartSummary = ({ items, onClearCart }) => {
     return (subtotalNum + fee).toFixed(2);
   }, [subtotal, paymentMethod]);
 
-  // جلب البطاقات المحفوظة
+  // Fetch saved cards
   useEffect(() => {
     if (!user) return;
 
@@ -101,7 +100,7 @@ const CartSummary = ({ items, onClearCart }) => {
 
         setSavedCards(cards);
 
-        // اختيار البطاقة الافتراضية تلقائياً
+        // Automatically select the default card
         const defaultCard = cards.find((card) => card.isDefault);
         if (defaultCard) {
           setSelectedCard(defaultCard.id);
@@ -114,7 +113,7 @@ const CartSummary = ({ items, onClearCart }) => {
     fetchSavedCards();
   }, [user]);
 
-  // معالجة الدفع بالبطاقة المحفوظة
+  // Handle payment with saved card
   const handlePayWithSavedCard = async () => {
     if (!user || !selectedCard) {
       setToast({
@@ -154,7 +153,7 @@ const CartSummary = ({ items, onClearCart }) => {
           message: "Please add your shipping address in Account Settings",
           severity: "warning",
         });
-        // تأخير التوجيه ليقرأ المستخدم الرسالة
+        // delay before redirecting
         setTimeout(() => {
           router.push("/account");
         }, 1500);
@@ -162,7 +161,7 @@ const CartSummary = ({ items, onClearCart }) => {
         return;
       }
 
-      // البحث عن البطاقة المختارة
+      // Find the selected card
       const card = savedCards.find((c) => c.id === selectedCard);
       if (!card) {
         setToast({ open: true, message: "Card not found", severity: "error" });
@@ -170,7 +169,7 @@ const CartSummary = ({ items, onClearCart }) => {
         return;
       }
 
-      // إجراء الدفع باستخدام البطاقة المحفوظة
+      // Process payment with saved card
       const res = await fetch("/api/charge-saved-card", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -188,7 +187,7 @@ const CartSummary = ({ items, onClearCart }) => {
 
       const { paymentIntentId } = await res.json();
 
-      // حفظ الطلب في Firestore
+      // Save order in Firestore
       const orderItems = items.map((item) => ({
         id: item.id || "unknown-id",
         title: item.name || item.title || "No Title",
@@ -244,12 +243,12 @@ const CartSummary = ({ items, onClearCart }) => {
     }
   };
 
-  // معالجة الدفع كاش
+  // Handle cash checkout
   const handleCashCheckout = async () => {
     if (!user) {
       setToast({
         open: true,
-        message: "يجب عليك تسجيل الدخول أولاً",
+        message: "Please login to proceed with checkout",
         severity: "warning",
       });
       return;
@@ -385,7 +384,7 @@ const CartSummary = ({ items, onClearCart }) => {
 
             <div className="space-y-2 mb-3">
               <label
-                className={`flex items-center cursor-pointer p-2 border border-(--border) rounded hover:bg-gray-50 transition ${paymentMethod === "cash" ? "border-(--primary)" : ""}`}
+                className={`flex items-center cursor-pointer p-2 border border-border rounded hover:bg-gray-50 transition ${paymentMethod === "cash" ? "border-primary" : ""}`}
               >
                 <input
                   type="radio"
@@ -399,7 +398,7 @@ const CartSummary = ({ items, onClearCart }) => {
               </label>
 
               <label
-                className={`flex items-center cursor-pointer p-2 border border-(--border) rounded hover:bg-gray-50 transition ${paymentMethod === "card" ? "border-(--primary)" : ""}`}
+                className={`flex items-center cursor-pointer p-2 border border-border rounded hover:bg-gray-50 transition ${paymentMethod === "card" ? "border-primary" : ""}`}
               >
                 <input
                   type="radio"
@@ -443,7 +442,7 @@ const CartSummary = ({ items, onClearCart }) => {
                           </div>
                         </div>
                         {card.isDefault && (
-                          <span className="text-xs bg-blue-100 text-(--primary) px-2 py-1 rounded">
+                          <span className="text-xs bg-blue-100 text-primary px-2 py-1 rounded">
                             Default
                           </span>
                         )}
@@ -452,7 +451,7 @@ const CartSummary = ({ items, onClearCart }) => {
 
                     <button
                       onClick={() => setUseNewCard(true)}
-                      className="w-full text-sm text-(--primary) hover:underline"
+                      className="w-full text-sm text-primary hover:underline"
                     >
                       + Use a different card
                     </button>
@@ -501,7 +500,7 @@ const CartSummary = ({ items, onClearCart }) => {
                 {/* Link to manage cards */}
                 <Link
                   href="/payments"
-                  className="block text-center text-sm text-(--primary) hover:underline mt-2"
+                  className="block text-center text-sm text-primary hover:underline mt-2"
                 >
                   Manage payment methods
                 </Link>
@@ -532,7 +531,7 @@ const CartSummary = ({ items, onClearCart }) => {
             className={`px-6 py-3 mt-5 rounded-md text-white transition w-full ${
               loading || items.length === 0
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-(--primary) hover:bg-blue-700"
+                : "bg-primary hover:bg-blue-700"
             }`}
           >
             {loading ? "Processing..." : `Place Order (${finalTotal} LE)`}
@@ -547,7 +546,7 @@ const CartSummary = ({ items, onClearCart }) => {
             className={`px-6 py-3 mt-5 rounded-md text-white transition w-full ${
               loading || items.length === 0 || !selectedCard
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-(--primary) hover:bg-blue-700"
+                : "bg-primary hover:bg-blue-700"
             }`}
           >
             {loading ? "Processing..." : `Pay ${finalTotal} LE`}

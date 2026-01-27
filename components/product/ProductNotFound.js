@@ -5,9 +5,7 @@ const ProductNotFound = () => (
       role="alert"
     >
       <h2 className="text-2xl font-bold">Product Not Found</h2>
-      <p className="mb-0">
-        The product you're looking for doesn't exist or has been removed.
-      </p>
+      <p>The product you're looking for doesn't exist or has been removed.</p>
     </div>
   </div>
 );

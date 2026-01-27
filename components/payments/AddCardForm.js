@@ -7,22 +7,23 @@ import {
 } from "@stripe/react-stripe-js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../lib/firebase";
-// استيراد مكونات Material UI
-import { Alert, Snackbar } from "@mui/material";
+import { Alert, Snackbar, Button, CircularProgress } from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 export default function AddCardForm({ userId, onSuccess, onCancel }) {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
 
-  // حالة للتحكم في رسائل التنبيه (Snackbar)
+  // control alert messages (Snackbar)
   const [toast, setToast] = useState({
     open: false,
     message: "",
-    severity: "success", // 'success' | 'error' | 'warning' | 'info'
+    severity: "success",
   });
 
-  // دالة لإغلاق التنبيه
+  // close the alert
   const handleCloseToast = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -40,7 +41,7 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
     setLoading(true);
 
     try {
-      // 1. تأكيد الإعداد
+      // Confirm setup
       const { error: confirmError, setupIntent } = await stripe.confirmSetup({
         elements,
         confirmParams: {},
@@ -51,7 +52,7 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
         throw new Error(confirmError.message);
       }
 
-      // 2. جلب تفاصيل Payment Method من Stripe Backend
+      // 2. Fetch Payment Method details from Stripe Backend
       const paymentMethodId = setupIntent.payment_method;
 
       const paymentMethodRes = await fetch("/api/get-payment-method", {
@@ -66,7 +67,7 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
 
       const paymentMethodData = await paymentMethodRes.json();
 
-      // 3. حفظ معلومات البطاقة في Firestore
+      // save card details to Firestore
       const cardData = {
         userId: userId,
         stripePaymentMethodId: paymentMethodId,
@@ -82,14 +83,14 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
 
       const docRef = await addDoc(collection(db, "paymentMethods"), cardData);
 
-      // إظهار رسالة نجاح
+      // show success message
       setToast({
         open: true,
         message: "Card saved successfully!",
         severity: "success",
       });
 
-      // تأخير تنفيذ onSuccess قليلاً ليتمكن المستخدم من رؤية رسالة النجاح
+      // delay execution
       setTimeout(() => {
         onSuccess({
           id: docRef.id,
@@ -98,7 +99,7 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
       }, 1500);
     } catch (err) {
       console.error("Error adding card:", err);
-      // إظهار رسالة خطأ
+      // show error message
       setToast({
         open: true,
         message: err.message || "Failed to add card.",
@@ -113,39 +114,51 @@ export default function AddCardForm({ userId, onSuccess, onCancel }) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <PaymentElement />
 
-      {error && (
-        <div className="text-red-600 text-sm bg-red-50 p-3 rounded-md border border-red-200">
-          {error}
-        </div>
-      )}
-
-      <div className="flex gap-3 pt-4">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition"
-        >
-          Cancel
-        </button>
-
-        <button
+      <div className="flex gap-3 pt-4 flex-wrap">
+        <Button
           type="submit"
+          variant="contained"
+          fullWidth
+          size="large"
           disabled={!stripe || loading}
-          className={`flex-1 px-6 py-3 rounded-md text-white font-semibold transition ${
-            !stripe || loading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
+          startIcon={
+            loading ? <CircularProgress /> : <SaveIcon fontSize="small" />
+          }
+          sx={{
+            backgroundColor: "var(--color-primary)",
+            "&:hover": {
+              backgroundColor: "#006895",
+            },
+          }}
         >
           {loading ? "Saving..." : "Save Card"}
-        </button>
+        </Button>
+
+        <Button
+          type="button"
+          variant="outlined"
+          size="large"
+          fullWidth
+          color="primary"
+          onClick={onCancel}
+          startIcon={<CancelOutlinedIcon fontSize="small" />}
+          className="flex items-center"
+          sx={{
+            color: "var-text",
+            "&:hover": {
+              backgroundColor: "gray-100",
+            },
+          }}
+        >
+          Cancel
+        </Button>
       </div>
 
       <p className="text-xs text-gray-500 text-center">
         Your card information is encrypted and securely stored by Stripe
       </p>
 
-      {/* مكون التنبيه من Material UI */}
+      {/* alert */}
       <Snackbar
         open={toast.open}
         autoHideDuration={6000}

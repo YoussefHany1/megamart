@@ -23,7 +23,7 @@ const TechnicalDetails = ({ specifications, details }) => {
               >
                 {item.name}
               </th>
-              <td className="py-2 px-3 text-(--text) lg:text-nowrap">
+              <td className="py-2 px-3 text-text lg:text-nowrap">
                 {item.pecifications}
               </td>
             </tr>
@@ -39,9 +39,7 @@ const TechnicalDetails = ({ specifications, details }) => {
               >
                 {item.th}
               </th>
-              <td className="py-2 px-3 text-(--text) lg:text-nowrap">
-                {item.td}
-              </td>
+              <td className="py-2 px-3 text-text lg:text-nowrap">{item.td}</td>
             </tr>
           ))}
         </tbody>

@@ -25,12 +25,12 @@ const ProductHeader = ({ product }) => {
     : "Unknown";
 
   return (
-    <header className="header border-b border-(--border)">
+    <header className="header border-b border-border">
       <h1 className="font-extrabold text-black text-2xl md:text-3xl">
         {product.name}
       </h1>
       <div className="brand mb-3">
-        Brand: <span className="text-(--primary)">{brandName}</span>
+        Brand: <span className="text-primary">{brandName}</span>
       </div>
     </header>
   );
@@ -79,7 +79,7 @@ const ProductAbout = ({ about }) => {
   );
 };
 
-// --- 3. main integrated component (Overview) ---
+//main component
 const ProductOverview = ({ product }) => {
   return (
     <article className="product flex lg:flex-row flex-col justify-around pb-5">

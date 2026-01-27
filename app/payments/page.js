@@ -16,6 +16,7 @@ import {
   setDefaultPaymentMethod,
   createSetupIntent,
 } from "../../services/paymentService";
+import CloseIcon from "@mui/icons-material/Close";
 
 const STRIPE_APPEARANCE = { theme: "stripe" };
 const MESSAGE_TIMEOUT = 3000;
@@ -139,15 +140,13 @@ export default function PaymentMethodsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-(--primary)">
-        Payment Methods
-      </h1>
+      <h1 className="text-3xl font-bold mb-6 text-primary">Payment Methods</h1>
 
       <MessageAlert message={message} />
 
       <button
         onClick={handleShowAddCard}
-        className="mb-6 px-6 py-3 bg-(--primary) text-white rounded-md hover:bg-[#0279ac] transition flex items-center gap-2"
+        className="mb-6 px-6 py-3 bg-primary text-white rounded-md hover:bg-[#0279ac] transition flex items-center gap-2"
       >
         {showAddCard ? "Cancel" : "Add New Card"}
       </button>
@@ -161,20 +160,7 @@ export default function PaymentMethodsPage() {
               className="text-gray-500 hover:text-gray-700"
               aria-label="Close"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <CloseIcon fontSize="medium" />
             </button>
           </div>
 

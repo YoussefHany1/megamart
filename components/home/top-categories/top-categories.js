@@ -69,7 +69,7 @@ const CategoryCard = ({ category }) => {
         aria-label={`Browse ${name} category`}
       >
         <div
-          className={`photo rounded-full grid place-items-center w-32 h-32 bg-(--background1) hover:shadow-lg hover:scale-105 duration-300`}
+          className={`photo rounded-full grid place-items-center w-32 h-32 bg-background1 hover:shadow-lg hover:scale-105 duration-300`}
         >
           <Image
             width={imageWidth}
@@ -94,16 +94,16 @@ function TopCategories() {
   return (
     <section className="topCat mb-24" aria-labelledby="top-categories-heading">
       {/* Section Header */}
-      <header className="header text-(--secondary) flex justify-between font-bold items-center border-b border-(--border) w-full justify-self-center">
-        <h2 className="line text-2xl pb-3 border-b-3 border-(--primary)">
-          Shop From <span className="text-(--primary)">Top Categories</span>
+      <header className="header text-secondary flex justify-between font-bold items-center border-b border-border w-full justify-self-center">
+        <h2 className="line text-2xl pb-3 border-b-3 border-primary">
+          Shop From <span className="text-primary">Top Categories</span>
         </h2>
         <Link
           href="/categories"
           className="flex items-center flex-nowrap"
           aria-label="View all categories"
         >
-          <small className="font-normal text-sm text-(--heading) flex items-center text-nowrap">
+          <small className="font-normal text-sm text-heading flex items-center text-nowrap">
             View All
             <ArrowIcon />
           </small>

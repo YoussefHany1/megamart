@@ -1,11 +1,11 @@
 import CardIcon from "./CardIcon";
-
+import Button from "@mui/material/Button";
 export default function PaymentMethodCard({ card, onSetDefault, onDelete }) {
   return (
     <div
       className={`p-6 bg-white rounded-lg shadow-sm border-2 transition ${
         card.isDefault
-          ? "border-(--primary)"
+          ? "border-primary"
           : "border-gray-200 hover:border-gray-300"
       }`}
     >
@@ -17,7 +17,7 @@ export default function PaymentMethodCard({ card, onSetDefault, onDelete }) {
             <div className="flex items-center gap-2">
               <span className="font-bold text-lg capitalize">{card.brand}</span>
               {card.isDefault && (
-                <span className="px-2 py-1 bg-(--primary) text-white text-xs rounded-full">
+                <span className="px-2 py-1 bg-primary text-white text-xs rounded-full">
                   Default
                 </span>
               )}
@@ -31,20 +31,34 @@ export default function PaymentMethodCard({ card, onSetDefault, onDelete }) {
 
         <div className="flex items-center gap-2">
           {!card.isDefault && (
-            <button
+            <Button
               onClick={() => onSetDefault(card.id)}
-              className="px-4 py-2 text-sm border border-(--primary) text-(--primary) rounded-md hover:bg-(--primary) hover:text-white transition"
+              variant="outlined"
+              color="primary"
+              sx={{
+                color: "#2563eb",
+                "&:hover": {
+                  backgroundColor: "#2563eb",
+                  color: "#fff",
+                },
+              }}
             >
               Set as Default
-            </button>
+            </Button>
           )}
 
-          <button
+          <Button
             onClick={() => onDelete(card.id, card.stripePaymentMethodId)}
-            className="px-4 py-2 text-sm border border-red-500 text-red-600 rounded-md hover:bg-red-50 transition"
+            variant="outlined"
+            color="error"
+            sx={{
+              "&:hover": {
+                backgroundColor: "red.500",
+              },
+            }}
           >
             Delete
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -9,10 +9,10 @@ export default function CancellationPolicyPage() {
     <div className="min-h-screen py-12">
       {/* Header Section */}
       <div className="container mx-auto px-4 mb-12 text-center">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-(--primary)">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
           Cancellation & Return Policy
         </h1>
-        <p className="text-lg max-w-2xl mx-auto text-(--text)">
+        <p className="text-lg max-w-2xl mx-auto text-text">
           We want you to be completely satisfied with your purchase. Please read
           our policy below regarding cancellations and returns.
         </p>
@@ -20,18 +20,16 @@ export default function CancellationPolicyPage() {
 
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Policy Content Wrapper */}
-        <div className="bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-(--border)">
-          {/* Section 1: Cancellation */}
-          <div className="mb-10 border-b border-(--line) pb-8">
+        <div className="bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-border">
+          {/* Cancellation */}
+          <div className="mb-10 border-b border-line pb-8">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-2xl p-2 rounded-lg bg-(--background3)">
-                🚫
-              </span>
-              <h2 className="text-2xl font-bold text-(--primary)">
+              <span className="text-2xl p-2 rounded-lg bg-background3">🚫</span>
+              <h2 className="text-2xl font-bold text-primary">
                 Order Cancellation
               </h2>
             </div>
-            <div className="space-y-4 text-(--secondary)">
+            <div className="space-y-4 text-secondary">
               <p>
                 You can cancel your order at any time before it has been
                 dispatched for delivery. Once the order is out for delivery, it
@@ -51,22 +49,18 @@ export default function CancellationPolicyPage() {
             </div>
           </div>
 
-          {/* Section 2: Returns */}
-          <div className="mb-10 border-b border-(--line) pb-8">
+          {/* Returns */}
+          <div className="mb-10 border-b border-line pb-8">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-2xl p-2 rounded-lg bg-(--background3)">
-                📦
-              </span>
-              <h2 className="text-2xl font-bold text-(--primary)">
-                Return Policy
-              </h2>
+              <span className="text-2xl p-2 rounded-lg bg-background3">📦</span>
+              <h2 className="text-2xl font-bold text-primary">Return Policy</h2>
             </div>
-            <div className="space-y-4 text-(--secondary)">
+            <div className="space-y-4 text-secondary">
               <p>
                 If you are not satisfied with your product, you can return it
                 within <strong>14 days</strong> of delivery.
               </p>
-              <p className="font-semibold text-(--heading)">
+              <p className="font-semibold text-heading">
                 Eligibility for Return:
               </p>
               <ul className="list-disc list-inside space-y-1 ml-2">
@@ -82,17 +76,15 @@ export default function CancellationPolicyPage() {
             </div>
           </div>
 
-          {/* Section 3: Refunds */}
-          <div className="mb-10 border-b border-(--line) pb-8">
+          {/* Refunds */}
+          <div className="mb-10 border-b border-line pb-8">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-2xl p-2 rounded-lg bg-(--background3)">
-                💰
-              </span>
-              <h2 className="text-2xl font-bold text-(--primary)">
+              <span className="text-2xl p-2 rounded-lg bg-background3">💰</span>
+              <h2 className="text-2xl font-bold text-primary">
                 Refund Process
               </h2>
             </div>
-            <div className="space-y-4 text-(--secondary)">
+            <div className="space-y-4 text-secondary">
               <p>
                 Once we receive your returned item and inspect it, we will
                 notify you about the approval or rejection of your refund.
@@ -104,24 +96,22 @@ export default function CancellationPolicyPage() {
             </div>
           </div>
 
-          {/* Section 4: Damaged Items */}
+          {/* Damaged Items */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-2xl p-2 rounded-lg bg-(--background3)">
-                ⚠️
-              </span>
-              <h2 className="text-2xl font-bold text-(--primary)">
+              <span className="text-2xl p-2 rounded-lg bg-background3">⚠️</span>
+              <h2 className="text-2xl font-bold text-primary">
                 Damaged or Defective Items
               </h2>
             </div>
-            <div className="space-y-4 text-(--secondary)">
+            <div className="space-y-4 text-secondary">
               <p>
                 If you receive a damaged or incorrect item, please contact our
                 support team immediately (within 24 hours of delivery) with
                 photos of the product. We will arrange a free replacement.
               </p>
-              <div className="mt-6 p-4 rounded-xl bg-(--background2) border border-(--primary)">
-                <p className="text-sm font-semibold text-(--primary)">
+              <div className="mt-6 p-4 rounded-xl bg-background2 border border-primary">
+                <p className="text-sm font-semibold text-primary">
                   Need help? Contact us at support@megamart.com
                 </p>
               </div>

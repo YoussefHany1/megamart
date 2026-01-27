@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { MarkProvider } from "../context/MarkContext";
 import { AuthProvider } from "../context/AuthContext";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/footer/footer";
 import "./globals.css";
@@ -24,13 +26,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AuthProvider>
-          <MarkProvider>
-            <Navbar />
-            {children}
-            <Footer />
-          </MarkProvider>
-        </AuthProvider>
+        <ThemeProvider theme={theme}>
+          <AuthProvider>
+            <MarkProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </MarkProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

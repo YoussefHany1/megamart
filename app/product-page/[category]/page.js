@@ -5,44 +5,15 @@ import { useParams } from "next/navigation";
 import ProductCard from "../../../components/product/ProductCard";
 import useFetchProducts from "../../../hooks/useFetchProducts";
 import categories from "../../../stores/data.json";
-import Loading from "../../loading";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import ProductCardSkeleton from "../../../components/product/ProductCardSkeleton";
 
 const PRODUCTS_PER_PAGE = 25;
 
-// Pagination component
-const Pagination = ({ currentPage, totalPages, onNext, onPrev }) => {
-  return (
-    <div className="pagination flex justify-center mb-5">
-      <button
-        className="px-4 py-2 border rounded-md text-(--primary) border-(--primary) hover:bg-(--primary) hover:text-white transition mr-2"
-        onClick={onPrev}
-        disabled={currentPage === 1}
-        aria-label="Previous page"
-      >
-        Previous
-      </button>
-      <span className="self-center px-2">
-        Page {currentPage} of {totalPages}
-      </span>
-      <button
-        className="px-4 py-2 border rounded-md text-(--primary) border-(--primary) hover:bg-(--primary) hover:text-white transition ml-2"
-        onClick={onNext}
-        disabled={currentPage === totalPages}
-        aria-label="Next page"
-      >
-        Next
-      </button>
-    </div>
-  );
-};
-
-// Main page component
 function CategoryPage() {
-  // 1. get category name from URL
   const params = useParams();
   const category = params.category;
-
-  // 2. select API URL based on category
   const apiUrl = categories[category] || null;
 
   const {
@@ -50,15 +21,14 @@ function CategoryPage() {
     error,
     loading,
   } = useFetchProducts(apiUrl, category);
+
   const [currentPage, setCurrentPage] = useState(1);
 
-  // filter out invalid products
   const validProducts = useMemo(
     () => products.filter((product) => product.name && product.pic),
     [products],
   );
 
-  // Pagination Logic for Category Page
   const totalPages = Math.ceil(validProducts.length / PRODUCTS_PER_PAGE);
 
   const currentProducts = useMemo(() => {
@@ -66,21 +36,12 @@ function CategoryPage() {
     return validProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
   }, [validProducts, currentPage]);
 
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+  // pagination handler
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handlePrev = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
-  // معالجة الأخطاء
   if (error) {
     return (
       <p className="text-red-600 text-4xl font-bold text-center mt-10">
@@ -91,20 +52,26 @@ function CategoryPage() {
 
   return (
     <main>
-      <h2 className="text-center my-12 uppercase text-4xl text-(--primary) font-bold">
+      <h2 className="text-center my-12 uppercase text-4xl text-primary font-bold">
         {category}
       </h2>
 
-      {loading && <Loading />}
+      {loading && (
+        <div className="flex flex-wrap items-center justify-center mt-5 pb-5">
+          {Array.from(new Array(12)).map((_, index) => (
+            <div key={index} className="flex justify-center m-5">
+              <ProductCardSkeleton />
+            </div>
+          ))}
+        </div>
+      )}
 
-      {/* if there is no products */}
       {!loading && !error && validProducts.length === 0 && (
         <p className="text-center text-xl mt-5">
           No products available right now.
         </p>
       )}
 
-      {/* product list (only shows when not loading) */}
       {!loading && (
         <div className="products flex flex-wrap items-center justify-center mt-5 pb-5">
           {currentProducts.map((product) => (
@@ -115,14 +82,19 @@ function CategoryPage() {
         </div>
       )}
 
-      {/* pagination buttons */}
       {!loading && totalPages > 1 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onNext={handleNext}
-          onPrev={handlePrev}
-        />
+        <div className="flex justify-center mb-10">
+          <Stack spacing={2}>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              color="primary"
+              variant="text"
+              size="large"
+            />
+          </Stack>
+        </div>
       )}
     </main>
   );

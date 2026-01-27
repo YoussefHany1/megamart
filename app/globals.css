@@ -7,27 +7,28 @@
   /* margin: 0; */
   /* padding: 0; */
 }
-:root {
-  --primary: #008ecc;
-  --secondary: #666666;
-  --text: #666666;
-  --heading: #222222;
-  --light: #888888;
-  --border: #ededed;
-  --background1: #f5f5f5;
-  --background2: #f6f6fc;
-  --background3: #f3f9fb;
-  --yellow: #e3bc01;
-  --line: #d9d9d9;
+@theme {
+  --color-primary: #008ecc;
+  /* --primary: #008ecc; */
+  --color-secondary: #666666;
+  --color-text: #666666;
+  --color-heading: #222222;
+  --color-light: #888888;
+  --color-border: #ededed;
+  --color-background1: #f5f5f5;
+  --color-background2: #f6f6fc;
+  --color-background3: #f3f9fb;
+  --color-yellow: #e3bc01;
+  --color-line: #d9d9d9;
 }
 .text-heading {
-  color: var(--heading);
+  color: var(--color-heading);
 }
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: var(--color-primary);
 }
 svg {
   width: 1em;

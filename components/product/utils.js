@@ -1,6 +1,6 @@
 export const formatPrice = (price) => {
   if (!price) return "N/A";
-  return price.replace(/[.]/, "");
+  return price.replace(/[.]/, " LE");
 };
 
 export const extractNumber = (str) => {
