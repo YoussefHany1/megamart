@@ -1,6 +1,7 @@
 // Danger Zone Block
 import { CircularProgress, Button } from "@mui/material";
-export default function DeleteAccount({ onDelete, loading }) {
+
+function DeleteAccount({ onDelete, loading }) {
   return (
     <div className="mt-8 bg-white p-6 rounded-lg shadow-md border border-red-200">
       <h2 className="text-xl font-semibold text-red-600 mb-4 border-b border-red-100 pb-2">
@@ -31,3 +32,4 @@ export default function DeleteAccount({ onDelete, loading }) {
     </div>
   );
 }
+export default DeleteAccount;

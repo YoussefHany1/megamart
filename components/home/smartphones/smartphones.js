@@ -1,15 +1,10 @@
 "use client";
-
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/css";
 import Link from "next/link";
 import { useMemo } from "react";
-import useFetchProducts from "../../../hooks/useFetchProducts";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ProductCard from "../../product/ProductCard";
-import ProductCardSkeleton from "../../product/ProductCardSkeleton";
-
-const API_URL =
-  "https://gist.githubusercontent.com/YoussefHany1/33ca89b7508ef3794d5c27d913803a47/raw/72b0b370f8e0bc13c7c043e26b0449f9ee3f08c0/phoneData.json";
 
 const SPLIDE_OPTIONS = {
   rewind: true,
@@ -26,41 +21,6 @@ const SPLIDE_OPTIONS = {
   },
   arrows: true,
 };
-
-// Arrow Icon Component
-const ArrowIcon = () => (
-  <svg viewBox="0 0 60 60" aria-hidden="true" className="ml-1">
-    <path
-      stroke="#008ECC"
-      strokeWidth="3"
-      d="M15.563 40.836a.997.997 0 0 0 1.414 0l15-15a1 1 0 0 0 0-1.414l-15-15a.999.999 0 1 0-1.414 1.414l14.293 14.293-14.293 14.293a1 1 0 0 0 0 1.414"
-    />
-  </svg>
-);
-
-// Error Message Component
-const ErrorMessage = () => (
-  <div
-    className="text-center my-5 bg-red-100 text-red-700 border border-red-300 rounded p-4"
-    role="alert"
-    aria-live="polite"
-  >
-    <p className="text-xl font-bold mb-2">Unable to load products</p>
-    <p className="mb-0">Please try again later</p>
-  </div>
-);
-
-// Loading State Component
-const LoadingState = () => (
-  <div className="text-center my-5" role="status" aria-live="polite">
-    <div
-      className="inline-block h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin"
-      aria-hidden="true"
-    />
-    <p className="mt-3 text-gray-500">Loading smartphones...</p>
-  </div>
-);
-
 // Section Header Component
 const SectionHeader = () => (
   <header className="header text-secondary flex justify-between font-bold items-center border-b border-border w-full justify-self-center">
@@ -74,42 +34,26 @@ const SectionHeader = () => (
     >
       <small className="font-normal text-sm text-heading flex items-center text-nowrap">
         View All
-        <ArrowIcon />
+        <ChevronRightIcon color="primary" />
       </small>
     </Link>
   </header>
 );
 
 // Main Component
-function Phone() {
-  const { items: phones, error, loading } = useFetchProducts(API_URL);
-
+function Phone({ products = [] }) {
   // Filter products with discount
   const discountedPhones = useMemo(() => {
-    if (!phones) return [];
-    return phones.filter((product) => product.discount);
-  }, [phones]);
+    if (!products) return [];
+    return products.filter((product) => product.discount);
+  }, [products]);
 
   return (
     <section className="smartPhones mb-24" aria-labelledby="phones-heading">
       <SectionHeader />
 
-      {/* Error State */}
-      {error && <ErrorMessage />}
-
-      {/* Loading State */}
-      {loading && !error && (
-        <div className="flex gap-4 items-center justify-between mt-14 px-[10%]">
-          {Array.from(new Array(5)).map((_, index) => (
-            <div key={index} className="flex justify-center">
-              <ProductCardSkeleton />
-            </div>
-          ))}
-        </div>
-      )}
-
       {/* Products Slider */}
-      {!error && !loading && discountedPhones.length > 0 && (
+      {discountedPhones.length > 0 ? (
         <Splide
           options={SPLIDE_OPTIONS}
           className="phones flex items-center justify-center mt-14 px-[10%]"
@@ -125,10 +69,8 @@ function Phone() {
             </SplideSlide>
           ))}
         </Splide>
-      )}
-
-      {/* Empty State */}
-      {!error && !loading && discountedPhones.length === 0 && (
+      ) : (
+        /* Empty State */
         <div className="text-center my-5 text-gray-500">
           <p className="text-lg">
             No discounted phones available at the moment

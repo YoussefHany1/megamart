@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "@splidejs/splide/css";
 
 const SPLIDE_OPTIONS = {
@@ -85,17 +86,6 @@ const PHONE_BRANDS = [
   },
 ];
 
-// Arrow Icon
-const ArrowIcon = () => (
-  <svg viewBox="0 0 60 60" aria-hidden="true" className="ml-1">
-    <path
-      stroke="#008ECC"
-      strokeWidth="3"
-      d="M15.563 40.836a.997.997 0 0 0 1.414 0l15-15a1 1 0 0 0 0-1.414l-15-15a.999.999 0 1 0-1.414 1.414l14.293 14.293-14.293 14.293a1 1 0 0 0 0 1.414"
-    />
-  </svg>
-);
-
 // Brand Card
 const BrandCard = ({ brand }) => {
   const { id, name, slug, imageSrc } = brand;
@@ -135,7 +125,7 @@ const SectionHeader = () => (
     >
       <small className="font-normal text-sm text-heading flex items-center text-nowrap">
         View All
-        <ArrowIcon />
+        <ChevronRightIcon color="primary" />
       </small>
     </Link>
   </header>

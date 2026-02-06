@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-// Constants
 const CATEGORIES = [
   {
     id: "mobiles",
@@ -40,17 +40,6 @@ const CATEGORIES = [
     imageHeight: 100,
   },
 ];
-
-// Arrow Icon Component
-const ArrowIcon = () => (
-  <svg viewBox="0 0 60 60" aria-hidden="true" className="ml-1">
-    <path
-      stroke="#008ECC"
-      strokeWidth="3"
-      d="M15.563 40.836a.997.997 0 0 0 1.414 0l15-15a1 1 0 0 0 0-1.414l-15-15a.999.999 0 1 0-1.414 1.414l14.293 14.293-14.293 14.293a1 1 0 0 0 0 1.414"
-    />
-  </svg>
-);
 
 // Category Card Component
 
@@ -105,7 +94,7 @@ function TopCategories() {
         >
           <small className="font-normal text-sm text-heading flex items-center text-nowrap">
             View All
-            <ArrowIcon />
+            <ChevronRightIcon color="primary" />
           </small>
         </Link>
       </header>

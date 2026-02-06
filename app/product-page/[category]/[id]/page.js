@@ -1,8 +1,13 @@
 import axios from "axios";
+import dynamic from "next/dynamic";
 import categories from "../../../../stores/data.json";
 import ProductOverview from "../../../../components/product/ProductOverview";
-import ProductDetails from "../../../../components/product/ProductDetails";
-import ProductNotFound from "../../../../components/product/ProductNotFound";
+const ProductDetails = dynamic(
+  () => import("../../../../components/product/ProductDetails"),
+);
+const ProductNotFound = dynamic(
+  () => import("../../../../components/product/ProductNotFound"),
+);
 
 // Fetch product data
 async function getProduct(category, id) {

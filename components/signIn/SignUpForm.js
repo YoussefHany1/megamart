@@ -4,15 +4,28 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
-import { auth } from "../../lib/firebase";
-import { Alert, Snackbar } from "@mui/material";
-import { TextField, CircularProgress, Button } from "@mui/material";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../../lib/firebase";
+import {
+  Alert,
+  Snackbar,
+  TextField,
+  CircularProgress,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [gender, setGender] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -43,10 +56,28 @@ const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
       });
       return;
     }
-
     setLoading(true);
+
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
+      // update display name
+      await updateProfile(user, {
+        displayName: name,
+      });
+
+      // save additional user data in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        displayName: name,
+        email: email,
+        gender: gender,
+        phoneNumber: "",
+        birthDate: "",
+      });
       setToast({
         open: true,
         message: "Account created successfully!",
@@ -76,6 +107,15 @@ const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
+      const user = result.user;
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          displayName: user.displayName,
+          email: user.email,
+        },
+        { merge: true },
+      );
 
       setToast({
         open: true,
@@ -104,6 +144,21 @@ const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 px-2">
       <h2 className="text-center text-2xl mb-5">Sign Up</h2>
+      {/* Name Input */}
+      <div>
+        <TextField
+          type="text"
+          label="Full Name"
+          placeholder="Youssef Hany"
+          onChange={(e) => setName(e.target.value)}
+          name="name"
+          value={name}
+          disabled={loading}
+          variant="outlined"
+          required
+          fullWidth
+        />
+      </div>
       <div>
         {/* Email input */}
         <TextField
@@ -118,6 +173,22 @@ const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
           required
           fullWidth
         />
+      </div>
+      {/* Gender Input */}
+      <div>
+        <FormControl fullWidth required variant="outlined">
+          <InputLabel id="gender-label">Gender</InputLabel>
+          <Select
+            labelId="gender-label"
+            value={gender}
+            label="Gender"
+            onChange={(e) => setGender(e.target.value)}
+            disabled={loading}
+          >
+            <MenuItem value="male">Male</MenuItem>
+            <MenuItem value="female">Female</MenuItem>
+          </Select>
+        </FormControl>
       </div>
       {/* Password input */}
       <div>

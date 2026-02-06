@@ -6,8 +6,7 @@ import dynamic from "next/dynamic";
 import { useCartStore } from "../../app/store/cartStore";
 import { useAuth } from "../../context/AuthContext";
 import IconButton from "@mui/material/IconButton";
-import Badge, { badgeClasses } from "@mui/material/Badge";
-import { styled } from "@mui/material/styles";
+import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -15,6 +14,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import LocationPinIcon from "@mui/icons-material/LocationPin";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import DiscountIcon from "@mui/icons-material/Discount";
+import { TextField, InputAdornment } from "@mui/material";
 const SideNav = dynamic(() => import("./sideNav/sideNav"), { ssr: false });
 const SignIn = dynamic(() => import("../signIn/sign"), { ssr: false });
 
@@ -28,13 +28,6 @@ const NAV_ITEMS = [
   { href: "/product-page/camera", label: "Camera & Photo" },
   { href: "/product-page/tablets", label: "Tablets & Accessories" },
 ];
-
-// Icon Components
-const CartBadge = styled(Badge)`
-  & .${badgeClasses.badge} {
-    top: -12px;
-  }
-`;
 
 // Search Component
 const SearchBar = ({ onSearch }) => {
@@ -56,20 +49,41 @@ const SearchBar = ({ onSearch }) => {
       role="search"
       onSubmit={handleSubmit}
     >
-      <button
-        className="border-0 lg:ml-4 ml-3 bg-transparent text-xs lg:text-[1rem]"
-        aria-label="Search"
-        type="submit"
-      >
-        <SearchIcon sx={{ color: "var(--color-primary)" }} />
-      </button>
-      <input
+      <TextField
         type="search"
-        className="border-0 rounded-md py-3 lg:ml-4 ml-2 w-3/4 bg-background1 min-w-2/6 text-sm lg:text-[1rem] text-text outline-0"
         placeholder="What are you looking for?"
         aria-label="Search products"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        fullWidth
+        variant="outlined"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <IconButton
+                type="submit"
+                aria-label="Search"
+                disableRipple
+                disableFocusRipple
+                sx={{
+                  "&:focus": { outline: "none", boxShadow: "none" },
+                  padding: "6px",
+                }}
+              >
+                <SearchIcon
+                  sx={{
+                    color: "var(--color-primary)",
+                    width: "1.2em",
+                    height: "1.2em",
+                  }}
+                />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        sx={{
+          "& .MuiOutlinedInput-notchedOutline": { border: 0 },
+        }}
       />
     </form>
   );
@@ -77,12 +91,12 @@ const SearchBar = ({ onSearch }) => {
 
 // User Section Component
 const UserSection = ({ user, onSignInClick, cartCount }) => (
-  <div className="sign items-center flex ml-5">
+  <div className="sign items-center flex ml-5 md:gap-2">
     {user ? (
       <div className="md:flex flex-col items-end lg:flex-row lg:items-center gap-1 lg:gap-3 lg:pr-3 hidden">
         <Link
           href="/account"
-          className="flex items-center gap-2 text-heading font-bold text-nowrap"
+          className="flex items-center md:gap-2 text-heading font-bold text-nowrap"
         >
           <PersonIcon sx={{ color: "var(--color-primary)" }} />
           <span>{user.displayName}</span>
@@ -101,24 +115,25 @@ const UserSection = ({ user, onSignInClick, cartCount }) => (
     )}
 
     <Link
-      className="relative flex items-center font-bold lg:pl-3 pl-5 w-max text-heading"
+      className="relative flex items-center md:gap-2 font-bold lg:pl-3 w-max text-heading"
       href="/cart"
       aria-label="View shopping cart"
     >
-      <IconButton>
+      <IconButton sx={{ padding: 0 }}>
         <ShoppingCartIcon
           fontSize="inherit"
           sx={{ color: "var(--color-primary)" }}
         />
         {cartCount > 0 && (
-          <CartBadge
+          <Badge
             badgeContent={cartCount}
             color="primary"
             overlap="circular"
+            sx={{ "& .MuiBadge-badge": { top: -12 } }}
           />
         )}
       </IconButton>
-      <span className="hidden lg:block">Cart</span>
+      <span className="hidden md:block">Cart</span>
     </Link>
   </div>
 );

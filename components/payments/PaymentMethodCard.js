@@ -1,6 +1,7 @@
 import CardIcon from "./CardIcon";
 import Button from "@mui/material/Button";
-export default function PaymentMethodCard({ card, onSetDefault, onDelete }) {
+
+function PaymentMethodCard({ card, onSetDefault, onDelete }) {
   return (
     <div
       className={`p-6 bg-white rounded-lg shadow-sm border-2 transition ${
@@ -36,9 +37,8 @@ export default function PaymentMethodCard({ card, onSetDefault, onDelete }) {
               variant="outlined"
               color="primary"
               sx={{
-                color: "#2563eb",
                 "&:hover": {
-                  backgroundColor: "#2563eb",
+                  backgroundColor: "var(--color-primary)",
                   color: "#fff",
                 },
               }}
@@ -51,11 +51,6 @@ export default function PaymentMethodCard({ card, onSetDefault, onDelete }) {
             onClick={() => onDelete(card.id, card.stripePaymentMethodId)}
             variant="outlined"
             color="error"
-            sx={{
-              "&:hover": {
-                backgroundColor: "red.500",
-              },
-            }}
           >
             Delete
           </Button>
@@ -64,3 +59,4 @@ export default function PaymentMethodCard({ card, onSetDefault, onDelete }) {
     </div>
   );
 }
+export default PaymentMethodCard;

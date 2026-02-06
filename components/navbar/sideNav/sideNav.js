@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import CloseIcon from "@mui/icons-material/Close";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 // Navigation items configuration
 const NAV_ITEMS = [
   { id: "account", label: "Your Account", href: "/account" },
@@ -23,25 +25,6 @@ const CATEGORIES = [
   { id: "camera", label: "Camera & Photo", href: "/camera" },
   { id: "tablets", label: "Tablets & Accessories", href: "/tablets" },
 ];
-
-const ChevronIcon = ({ isOpen }) => (
-  <svg
-    className={`h-5 w-5 transition-transform duration-200 ${
-      isOpen ? "rotate-180" : ""
-    }`}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    aria-hidden="true"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M19 9l-7 7-7-7"
-    />
-  </svg>
-);
 
 // NavItem Component
 const NavItem = ({ label, href, onClick }) => (
@@ -67,7 +50,13 @@ const CategoryDropdown = ({ isOpen, onToggle, onCategoryClick }) => (
       aria-controls="categories-dropdown"
     >
       <span>Categories</span>
-      <ChevronIcon isOpen={isOpen} />
+      <ExpandMoreIcon
+        fontSize="large"
+        sx={{
+          transition: "transform 0.2s ease",
+          transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+        }}
+      />
     </button>
 
     <div
@@ -102,7 +91,7 @@ const SideNav = ({ show, handleClose }) => {
   const handleLogout = async () => {
     try {
       await logOut();
-      handleClose(); // إغلاق القائمة بعد الخروج
+      handleClose(); // close sidenav on logout
     } catch (error) {
       console.error("Failed to logout:", error);
     }
@@ -181,14 +170,13 @@ const SideNav = ({ show, handleClose }) => {
             className="text-white cursor-pointer transition-colors duration-200 hover:text-gray-200 "
             aria-label="Close navigation"
           >
-            <CloseIcon fontSize="medium" />
+            <CloseIcon />
           </button>
         </div>
-        {user ? (
-          <p className="px-6 pb-3 md:hidden">Hi, {user.displayName}</p>
-        ) : null}
+
+        {user ? <p className="px-6 md:hidden">Hi, {user.displayName}</p> : null}
         {/* Navigation Body */}
-        <nav className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-2">
+        <nav className="px-6 py-4">
           <ul className="flex flex-col space-y-2 text-xl font-semibold">
             {/* Account */}
             <NavItem

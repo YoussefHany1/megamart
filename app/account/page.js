@@ -1,12 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useAccountManager } from "../../hooks/useAccountManager";
-import Loading from "../loading";
 import BasicInfoForm from "../../components/account/BasicInfoForm";
 import AddressForm from "../../components/account/AddressForm";
-import DeleteAccount from "../../components/account/DeleteAccount";
+const DeleteAccount = dynamic(
+  () => import("../../components/account/DeleteAccount"),
+);
+const Loading = dynamic(() => import("../loading"));
 
 export default function AccountPage() {
   const { user } = useAuth();

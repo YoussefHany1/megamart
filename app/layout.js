@@ -2,9 +2,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { MarkProvider } from "../context/MarkContext";
 import { AuthProvider } from "../context/AuthContext";
 import { ThemeProvider } from "@mui/material/styles";
+import dynamic from "next/dynamic";
 import theme from "./theme";
 import Navbar from "../components/navbar/navbar";
-import Footer from "../components/footer/footer";
+const Footer = dynamic(() => import("../components/footer/footer"));
 import "./globals.css";
 
 const geistSans = Geist({

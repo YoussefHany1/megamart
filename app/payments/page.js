@@ -1,15 +1,22 @@
 "use client";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/navigation";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../lib/stripe";
-import Loading from "../loading";
-import AddCardForm from "../../components/payments/AddCardForm";
 import PaymentMethodCard from "../../components/payments/PaymentMethodCard";
-import EmptyState from "../../components/payments/EmptyState";
 import SecurityInfo from "../../components/payments/SecurityInfo";
-import MessageAlert from "../../components/payments/MessageAlert";
+const Loading = dynamic(() => import("../loading"));
+const AddCardForm = dynamic(
+  () => import("../../components/payments/AddCardForm"),
+);
+const EmptyState = dynamic(
+  () => import("../../components/payments/EmptyState"),
+);
+const MessageAlert = dynamic(
+  () => import("../../components/payments/MessageAlert"),
+);
 import {
   fetchPaymentMethods,
   deletePaymentMethod,

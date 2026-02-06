@@ -1,4 +1,4 @@
-export default function MessageAlert({ message }) {
+function MessageAlert({ message }) {
   if (!message.text) return null;
 
   return (
@@ -13,3 +13,4 @@ export default function MessageAlert({ message }) {
     </div>
   );
 }
+export default MessageAlert;

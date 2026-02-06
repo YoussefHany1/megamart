@@ -1,5 +1,4 @@
 "use client";
-
 import { useWishlistStore } from "../store/wishlistStore";
 import ProductCard from "../../components/product/ProductCard";
 import Link from "next/link";

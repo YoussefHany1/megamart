@@ -4,12 +4,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   font-family: "Hanken Grotesk";
-  /* margin: 0; */
-  /* padding: 0; */
 }
 @theme {
   --color-primary: #008ecc;
-  /* --primary: #008ecc; */
   --color-secondary: #666666;
   --color-text: #666666;
   --color-heading: #222222;
@@ -36,7 +33,7 @@ svg {
   font-size: 2cap;
 }
 .splide .splide__arrows svg {
-  fill: var(--primary) !important;
+  fill: var(--color-primary) !important;
 }
 body {
   padding: 0 8%;

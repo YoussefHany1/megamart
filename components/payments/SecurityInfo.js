@@ -1,6 +1,6 @@
 import LockIcon from "@mui/icons-material/Lock";
 
-export default function SecurityInfo() {
+function SecurityInfo() {
   return (
     <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
       <div className="flex items-start gap-3">
@@ -18,3 +18,4 @@ export default function SecurityInfo() {
     </div>
   );
 }
+export default SecurityInfo;

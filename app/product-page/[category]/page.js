@@ -2,12 +2,15 @@
 
 import { useState, useMemo } from "react";
 import { useParams } from "next/navigation";
+import dynamic from "next/dynamic";
 import ProductCard from "../../../components/product/ProductCard";
 import useFetchProducts from "../../../hooks/useFetchProducts";
 import categories from "../../../stores/data.json";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import ProductCardSkeleton from "../../../components/product/ProductCardSkeleton";
+const Pagination = dynamic(() => import("@mui/material/Pagination"));
+const Stack = dynamic(() => import("@mui/material/Stack"));
+const ProductCardSkeleton = dynamic(
+  () => import("../../../components/product/ProductCardSkeleton"),
+);
 
 const PRODUCTS_PER_PAGE = 25;
 

@@ -1,9 +1,9 @@
 "use client";
-
+import dynamic from "next/dynamic";
 import { useCartStore } from "../store/cartStore";
-import EmptyCart from "../../components/cart/EmptyCart";
 import CartItem from "../../components/cart/CartItem";
 import CartSummary from "../../components/cart/CartSummary";
+const EmptyCart = dynamic(() => import("../../components/cart/EmptyCart"));
 
 function Cart() {
   const items = useCartStore((state) => state.items);
