@@ -72,7 +72,7 @@ const CategoryDropdown = ({ isOpen, onToggle, onCategoryClick }) => (
       {CATEGORIES.map((category) => (
         <Link
           key={category.id}
-          href={category.href}
+          href={`/product-page/${category.href}`}
           onClick={onCategoryClick}
           className="block py-1 text-white/90 transition-colors duration-200 hover:text-white"
         >

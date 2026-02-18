@@ -216,7 +216,7 @@ function Navbar() {
           </Link>
         </div>
       </div>
-      {/* Mobile Logo */}
+      {/* Logo */}
       <Link
         href="/"
         className="logo lg:text-left text-center text-primary mt-2 text-4xl font-bold sm:hidden block"
@@ -234,7 +234,7 @@ function Navbar() {
             aria-label="Toggle navigation menu"
             aria-expanded={showSideNav}
             color="primary"
-            sx={{ backgroundColor: "var(--color-background1)" }}
+            sx={{ backgroundColor: "var(--color-background1)", marginRight: 2 }}
           >
             <MenuIcon />
           </IconButton>
