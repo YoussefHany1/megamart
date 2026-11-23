@@ -11,7 +11,13 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 
-const SignUpForm = ({ handleClose, onSwitchToSignIn }) => {
+const SignUpForm = ({
+  handleClose,
+  onSwitchToSignIn,
+}: {
+  handleClose: () => void;
+  onSwitchToSignIn: () => void;
+}) => {
   const {
     name,
     setName,

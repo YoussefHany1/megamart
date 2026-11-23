@@ -6,13 +6,17 @@ import {
   deleteUser,
 } from "firebase/auth";
 import { db, auth } from "@/lib/firebase";
+import type { User } from "firebase/auth";
+import type { useRouter } from "next/navigation";
+import type { Dayjs } from "dayjs";
+import type { BasicInfoData, AddressData } from "../types";
 
-export const useAccountManager = (user) => {
+export const useAccountManager = (user: User | null) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
 
   // function to display messages
-  const setMsg = (type, text) => {
+  const setMsg = (type: string, text: string) => {
     setMessage({ type, text });
     if (typeof window !== "undefined") window.scrollTo(0, 0);
     // Hide the message automatically after 5 seconds (optional)
@@ -36,24 +40,24 @@ export const useAccountManager = (user) => {
   }, [user]);
 
   // Update basic info
-  const updateBasicInfo = async (formData) => {
+  const updateBasicInfo = async (formData: BasicInfoData) => {
     setLoading(true);
     try {
       const promises: Promise<void>[] = [];
 
-      if (formData.displayName !== user.displayName) {
+      if (formData.displayName !== user!.displayName) {
         promises.push(
-          updateProfile(user, { displayName: formData.displayName }),
+          updateProfile(user!, { displayName: formData.displayName }),
         );
       }
 
-      const userRef = doc(db, "users", user.uid);
-      let formattedBirthDate = formData.birthDate;
+      const userRef = doc(db, "users", user!.uid);
+      let formattedBirthDate: unknown = formData.birthDate;
       if (
         formattedBirthDate &&
-        typeof formattedBirthDate.format === "function"
+        typeof (formattedBirthDate as Dayjs).format === "function"
       ) {
-        formattedBirthDate = formattedBirthDate.format("YYYY-MM-DD");
+        formattedBirthDate = (formattedBirthDate as Dayjs).format("YYYY-MM-DD");
       } else if (formattedBirthDate instanceof Date) {
         formattedBirthDate = formattedBirthDate.toISOString().split("T")[0];
       }
@@ -63,7 +67,7 @@ export const useAccountManager = (user) => {
         birthDate: formattedBirthDate || "",
         phoneNumber: formData.phoneNumber || "",
         displayName: formData.displayName || "",
-        email: user.email,
+        email: user!.email,
       };
 
       promises.push(setDoc(userRef, basicInfoData, { merge: true }));
@@ -78,10 +82,10 @@ export const useAccountManager = (user) => {
   };
 
   // Update address
-  const updateAddress = async (addressData) => {
+  const updateAddress = async (addressData: AddressData) => {
     setLoading(true);
     try {
-      const userRef = doc(db, "users", user.uid);
+      const userRef = doc(db, "users", user!.uid);
       await setDoc(userRef, addressData, { merge: true });
       setMsg("success", "Address updated successfully!");
     } catch (error) {
@@ -108,7 +112,7 @@ export const useAccountManager = (user) => {
   };
 
   // Delete account
-  const deleteAccount = async (router) => {
+  const deleteAccount = async (router: ReturnType<typeof useRouter>) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your account? This action cannot be undone.",
     );
@@ -116,9 +120,9 @@ export const useAccountManager = (user) => {
 
     setLoading(true);
     try {
-      const userRef = doc(db, "users", user.uid);
+      const userRef = doc(db, "users", user!.uid);
       await deleteDoc(userRef);
-      await deleteUser(user);
+      await deleteUser(user!);
       router.push("/");
     } catch (error) {
       console.error(error);

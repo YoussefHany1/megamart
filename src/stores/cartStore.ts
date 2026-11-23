@@ -1,19 +1,22 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { CartItem, Product } from "@/types";
+
+type CartItemId = CartItem["id"];
 
 // Cart item type helper
-const createCartItem = (item, quantity = 1) => ({
+const createCartItem = (item: Product, quantity = 1): CartItem => ({
   ...item,
   quantity,
 });
 
 // Cart operations
 const cartOperations = {
-  addItem: (items: any[], newItem: any) => {
+  addItem: (items: CartItem[], newItem: Product): CartItem[] => {
     const existingIndex = items.findIndex((i) => i.id === newItem.id);
 
     if (existingIndex !== -1) {
-      return items.map((item: any, index: number) =>
+      return items.map((item, index) =>
         index === existingIndex
           ? { ...item, quantity: item.quantity + 1 }
           : item,
@@ -23,31 +26,31 @@ const cartOperations = {
     return [...items, createCartItem(newItem)];
   },
 
-  removeItem: (items: any[], id: any) =>
-    items.filter((item: any) => item.id !== id),
+  removeItem: (items: CartItem[], id: CartItemId): CartItem[] =>
+    items.filter((item) => item.id !== id),
 
-  increaseQty: (items: any[], id: any) =>
-    items.map((item: any) =>
+  increaseQty: (items: CartItem[], id: CartItemId): CartItem[] =>
+    items.map((item) =>
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
     ),
 
-  decreaseQty: (items: any[], id: any) =>
+  decreaseQty: (items: CartItem[], id: CartItemId): CartItem[] =>
     items
-      .map((item: any) =>
+      .map((item) =>
         item.id === id && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item,
       )
-      .filter((item: any) => item.quantity > 0),
+      .filter((item) => item.quantity > 0),
 };
 
 type CartState = {
-  items: any[];
-  addItem: (item: any) => void;
-  removeItem: (id: any) => void;
+  items: CartItem[];
+  addItem: (item: Product) => void;
+  removeItem: (id: CartItemId) => void;
   clearCart: () => void;
-  increaseQty: (id: any) => void;
-  decreaseQty: (id: any) => void;
+  increaseQty: (id: CartItemId) => void;
+  decreaseQty: (id: CartItemId) => void;
   getTotal: () => number;
   getItemCount: () => number;
 };
@@ -58,7 +61,7 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       items: [],
 
-      addItem: (item: any) => {
+      addItem: (item) => {
         set((state) => ({
           items: cartOperations.addItem(state.items, item),
         }));

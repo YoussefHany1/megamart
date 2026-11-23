@@ -21,8 +21,16 @@ const SPLIDE_OPTIONS = {
   gap: "1rem",
 };
 
+type Slide = {
+  id: string;
+  href: string;
+  imageSrc: string;
+  imageAlt: string;
+  title: string;
+};
+
 // Slides data
-const SLIDES = [
+const SLIDES: Slide[] = [
   {
     id: "smartphones",
     href: "/product-page/phones",
@@ -54,7 +62,7 @@ const SLIDES = [
 ];
 
 // Slide Component
-const SlideItem = ({ slide }) => {
+const SlideItem = ({ slide }: { slide: Slide }) => {
   const { id, href, imageSrc, imageAlt, title } = slide;
 
   return (

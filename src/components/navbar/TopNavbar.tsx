@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useState, useCallback } from "react";
+import type { FormEvent, MouseEvent, MouseEventHandler } from "react";
+import type { User } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
 import { useCartStore } from "@/stores/cartStore";
 import { useAuthStore } from "@/stores/authStore";
@@ -29,11 +31,11 @@ const NAV_ITEMS = [
 ];
 
 // Search Component
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
   const [query, setQuery] = useState("");
 
   const handleSubmit = useCallback(
-    (e) => {
+    (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (query.trim()) {
         onSearch(query);
@@ -91,7 +93,15 @@ const SearchBar = ({ onSearch }) => {
 };
 
 // User Section Component
-const UserSection = ({ user, onSignInClick, cartCount }) => (
+const UserSection = ({
+  user,
+  onSignInClick,
+  cartCount,
+}: {
+  user: User | null;
+  onSignInClick: MouseEventHandler<HTMLAnchorElement>;
+  cartCount: number;
+}) => (
   <div className="sign items-center flex ml-5 md:gap-2">
     {user ? (
       <div className="md:flex flex-col items-end lg:flex-row lg:items-center gap-1 lg:gap-3 lg:pr-3 hidden">
@@ -150,7 +160,7 @@ function Navbar() {
 
   // Memoized handlers
   const handleSearch = useCallback(
-    (query) => {
+    (query: string) => {
       router.push(`/search?q=${encodeURIComponent(query)}`);
     },
     [router],
@@ -164,7 +174,7 @@ function Navbar() {
     setShowSideNav(false);
   }, []);
 
-  const handleOpenSignIn = useCallback((e) => {
+  const handleOpenSignIn = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setShowSignInModal(true);
   }, []);

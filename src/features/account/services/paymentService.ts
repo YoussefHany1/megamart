@@ -8,12 +8,13 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import type { PaymentMethodCard } from "@/features/payments/types";
 import {
   deletePaymentMethod as deleteStripePaymentMethod,
   createSetupIntent as createStripeSetupIntent,
 } from "@/features/payments/actions/stripeActions";
 
-export async function fetchPaymentMethods(userId) {
+export async function fetchPaymentMethods(userId: string) {
   const q = query(
     collection(db, "paymentMethods"),
     where("userId", "==", userId),
@@ -26,7 +27,10 @@ export async function fetchPaymentMethods(userId) {
   })) as any[];
 }
 
-export async function deletePaymentMethod(stripePaymentMethodId, cardId) {
+export async function deletePaymentMethod(
+  stripePaymentMethodId: string,
+  cardId: string,
+) {
   // Delete from Stripe
   await deleteStripePaymentMethod(stripePaymentMethodId);
 
@@ -34,9 +38,12 @@ export async function deletePaymentMethod(stripePaymentMethodId, cardId) {
   await deleteDoc(doc(db, "paymentMethods", cardId));
 }
 
-export async function setDefaultPaymentMethod(cardId, allCards) {
+export async function setDefaultPaymentMethod(
+  cardId: string,
+  allCards: PaymentMethodCard[],
+) {
   const batch = allCards.map((card) =>
-    updateDoc(doc(db, "paymentMethods", card.id), {
+    updateDoc(doc(db, "paymentMethods", card.id as string), {
       isDefault: card.id === cardId,
     }),
   );
@@ -44,7 +51,7 @@ export async function setDefaultPaymentMethod(cardId, allCards) {
   await Promise.all(batch);
 }
 
-export async function createSetupIntent(userId, email) {
+export async function createSetupIntent(userId: string, email: string) {
   const data = await createStripeSetupIntent(userId, email);
   return data.clientSecret;
 }

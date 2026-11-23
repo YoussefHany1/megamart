@@ -3,10 +3,11 @@ import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "@/lib/stripe";
 import CheckoutForm from "./CheckoutForm";
 import Link from "next/link";
+import type { CartItem } from "@/types";
 
 // Card Icon Component
-const CardIcon = ({ brand }) => {
-  const icons = {
+const CardIcon = ({ brand }: { brand: string }) => {
+  const icons: Record<string, string> = {
     visa: "💳",
     mastercard: "💳",
     amex: "💳",
@@ -14,7 +15,12 @@ const CardIcon = ({ brand }) => {
   return <span className="text-2xl">{icons[brand] || "💳"}</span>;
 };
 
-const CartSummary = ({ items, onClearCart }) => {
+type CartSummaryProps = {
+  items: CartItem[];
+  onClearCart: () => void;
+};
+
+const CartSummary = ({ items, onClearCart }: CartSummaryProps) => {
   const {
     user,
     paymentMethod,

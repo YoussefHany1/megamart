@@ -28,8 +28,15 @@ const SPLIDE_OPTIONS = {
   },
 };
 
+type PhoneBrand = {
+  id: string;
+  name: string;
+  slug: string;
+  imageSrc: string;
+};
+
 // Brands data
-const PHONE_BRANDS = [
+const PHONE_BRANDS: PhoneBrand[] = [
   {
     id: "apple",
     name: "Apple",
@@ -87,7 +94,7 @@ const PHONE_BRANDS = [
 ];
 
 // Brand Card
-const BrandCard = ({ brand }) => {
+const BrandCard = ({ brand }: { brand: PhoneBrand }) => {
   const { id, name, slug, imageSrc } = brand;
 
   return (

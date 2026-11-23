@@ -11,7 +11,11 @@ const ProductNotFound = dynamic(
 );
 
 // Generate Dynamic SEO Metadata
-export async function generateMetadata({ params }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string; id: string }>;
+}): Promise<Metadata> {
   const { id, category } = await params;
   const product = await getProduct(category, id);
 
@@ -33,7 +37,11 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 }
 
 // Main Component
-async function ProductPage({ params }) {
+async function ProductPage({
+  params,
+}: {
+  params: Promise<{ category: string; id: string }>;
+}) {
   const { id, category } = await params;
   const fetchedProduct = await getProduct(category, id);
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
+import type { MouseEventHandler } from "react";
 import { useAuthStore } from "@/stores/authStore";
 import CloseIcon from "@mui/icons-material/Close";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -27,7 +28,15 @@ const CATEGORIES = [
 ];
 
 // NavItem Component
-const NavItem = ({ label, href, onClick }) => (
+const NavItem = ({
+  label,
+  href,
+  onClick,
+}: {
+  label: string;
+  href: string;
+  onClick: MouseEventHandler<HTMLAnchorElement>;
+}) => (
   <li>
     <Link
       href={href}
@@ -40,7 +49,15 @@ const NavItem = ({ label, href, onClick }) => (
 );
 
 // CategoryDropdown Component
-const CategoryDropdown = ({ isOpen, onToggle, onCategoryClick }) => (
+const CategoryDropdown = ({
+  isOpen,
+  onToggle,
+  onCategoryClick,
+}: {
+  isOpen: boolean;
+  onToggle: MouseEventHandler<HTMLButtonElement>;
+  onCategoryClick: MouseEventHandler<HTMLAnchorElement>;
+}) => (
   <li className="block lg:hidden">
     <hr className="mb-2 border-white/30" />
     <button
@@ -84,7 +101,13 @@ const CategoryDropdown = ({ isOpen, onToggle, onCategoryClick }) => (
 );
 
 //SideNav Component
-const SideNav = ({ show, handleClose }) => {
+const SideNav = ({
+  show,
+  handleClose,
+}: {
+  show: boolean;
+  handleClose: () => void;
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, logOut } = useAuthStore();
 
@@ -105,7 +128,7 @@ const SideNav = ({ show, handleClose }) => {
 
   // Handle ESC key press to close
   useEffect(() => {
-    const handleEscape = (e) => {
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && show) {
         handleClose();
       }

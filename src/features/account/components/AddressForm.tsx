@@ -1,7 +1,16 @@
 import { useAddressForm } from "../hooks/useAddressForm";
 import { TextField, CircularProgress, Button } from "@mui/material";
+import type { AddressData } from "../types";
 
-export default function AddressForm({ initialData, onSave, loading }) {
+export default function AddressForm({
+  initialData,
+  onSave,
+  loading,
+}: {
+  initialData: AddressData;
+  onSave: (data: AddressData) => Promise<void>;
+  loading: boolean;
+}) {
   const { formData, handleChange, handleSubmit } = useAddressForm(
     initialData,
     onSave,

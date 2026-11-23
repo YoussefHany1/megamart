@@ -1,7 +1,8 @@
 import CreditCardIcon from "@mui/icons-material/CreditCard";
+import type { ReactNode } from "react";
 
 export default function CardIcon({ brand }: { brand: string }) {
-  const icons = {
+  const icons: Record<string, ReactNode> = {
     visa: (
       <svg viewBox="0 0 48 32" className="h-8 w-12">
         <rect width="48" height="32" rx="4" fill="#1434CB" />

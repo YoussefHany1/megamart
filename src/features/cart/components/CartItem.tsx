@@ -4,8 +4,16 @@ import Link from "next/link";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+import type { CartItem as CartItemType } from "@/types";
 
-const CartItem = ({ item, onIncrease, onDecrease, onRemove }) => {
+type CartItemProps = {
+  item: CartItemType;
+  onIncrease: (id: string | number) => void;
+  onDecrease: (id: string | number) => void;
+  onRemove: (id: string | number) => void;
+};
+
+const CartItem = ({ item, onIncrease, onDecrease, onRemove }: CartItemProps) => {
   const { truncatedName, itemTotal } = useCartItem(item);
 
   return (

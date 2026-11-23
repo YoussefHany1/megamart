@@ -1,7 +1,13 @@
 "use client";
 import { useForgotPasswordForm } from "../hooks/useForgotPasswordForm";
 import { Alert, Snackbar, TextField, CircularProgress, Button } from "@mui/material";
-const ForgotPasswordForm = ({ handleClose, onSwitchToSignIn }) => {
+const ForgotPasswordForm = ({
+  handleClose,
+  onSwitchToSignIn,
+}: {
+  handleClose: () => void;
+  onSwitchToSignIn: () => void;
+}) => {
   const {
     email,
     setEmail,

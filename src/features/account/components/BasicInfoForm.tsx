@@ -12,12 +12,18 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import type { BasicInfoData } from "../types";
 
 export default function BasicInfoForm({
   initialData,
   onSave,
   onResetPassword,
   loading,
+}: {
+  initialData: BasicInfoData;
+  onSave: (data: BasicInfoData) => Promise<void>;
+  onResetPassword: () => Promise<void>;
+  loading: boolean;
 }) {
   const {
     formData,

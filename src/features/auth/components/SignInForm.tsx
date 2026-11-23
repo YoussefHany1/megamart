@@ -3,7 +3,15 @@ import { useSignInForm } from "../hooks/useSignInForm";
 import { TextField, CircularProgress, Button } from "@mui/material";
 import Image from "next/image";
 
-const SignInForm = ({ handleClose, onSwitchToSignUp, onSwitchToForgot }) => {
+const SignInForm = ({
+  handleClose,
+  onSwitchToSignUp,
+  onSwitchToForgot,
+}: {
+  handleClose: () => void;
+  onSwitchToSignUp: () => void;
+  onSwitchToForgot: () => void;
+}) => {
   const {
     email,
     setEmail,

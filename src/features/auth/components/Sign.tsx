@@ -4,7 +4,13 @@ import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 
-const SignInModal = ({ show, handleClose }) => {
+const SignInModal = ({
+  show,
+  handleClose,
+}: {
+  show: boolean;
+  handleClose: () => void;
+}) => {
   const { view, setView } = useSignModal(show);
 
   if (!show) return null;

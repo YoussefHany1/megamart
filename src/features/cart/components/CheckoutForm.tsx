@@ -2,8 +2,15 @@
 
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useCheckoutForm } from "../hooks/useCheckoutForm";
+import type { CartItem } from "@/types";
 
-export default function CheckoutForm({ amount, items, onSuccess }) {
+type CheckoutFormProps = {
+  amount: string | number;
+  items: CartItem[];
+  onSuccess: () => void;
+};
+
+export default function CheckoutForm({ amount, items, onSuccess }: CheckoutFormProps) {
   const { stripe, loading, error, message, handleSubmit } = useCheckoutForm(amount, items, onSuccess);
 
   return (
